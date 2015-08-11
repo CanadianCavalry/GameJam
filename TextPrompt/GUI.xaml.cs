@@ -19,9 +19,21 @@ namespace GameJam
     /// </summary>
     public partial class GUI : Window
     {
+        private string input;
+
         public GUI()
         {
             InitializeComponent();
+        }
+
+        public void displayText(string toDisplay)
+        {
+            AppendLineToChatBox(toDisplay);
+        }
+
+        public string getInput()
+        {
+            return input;
         }
 
         /// <summary>
@@ -45,6 +57,7 @@ namespace GameJam
         private void SendMessage()
         {
             string message = inputText.Text;
+            input = message;
         }
 
         /// <summary>
