@@ -24,3 +24,6 @@ C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\TextProm
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\TextPrompt\obj\Debug\TextPrompt.g.resources
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\TextPrompt\obj\Debug\TextPrompt.Properties.Resources.resources
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\TextPrompt\obj\Debug\TextPrompt.csproj.GenerateResource.Cache
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\bin\Debug\TextPrompt.exe.config
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.exe
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.pdb

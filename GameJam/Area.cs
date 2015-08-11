@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameObject;
 using NPC;
 using Enemy;
@@ -22,7 +23,7 @@ public class Area
         visited = false;
     }
 
-    public Area(string inName, inDescription)
+    public Area(string inName, string inDescription)
     {
 		name = inName;
 		description = inDescription;
@@ -44,17 +45,17 @@ public class Area
 		return description;
 	}
 		
-	public void addItem(GameObject itemToAdd)
+	public void addItem(Item itemToAdd)
 	{
 		itemsContained.Add(itemToAdd);
 	}
 
-	public void addItemToGround(GameObject itemToAdd)
+	public void addItemToGround(Item itemToAdd)
 	{
 		groundItems.Add(itemToAdd);
 	}
 	
-	public void removeItem(GameObject itemToRemove)
+	public void removeItem(Item itemToRemove)
 	{
 		if (itemsContained.Contains(itemToRemove))
 		{	
@@ -72,7 +73,7 @@ public class Area
         links.Add(link);
     }
 
-    public void addFeature(GameObject feature)
+    public void addFeature(Feature feature)
     {
         features.Add(feature);
     }
