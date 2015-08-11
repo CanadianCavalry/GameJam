@@ -1,17 +1,18 @@
 using System;
 using Player;
 using GameObject;
+using System.Collections.Generic;
 
 public class GameState
 {
 	public Player player;
 
-    public GameState(inPlayer)
+    public GameState(Player inPlayer)
     {
 		player = inPlayer;
     }
 	
-	public List<GameObject> getLocalObject(string keyword)
+	public List<GameObject> getLocalObjects(string keyword)
 	{
 		List<GameObject> objectList = new List<GameObject>();
 		
@@ -19,7 +20,7 @@ public class GameState
 		{
 			if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 		
@@ -27,7 +28,7 @@ public class GameState
 		{
 			if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 		
@@ -35,15 +36,15 @@ public class GameState
 		{
 			if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 		
 		foreach (GameObject gameObject in player.currentLocation.npcs)
 		{
-			if (gameObject.Contains(keyword))
+            if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 		
@@ -51,15 +52,15 @@ public class GameState
 		{
 			if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 				
 		foreach (GameObject gameObject in player.currentLocation.features)
 		{
-			if (gameObject.Contains(keyword))
+            if (gameObject.Contains(keyword))
 			{
-				resultList.Add(gameObject);
+                objectList.Add(gameObject);
 			}
 		}
 		

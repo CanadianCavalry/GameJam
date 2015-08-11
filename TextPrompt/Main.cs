@@ -35,7 +35,7 @@ public class Main()
 		        foundObjects = null;
 		        executionParams = null;
 			
-		        string playerInput = GUI.getInput();	//TODO
+		        string playerInput = gui.getInput();	//TODO
 			
 		        //If there's no input, go back and try again
 		        if (!playerInput)
@@ -48,23 +48,23 @@ public class Main()
 		        //If the parser returns false, then the command is not recognized
 		        if (!parserResult)
 		        {
-			        GUI.displayText("I don't understand that command.";
+			        gui.displayText("I don't understand that command.";
 			        continue;
 		        }
 			
 		        //If there's a target specified, attempt to retrieve it
 		        if (parserResult["target"])
 		        {
-			        foundObjects = gameState.getLocalObject(parserResult["target"]);
+			        foundObjects = gameState.getLocalObjects(parserResult["target"]);
 			
 			        if (foundObjects.Count() == 0)
 			        {
-				        GUI.displayText("There is nothing like that here.");
+				        gui.displayText("There is nothing like that here.");
 				        continue;
 			        }
 			        else if (foundObjects.Count() > 1)
 			        {
-				        GUI.displayText("You need to be more specific.");
+				        gui.displayText("You need to be more specific.");
 				        continue;
 			        }
 				
@@ -73,10 +73,10 @@ public class Main()
 			
 		        playerResult = gameState.executeAction(parserResult["command"], executionParams);	//TODO
 		        environmentResult = gameState.turnPass();
-		        GUI.displayText(playerResult + "\n\n" + environmentResult);
+		        gui.displayText(playerResult + "\n\n" + environmentResult);
 	        }
 	
-        GUI.displayText("Game Over");
+        gui.displayText("Game Over");
         }
     }
 }

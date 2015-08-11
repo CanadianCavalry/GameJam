@@ -54,7 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="WorldBuilder.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="GUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,8 +67,8 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="GUI.xaml.cs">
+      <DependentUpon>GUI.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

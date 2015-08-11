@@ -1,0 +1,11 @@
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\bin\Debug\TextPrompt.exe.config
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.exe
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.pdb
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\GameJam.csprojResolveAssemblyReference.cache
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\MainWindow.baml
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\MainWindow.g.cs
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\App.g.cs
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt_MarkupCompile.cache
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.g.resources
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\GameJam.Properties.Resources.resources
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\GameJam.csproj.GenerateResource.Cache

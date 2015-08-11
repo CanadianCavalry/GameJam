@@ -1,0 +1,11 @@
+﻿<Window x:Class="GameJam.GUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Text-based game" Height="341" Width="512" Background="#FF0066BB" ResizeMode="CanMinimize">
+    <Grid>
+        <TextBox Uid="outputBox" Height="259" HorizontalAlignment="Left" Margin="11,10,0,0" x:Name="outputBox" VerticalAlignment="Top" Width="356" IsReadOnly="True" VerticalScrollBarVisibility="Visible" />
+        <Label Content="Command:" Height="28" HorizontalAlignment="Left" Margin="5,272,0,0" Name="label5" VerticalAlignment="Top" Foreground="WhiteSmoke" />
+        <TextBox Uid="inputText" Height="23" HorizontalAlignment="Left" Margin="77,274,0,0" x:Name="inputText" VerticalAlignment="Top" Width="290" />
+        <Button Uid="submitButton" Content="Submit" Height="23" HorizontalAlignment="Left" Margin="373,274,0,0" x:Name="submitButton" VerticalAlignment="Top" Width="117"/>
+    </Grid>
+</Window>

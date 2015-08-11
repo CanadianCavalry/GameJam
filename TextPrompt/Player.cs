@@ -1,11 +1,12 @@
 using System;
 using GameObject;
 using Area;
+using System.Collections.Generic;
 
 public class Player
 {
 	public Area currentLocation;
-    private List<Item> inventory;
+    public List<Item> inventory;
     private Item mainHand;
     private Item offHand;
     private Item armor;
@@ -14,8 +15,8 @@ public class Player
 
     public Player()
     {
-        inventory = List();
-		isAlive = true;
+        inventory = new List<Item>();
+		alive = true;
     }
 
     public void addItem(Item itemToAdd)

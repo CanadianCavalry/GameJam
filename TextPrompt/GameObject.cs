@@ -1,6 +1,7 @@
 using System;
 using Area;
 using Player;
+using System.Collections.Generic;
 
 public class GameObject
 {
@@ -22,6 +23,20 @@ public class GameObject
     public void setKeywords(List<string> inKeywords)
     {
         keywords = inKeywords;
+    }
+
+    public bool Contains(string keyword)
+    {
+        foreach (string toCheck in keywords)
+        {
+            bool match = toCheck.Equals(keyword);
+            if (match == true)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public virtual string lookAt()
