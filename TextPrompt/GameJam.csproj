@@ -53,6 +53,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Item.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="WorldBuilder.cs" />
     <Page Include="GUI.xaml">
       <Generator>MSBuild:Compile</Generator>

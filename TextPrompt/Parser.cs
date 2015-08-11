@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Parser
 {
@@ -13,17 +14,17 @@ public class Parser
         command = "";
         target = "";
         recipient = "";
-		validCommands = new List<string>({"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
-		wordsToRemove = {"at", "to", "the", "of", "from", "through", "towards"};
+		validCommands = new List<string>(new string[] {"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
+		wordsToRemove = new List<string>(new string[] {"at", "to", "the", "of", "from", "through", "towards"});
 	}
 
-    public IDictionary<string, string> parseInput(string inputString)
+    public Dictionary<string, string> parseInput(string inputString)
     {
-		IDictionary<string, string> result = new IDictionary<string, string>();
+		Dictionary<string, string> result = new Dictionary<string, string>();
 		
 		//Make the input lower case and then split it on the space character
         string lowString = inputString.ToLower();
-        char[] delimiters = { " " };
+        char[] delimiters = { ' ' };
         List<string> inputArray = new List<string>(lowString.Split(delimiters));
 
 		//take the first word as the command
@@ -33,11 +34,11 @@ public class Parser
 		//verify that the we recognize the command
 		if (!validCommands.Contains(command))
 		{
-			return false;
+			return null;
 		}
 		
 		//Remove any useless particles from the input
-		for (int i = 0; i > inputArray.length(); i++)
+		for (int i = 0; i > inputArray.Count; i++)
 		{
 			if (wordsToRemove.Contains(inputArray[i]))
 			{
@@ -46,7 +47,7 @@ public class Parser
 		}
 		
 		//get the rest of the words as the target
-        while (inputArray.length() > 0)
+        while (inputArray.Count > 0)
         {
             target += inputArray[0] + " ";
 			inputArray.RemoveAt(0);

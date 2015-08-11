@@ -13,13 +13,14 @@ public class WorldBuilder
 
         //More verbose, for clarity. Here we are using every possible custom option. Most of these are optional. Check the class definition.
         Item yourCar = new Item(inDescription = "Your car. It's seen better days, but overall it's not in terrible shape.",
-                                inKeywords = new List<string>(new string[] {"car"}),
+                                inKeywords = new List<string>(new string[] { "car" }),
                                 inName = "A Car", //This is what shows in your inventory
                                 inSeenDesc = "Your car sits parked on the other side of the road.", //When you look at an area that the item is in
                                 inPickupDesc = "Haha sure would be awesome if you could pick up a car.", //when you pick it up
                                 inDropDesc = "You try to set the car down as gently as you can.", //when you drop it
                                 inInitSeenDesc = "Your car sits parked on the other side of the road, right where you left it.", //when you look at an area that the item is in, and you have not picked it up before
-                                inInitPickupDesc = "Yeah right. You can't pick up a car dummy! Who do you think you are?")  //When you pick it up for the FIRST time
+                                inInitPickupDesc = "Yeah right. You can't pick up a car dummy! Who do you think you are?" //When you pick it up for the FIRST time
+                                );
         areaA.addItem(yourCar);
 	
         Area areaB = new Area("Market", "You find yourself in a large street market. Awnings cover the walkways where merchants offer a multitude of wares. To the east is a large archway. To the west the street continues on.");
