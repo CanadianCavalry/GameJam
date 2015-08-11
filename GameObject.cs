@@ -1,18 +1,20 @@
-﻿using System;
+using System;
+Using Area;
+using Player;
 
 public class GameObject
 {
     public string name;
     public string description;
     public int idNum;
-    public List<string> keyWords;
+    public List<string> keywords;
 
-    public GameObject(string inName, string inDescription, int inIdNum, List<string> inKeyWords)
+    public GameObject(string inName, string inDescription, int inIdNum, List<string> inKeywords)
     {
         name = inName;
         description = inDescription;
         idNum = inIdNum;
-        keyWords = inKeyWords;
+        keywords = inKeywords;
     }
 
     public void setIdNum(int inIdNum)
@@ -27,39 +29,44 @@ public class GameObject
 
     public virtual string pickUp()
     {
-        return "I can't pick that up.";
+        return "You can't pick that up.";
     }
 
     public virtual string drop()
     {
-        return "I'm not holding that.";
+        return "You're not holding that.";
     }
 
     public virtual string use()
     {
-        return "It has no immediatly obvious use.";
+        return "It has no immediately obvious use.";
     }
 
     public virtual string useOn()
     {
-        return "It has no immediatly obvious use.";
+        return "It has no immediately obvious use.";
     }
 
     public virtual string openObject()
     {
-        return "That isn't something I can open.";
+        return "That isn't something you can open.";
     }
 
     public virtual string closeObject()
     {
-        return "That isn't something I can close.";
+        return "That isn't something you can close.";
     }
 
     public virtual string equip()
     {
-        return "That's not something I can equip.";
+        return "That's not something you can equip.";
     }
 
+	public virtual string attack()
+	{
+		return "You're not attacking that...";
+	}
+	
     public virtual string reload()
     {
         return "That isn't a weapon.";
@@ -67,12 +74,12 @@ public class GameObject
 
     public virtual string eat()
     {
-        return "I can't eat that.";
+        return "you can't eat that.";
     }
 
     public virtual string drink()
     {
-        return "I can't drink that.";
+        return "you can't drink that.";
     }
 
     public virtual string read()
@@ -80,6 +87,41 @@ public class GameObject
         return "There's nothing to read.";
     }
 }
+
+public class Link : GameObject
+{
+	private bool isAccessible;
+	private string blockedDesc;
+	private string travelDesc;
+	private Area destination;
+	
+	public Link(Area inDestination, string inTravelDesc, string inBlockedDesc = "You can't go that way.")
+	{
+		isAccessible = true;
+		travelDesc = inTravelDesc;
+		blockedDesc = inBlockedDesc;
+	}
+	
+	public string travel(Player player)
+	{
+		if (!isAccessible)
+		{
+			return blockedDesc;
+		}
+		
+		desc = travelDesc + "\n\n";
+		player.currentLocation = destination;
+		
+		if (!player.currentLocation.isVisited())
+		{
+			player.currentLocation.markVisited();
+			desc += player.currentLocation.lookAt();
+		}
+		return desc;
+	}
+	
+}
+
 
 public class Item : GameObject
 {

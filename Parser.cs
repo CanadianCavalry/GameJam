@@ -1,34 +1,63 @@
-﻿using System;
+using System;
 
-public class Class1
+public class Parser
 {
     private string command;
     private string target;
     private string recipient;
+	private List<string> wordsToRemove;
+	private List<string> validCommands;
 
-	public Class1()
+	public Parser()
 	{
         command = "";
         target = "";
         recipient = "";
+		validCommands = {"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"};
+		wordsToRemove = {"at", "to", "the", "of", "from", "through", "towards"};
 	}
 
-    public string parseInput(string inputString)
+    public IDictionary<string, string> parseInput(string inputString)
     {
+		IDictionary<string, string> result = new IDictionary<string, string>();
+		
+		//Make the input lower case and then split it on the space character
         string lowString = inputString.ToLower();
-        string[] inputArray = lowString.Split(new string[] { " " });
+		char[] delimiters = { " " }
+        List<string> inputArray = new List<string>(lowString.Split(delimiters));
 
-        if (inputArray.Length == 0)
-        {
-            return false;
-        }
-
+		//take the first word as the command
         command = inputArray[0];
-
-        foreach (string word in inputArray)
+		inputArray.RemoveAt(0);
+		
+		//verify that the we recognize the command
+		if (!validCommands.Contains(command))
+		{
+			return false;
+		}
+		
+		//Remove any useless particles from the input
+		for (int i = 0; i > inputArray.length(); i++)
+		{
+			if (wordsToRemove.Contains(inputArray[i]))
+			{
+				inputArray.RemoveAt(i);
+			}
+		}
+		
+		//get the rest of the words as the target
+        while (inputArray.length() > 0)
         {
-            string targetKey = target + word + " ";
+            target += inputArray[0] + " ";
+			inputArray.RemoveAt(0);
         }
-
+		
+		result["command"] = command;
+		if (target != "")
+		{
+			result["target"] = target;
+		}
+		
+		return result;
     }
 }
