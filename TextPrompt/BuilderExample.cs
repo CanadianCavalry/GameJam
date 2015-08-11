@@ -1,10 +1,10 @@
-using Area;
-using GameObject;
 using System.Collections.Generic;
 
-public class Builder
+namespace GameJam
 {
-    public void buildSmallWorld()
+    class Builder
+    {
+        public void buildSmallWorld()
     {
         //First you need to create an area to start with
         Area areaA = new Area("Living Room", "You find yourself in a small, cramped room packed with furniture. There is wooden door to the east leading out into the street");
@@ -45,5 +45,6 @@ public class Builder
                                 inInitSeenDesc = "Peeking out from under a newspaper on the table, you spy the end of a cigar.", //when you look at an area that the item is in, and you have not picked it up before
                                 inInitPickupDesc = "Move the newspaper aside, you pick up the cigar.")  //When you pick it up for the FIRST time
         areaA.addItem(cigarA);
+    }
     }
 }

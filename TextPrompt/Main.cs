@@ -1,29 +1,25 @@
 using System;
 using System.Collections.Generic;
-using GameState;
-using GameObject;
-using Area;
-using Player;
-using GUI;
-using Locater;
 
-public class Main() 
+namespace GameJam
 {
-	GameState gameState;
-	Parser parser;
-	GUI gui;
-	string playerResult;
-	string environmentResult;
-	List<GameObject> foundObjects;
-	IDictionary<string, GameObject> executionParams;
-
-    public Main()
+    class Main
     {
-        parser = new Parser();
-        gui = new GUI();
-    }
+        GameState gameState;
+        Parser parser;
+        GUI gui;
+        string playerResult;
+        string environmentResult;
+        List<GameObject> foundObjects;
+        IDictionary<string, GameObject> executionParams;
 
-    public void runGame()
+        public Main()
+        {
+            parser = new Parser();
+            gui = new GUI();
+        }
+
+        public void runGame()
     {
         while (true)
         {
@@ -57,12 +53,12 @@ public class Main()
 		        {
 			        foundObjects = gameState.getLocalObjects(parserResult["target"]);
 			
-			        if (foundObjects.Count() == 0)
+			        if (foundObjects.Count == 0)
 			        {
 				        gui.displayText("There is nothing like that here.");
 				        continue;
 			        }
-			        else if (foundObjects.Count() > 1)
+			        else if (foundObjects.Count > 1)
 			        {
 				        gui.displayText("You need to be more specific.");
 				        continue;
@@ -78,5 +74,6 @@ public class Main()
 	
         gui.displayText("Game Over");
         }
+    }
     }
 }

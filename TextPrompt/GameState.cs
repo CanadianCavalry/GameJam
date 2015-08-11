@@ -1,123 +1,124 @@
 using System;
-using Player;
-using GameObject;
 using System.Collections.Generic;
 
-public class GameState
+namespace GameJam
 {
-	public Player player;
-
-    public GameState(Player inPlayer)
+    class GameState
     {
-		player = inPlayer;
-    }
-	
-	public List<GameObject> getLocalObjects(string keyword)
-	{
-		List<GameObject> objectList = new List<GameObject>();
-		
-		foreach (GameObject gameObject in player.inventory)
-		{
-			if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-		
-		foreach (GameObject gameObject in player.currentLocation.itemsContained)
-		{
-			if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-		
-		foreach (GameObject gameObject in player.currentLocation.links)
-		{
-			if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-		
-		foreach (GameObject gameObject in player.currentLocation.npcs)
-		{
-            if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-		
-		foreach (GameObject gameObject in player.currentLocation.groundItems)
-		{
-			if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-				
-		foreach (GameObject gameObject in player.currentLocation.features)
-		{
-            if (gameObject.Contains(keyword))
-			{
-                objectList.Add(gameObject);
-			}
-		}
-		
-		return objectList;
-	}
+        public Player player;
 
-	public string executeCommend(string command, IDictionary<string, GameObject> args)
-	{
-		if (!args)
-		{
-			switch(command)
-			{
-                case "l" :
-				case "look" :
-					return player.currentLocation.lookAt();
-				case "wait" :
-					return "You wait.";
-				case "defend" :
-					return player.defend();
-			}
-		}
-		else if (args["target"])
-		{
-			gameObject target = args["target"];
-			
-			switch(command)
-			{
-				case "look" :
-				case "examine" :
-					return target.lookAt();
-				case "get" :
-				case "take" :
-					return target.get();
-				case "go" :
-				case "walk" :
-					return target.travel(player);
-				case "drop" :
-					return target.drop();
-				case "use" :
-					return target.use();
-				case "talk" :
-					return target.talk();
-				case "open" :
-					return target.open();
-				case "close" :
-					return target.close();
-				case "equip" :
-					return target.equip();
-				case "attack" :
-					return target.attack();
-				case "eat" :
-					return target.eat();
-				case "drink" :
-					return target.drink();
-				case "read" :
-					return target.read();
-			}
-		}
-	}
+        public GameState(Player inPlayer)
+        {
+            player = inPlayer;
+        }
+
+        public List<GameObject> getLocalObjects(string keyword)
+        {
+            List<GameObject> objectList = new List<GameObject>();
+
+            foreach (GameObject gameObject in player.inventory)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            foreach (GameObject gameObject in player.currentLocation.itemsContained)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            foreach (GameObject gameObject in player.currentLocation.links)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            foreach (GameObject gameObject in player.currentLocation.npcs)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            foreach (GameObject gameObject in player.currentLocation.groundItems)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            foreach (GameObject gameObject in player.currentLocation.features)
+            {
+                if (gameObject.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+
+            return objectList;
+        }
+
+        public string executeCommend(string command, IDictionary<string, GameObject> args)
+        {
+            if (!args)
+            {
+                switch (command)
+                {
+                    case "l":
+                    case "look":
+                        return player.currentLocation.lookAt();
+                    case "wait":
+                        return "You wait.";
+                    case "defend":
+                        return player.defend();
+                }
+            }
+            else if (args["target"])
+            {
+                gameObject target = args["target"];
+
+                switch (command)
+                {
+                    case "look":
+                    case "examine":
+                        return target.lookAt();
+                    case "get":
+                    case "take":
+                        return target.get();
+                    case "go":
+                    case "walk":
+                        return target.travel(player);
+                    case "drop":
+                        return target.drop();
+                    case "use":
+                        return target.use();
+                    case "talk":
+                        return target.talk();
+                    case "open":
+                        return target.open();
+                    case "close":
+                        return target.close();
+                    case "equip":
+                        return target.equip();
+                    case "attack":
+                        return target.attack();
+                    case "eat":
+                        return target.eat();
+                    case "drink":
+                        return target.drink();
+                    case "read":
+                        return target.read();
+                }
+            }
+        }
+    }
 }
