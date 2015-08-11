@@ -58,4 +58,10 @@ public class Area
 			groundItems.Remove(itemToRemove);
 		}
 	}
+
+    public void connect(Link link, destination)
+    {
+        link.setDestination(destination);
+        links.Add(link);
+    }
 }

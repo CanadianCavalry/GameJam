@@ -1,5 +1,5 @@
 using System;
-Using Area;
+using Area;
 using Player;
 
 public class GameObject
@@ -119,6 +119,11 @@ public class Link : GameObject
 		}
 		return desc;
 	}
+
+    public void setDestination(Area area)
+    {
+        destination = area;
+    }
 	
 }
 

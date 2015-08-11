@@ -13,7 +13,7 @@ public class Parser
         command = "";
         target = "";
         recipient = "";
-		validCommands = {"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"};
+		validCommands = new List<string>({"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
 		wordsToRemove = {"at", "to", "the", "of", "from", "through", "towards"};
 	}
 
@@ -23,7 +23,7 @@ public class Parser
 		
 		//Make the input lower case and then split it on the space character
         string lowString = inputString.ToLower();
-		char[] delimiters = { " " }
+        char[] delimiters = { " " };
         List<string> inputArray = new List<string>(lowString.Split(delimiters));
 
 		//take the first word as the command

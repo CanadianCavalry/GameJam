@@ -1,6 +1,6 @@
 using System;
 using GameObject;
-Using Area;
+using Area;
 
 public class Player
 {

@@ -72,10 +72,11 @@ public class GameState
 		{
 			switch(command)
 			{
+                case "l" :
 				case "look" :
 					return player.currentLocation.lookAt();
 				case "wait" :
-					return "You wait."
+					return "You wait.";
 				case "defend" :
 					return player.defend();
 			}
