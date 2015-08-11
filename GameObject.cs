@@ -4,22 +4,24 @@ using Player;
 
 public class GameObject
 {
-    public string name;
     public string description;
     public int idNum;
     public List<string> keywords;
 
-    public GameObject(string inName, string inDescription, int inIdNum, List<string> inKeywords)
+    public GameObject(string inDescription, List<string> inKeywords)
     {
-        name = inName;
         description = inDescription;
-        idNum = inIdNum;
         keywords = inKeywords;
     }
 
     public void setIdNum(int inIdNum)
     {
         idNum = inIdNum;
+    }
+
+    public void setKeywords(List<string> inKeywords)
+    {
+        keywords = inKeywords;
     }
 
     public virtual string lookAt()
@@ -94,8 +96,17 @@ public class Link : GameObject
 	private string blockedDesc;
 	private string travelDesc;
 	private Area destination;
-	
-	public Link(Area inDestination, string inTravelDesc, string inBlockedDesc = "You can't go that way.")
+    private Link sibling;
+
+    public Link()
+    {
+        isAccessible = true;
+        travelDesc = "You open the door and step through.";
+        blockedDesc = "You can't go that way.";
+        description = "Default Description";
+    }
+
+	public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and step through.", string inBlockedDesc = "You can't go that way.")
 	{
 		isAccessible = true;
 		travelDesc = inTravelDesc;
@@ -120,6 +131,12 @@ public class Link : GameObject
 		return desc;
 	}
 
+    public void makeSibling(Link siblingLink)
+    {
+        sibling = siblingLink;
+        siblingLink.sibling = this;
+    }
+
     public void setDestination(Area area)
     {
         destination = area;
@@ -130,6 +147,7 @@ public class Link : GameObject
 
 public class Item : GameObject
 {
+    public string name;
     public string seenDesc;
     public string pickupDesc;
     public string dropDesc;
@@ -140,17 +158,34 @@ public class Item : GameObject
     public bool firstSeen;
     public bool firstTaken;
 
-    public Item(string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.", string inInitSeenDesc = inSeenDesc, string inInitPickupDesc = inPickupDesc) 
+    public Item()
     {
-        string seenDesc = inSeenDesc;
-        string pickupDesc = inPickupDesc;
-        string dropDesc = inDropDesc;
-        string initSeenDesc = inInitSeenDesc;
-        string initPickupDesc = inInitPickupDesc;
-        string inaccessibleDesc = null;
-        bool accessible = true;
-        bool firstSeen = true;
-        bool firstTaken = true;
+        name = "default";
+        seenDesc = "default";
+        pickupDesc = "default";
+        dropDesc = "default";
+        initSeenDesc = "default";
+        initPickupDesc = "default";
+        inaccessibleDesc = "default";
+        acessible = true;
+        firstSeen = true;
+        firstTaken = true;
+    }
+
+    public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.", string inInitSeenDesc = inSeenDesc, string inInitPickupDesc = inPickupDesc) 
+    {
+        name = inName;
+        seenDesc = inSeenDesc;
+        pickupDesc = inPickupDesc;
+        dropDesc = inDropDesc;
+        initSeenDesc = inInitSeenDesc;
+        initPickupDesc = inInitPickupDesc;
+        inaccessibleDesc = null;
+        accessible = true;
+        firstSeen = true;
+        firstTaken = true;
+        description = inDescription;
+        keywords = inKeywords;
     }
 
     public virtual string pickUp(Player player)

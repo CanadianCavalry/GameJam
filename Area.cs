@@ -15,6 +15,13 @@ public class Area
 	public List<Enemy> enemy;
 	public List<Link> links;
 
+    public Area()
+    {
+        name = "Default Name";
+        description = "Default Description";
+        visited = false;
+    }
+
     public Area(string inName, inDescription)
     {
 		name = inName;
@@ -32,16 +39,16 @@ public class Area
 		visited = true;
 	}
 	
-	public void addItem(GameObject itemToAdd)
-	{
-		itemsContained.Add(itemToAdd);
-	}
-	
 	public string lookAt()
 	{
 		return description;
 	}
-	
+		
+	public void addItem(GameObject itemToAdd)
+	{
+		itemsContained.Add(itemToAdd);
+	}
+
 	public void addItemToGround(GameObject itemToAdd)
 	{
 		groundItems.Add(itemToAdd);
@@ -59,9 +66,14 @@ public class Area
 		}
 	}
 
-    public void connect(Link link, destination)
+    public void connect(Link link, Area destination)
     {
         link.setDestination(destination);
         links.Add(link);
+    }
+
+    public void addFeature(GameObject feature)
+    {
+        features.Add(feature);
     }
 }
