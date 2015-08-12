@@ -9,3 +9,4 @@ D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt_MarkupCompile.ca
 D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\TextPrompt.g.resources
 D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\GameJam.Properties.Resources.resources
 D:\Users\Darkreaper\Git\GameJam\TextPrompt\obj\Debug\GameJam.csproj.GenerateResource.Cache
+D:\Users\Darkreaper\Git\GameJam\TextPrompt\bin\Debug\GameJam.exe.config
