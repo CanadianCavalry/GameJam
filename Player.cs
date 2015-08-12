@@ -14,8 +14,12 @@ public class Player
 
     public Player()
     {
-        inventory = List();
+        inventory = new List<Item>();
 		isAlive = true;
+		mainHand = null;
+		offHand = null;
+		armor = null;
+		armorRating  = 0;
     }
 
     public void addItem(Item itemToAdd)

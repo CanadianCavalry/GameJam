@@ -7,7 +7,7 @@ public class GameObject
     public string description;
     public int idNum;
     public List<string> keywords;
-
+	
     public GameObject(string inDescription, List<string> inKeywords)
     {
         description = inDescription;
@@ -144,6 +144,112 @@ public class Link : GameObject
 	
 }
 
+public class Container : GameObject
+{
+	private List<Item> itemsContained;
+	private bool accessible;
+	private bool open;
+	private string blockedDesc;
+	private string openDesc;
+	private string closeDesc;
+	
+	public Container(string inDescription, List<string> inKeywords, string inOpenDesc, string inCloseDesc, string inBlockedDesc = "")
+	{
+		itemsContained = new List<Item>();
+		accessible = true;
+		open = false;
+		openDesc = inOpenDesc;
+		closeDesc = inCloseDesc;
+		blockedDesc = inBlockedDesc;
+		description = inDescription;
+		keywords = inKeywords;
+	}
+	
+	public addItem(itemToAdd)
+	{
+		itemsContained.Add(itemToAdd);
+	}
+	
+	public removeItem(itemToRemove)
+	{
+		itemsContained.Remove(itemToRemove);
+	}
+	
+	public string lookAt()
+	{
+		desc = description;
+		if (open)
+		{
+			desc += " It's open.";
+			if (itemsContained.Count() != 0)
+			{
+				desc += " Inside you see:"
+				foreach (Item item in itemsContained)
+				{
+					desc += "\n" + item.name;
+				}
+			}
+		}
+		else
+		{
+			desc += " It's closed."
+		}
+		return desc;
+	}
+	
+	public string open()
+	{
+		if (!accessible)
+		{
+			return blockedDesc;
+		}
+		else if (open)
+		{
+			return "It's already open.";
+		}
+		else
+		{
+			open = true;
+			desc = openDesc;
+			if (itemsContained.Count() != 0)
+			{
+				desc += " Inside you see:"
+				foreach (Item item in itemsContained)
+				{
+					desc += "\n" + item.name;
+				}
+			}
+			else
+			{
+				desc += " There's nothing inside.";
+			}
+		}
+	}
+	
+	public string close()
+	{
+		if (!open)
+		{
+			return "It's already closed.";
+		}
+		else
+		{
+			open = false;
+			return closeDesc;
+		}
+	}
+	
+	public void makeInaccessible(string inBlockedDesc)
+	{
+		accessible = false;
+		blockedDesc = inBlockedDesc;
+	}
+	
+	public void makeAccessible()
+	{
+		accessible = true;
+	}
+}
 
 public class Item : GameObject
 {
@@ -193,6 +299,7 @@ public class Item : GameObject
         if (accessible)
         {
             player.inventory.Add(this);
+			player.currentLocation.removeItem(this);
         }
         else
         {
@@ -213,6 +320,7 @@ public class Item : GameObject
     public virtual string drop(Player player)
     {
         player.inventory.Remove(this);
+		player.currentLocation.groundItems.Add(this);
         return dropDesc;
     }
 
@@ -227,4 +335,3 @@ public class Item : GameObject
         inaccessibleDesc = inInaccessibleDesc;
     }
 }
-

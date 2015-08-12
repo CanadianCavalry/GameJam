@@ -17,7 +17,7 @@ public class GameState
 		
 		foreach (GameObject gameObject in player.inventory)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
@@ -25,7 +25,7 @@ public class GameState
 		
 		foreach (GameObject gameObject in player.currentLocation.itemsContained)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
@@ -33,7 +33,7 @@ public class GameState
 		
 		foreach (GameObject gameObject in player.currentLocation.links)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
@@ -41,15 +41,41 @@ public class GameState
 		
 		foreach (GameObject gameObject in player.currentLocation.npcs)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
 		}
 		
+		foreach (GameObject gameObject in player.currentLocation.features)
+		{
+			if (gameObject.keywords.Contains(keyword))
+			{
+				resultList.Add(gameObject);
+			}
+		}
+		
+		foreach (GameObject gameObject in player.currentLocation.containers)
+		{
+			if (gameObject.keywords.Contains(keyword))
+			{
+				resultList.Add(gameObject);
+				if (gameObject.open)
+				{
+					foreach (GameObject heldObject in gameObject.itemsContained)
+					{
+						if heldObject.keywords.Contains(keyword)
+						{
+							resultList.Add(heldObject);
+						}
+					}
+				}
+			}
+		}
+		
 		foreach (GameObject gameObject in player.currentLocation.groundItems)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
@@ -57,7 +83,7 @@ public class GameState
 				
 		foreach (GameObject gameObject in player.currentLocation.features)
 		{
-			if (gameObject.Contains(keyword))
+			if (gameObject.keywords.Contains(keyword))
 			{
 				resultList.Add(gameObject);
 			}
@@ -92,14 +118,14 @@ public class GameState
 					return target.lookAt();
 				case "get" :
 				case "take" :
-					return target.get();
+					return target.pickUp(player);
 				case "go" :
 				case "walk" :
 					return target.travel(player);
 				case "drop" :
-					return target.drop();
+					return target.drop(player);
 				case "use" :
-					return target.use();
+					return target.use(player);
 				case "talk" :
 					return target.talk();
 				case "open" :
@@ -107,13 +133,13 @@ public class GameState
 				case "close" :
 					return target.close();
 				case "equip" :
-					return target.equip();
+					return target.equip(player);
 				case "attack" :
-					return target.attack();
+					return target.attack(player);
 				case "eat" :
-					return target.eat();
+					return target.eat(player);
 				case "drink" :
-					return target.drink();
+					return target.drink(player);
 				case "read" :
 					return target.read();
 			}
