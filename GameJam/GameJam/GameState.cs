@@ -60,14 +60,16 @@ namespace GameJam
                 if (gameObject.keywords.Contains(keyword))
                 {
                     objectList.Add(gameObject);
-                    if (gameObject.isOpen == true)
+                    if (gameObject.isOpen == false)
                     {
-                        foreach (GameObject heldObject in gameObject.itemsContained)
+                        continue;
+                    }
+
+                    foreach (GameObject heldObject in gameObject.itemsContained)
+                    {
+                        if (heldObject.keywords.Contains(keyword))
                         {
-                            if (heldObject.keywords.Contains(keyword))
-                            {
-                                objectList.Add(heldObject);
-                            }
+                            objectList.Add(heldObject);
                         }
                     }
                 }

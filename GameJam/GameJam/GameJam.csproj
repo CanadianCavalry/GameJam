@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Belisarius.cs" />
     <Compile Include="Chinatown.cs" />
     <Compile Include="WorldBuilder.cs" />
     <Page Include="Gui.xaml">

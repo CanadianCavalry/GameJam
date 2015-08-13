@@ -7,11 +7,15 @@ namespace GameJam
         public string description;
         public int idNum;
         public List<string> keywords;
+        public bool isOpen { get; protected set; }
+        public List<Item> itemsContained { get; protected set; }
 
         public GameObject(string inDescription, List<string> inKeywords)
         {
             description = inDescription;
             keywords = inKeywords;
+            isOpen = false;
+            itemsContained = new List<Item>();
         }
 
         public void setIdNum(int inIdNum)
@@ -46,7 +50,7 @@ namespace GameJam
 
         public virtual string useOn()
         {
-            return "It has no immediately obvious use.";
+            return "You don't know how to use it with that.";
         }
 
         public virtual string openObject()
@@ -147,9 +151,7 @@ namespace GameJam
 
     public class Container : GameObject
     {
-        private List<Item> itemsContained;
         private bool accessible;
-        private bool isOpen;
         private string blockedDesc;
         private string openDesc;
         private string closeDesc;
@@ -159,7 +161,6 @@ namespace GameJam
         {
             itemsContained = new List<Item>();
             accessible = true;
-            isOpen = false;
             openDesc = inOpenDesc;
             closeDesc = inCloseDesc;
             blockedDesc = inBlockedDesc;
@@ -180,7 +181,7 @@ namespace GameJam
         public string lookAt()
         {
             string desc = description;
-            if (isOpen)
+            if (isOpen == true)
             {
                 desc += " It's open.";
                 if (itemsContained.Count != 0)
@@ -191,11 +192,10 @@ namespace GameJam
                         desc += "\n" + item.name;
                     }
                 }
+                return desc;
             }
-            else
-            {
-                desc += " It's closed.";
-            }
+
+            desc += " It's closed.";
             return desc;
         }
 
@@ -205,27 +205,25 @@ namespace GameJam
             {
                 return blockedDesc;
             }
-            else if (isOpen)
+            if (isOpen)
             {
                 return "It's already open.";
             }
-            else
+
+            isOpen = true;
+            string desc = openDesc;
+            if (itemsContained.Count != 0)
             {
-                isOpen = true;
-                string desc = openDesc;
-                if (itemsContained.Count != 0)
+                desc += " Inside you see:";
+                foreach (Item item in itemsContained)
                 {
-                    desc += " Inside you see:";
-                    foreach (Item item in itemsContained)
-                    {
-                        desc += "\n" + item.name;
-                    }
+                    desc += "\n" + item.name;
                 }
-                else
-                {
-                    desc += " There's nothing inside.";
-                }
+                return desc;
             }
+
+            desc += " There's nothing inside.";
+            return desc;
         }
 
         public string close()
@@ -234,11 +232,9 @@ namespace GameJam
             {
                 return "It's already closed.";
             }
-            else
-            {
-                isOpen = false;
-                return closeDesc;
-            }
+
+            isOpen = false;
+            return closeDesc;
         }
 
         public void makeInaccessible(string inBlockedDesc)

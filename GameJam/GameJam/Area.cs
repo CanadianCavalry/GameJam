@@ -48,76 +48,69 @@ namespace GameJam
         }
 
         public string lookAt()
-	{
-		string desc = name + "\n" + description;
-		if (itemsContained.Count > 0)
-		{
-			foreach (GameObject item in groundItems)
-			{
-				if (item.firstSeen)
-				{
-					desc += " " + item.initSeenDesc;
-					item.firstSeen = false;
-				}
-				else
-				{
-					desc += " " + item.seenDesc;
-				}
-			}
-		}
-		
-		if (groundItems.Count > 0)
-		{
-			foreach (GameObject item in groundItems)
-			{
-				desc += " " + item.seenDesc;
-			}
-		}
-		
-		if (npcs.Count > 0)
-		{
-			for (NPC npc in npcs)
-			{
-				if (npc.firstSeen)
-				{
-					desc += " " + npc.initSeenDesc;
-					npc.firstSeen = false;
-				}
-				else
-				{
-					desc += " " + npc.seenDesc;
-				}
-			}
-		}
-		
-		return desc;
-	}
+        {
+            string desc = name + "\n" + description;
+            if (itemsContained.Count > 0)
+            {
+                foreach (Item item in groundItems)
+                {
+                    if (item.firstSeen == true)
+                    {
+                        desc += " " + item.initSeenDesc;
+                        item.firstSeen = false;
+                        continue;
+                    }
 
-        public void addItem(GameObject itemToAdd)
+                    desc += " " + item.seenDesc;
+                }
+            }
+
+            if (groundItems.Count > 0)
+            {
+                foreach (Item item in groundItems)
+                {
+                    desc += " " + item.seenDesc;
+                }
+            }
+
+            if (npcs.Count > 0)
+            {
+                foreach (NPC npc in npcs)
+                {
+                    if (npc.firstSeen)
+                    {
+                        desc += " " + npc.initSeenDesc;
+                        npc.firstSeen = false;
+                        continue;
+                    }
+
+                    desc += " " + npc.seenDesc;
+                }
+            }
+
+            return desc;
+        }
+
+        public void addItem(Item itemToAdd)
         {
             itemsContained.Add(itemToAdd);
         }
 
-        public void addItemToGround(GameObject itemToAdd)
+        public void addItemToGround(Item itemToAdd)
         {
             groundItems.Add(itemToAdd);
         }
 
-        public void removeItem(GameObject itemToRemove)
-	{
-		if (itemsContained.Contains(itemToRemove))
-		{	
-			itemsContained.Remove(itemToRemove);
-		}
-		else if (groundItems.Contains(itemToRemove)
-		{
-			groundItems.Remove(itemToRemove);
-		}
-		else
-		{
-			
-		}
-	}
+        public void removeItem(Item itemToRemove)
+        {
+            if (itemsContained.Contains(itemToRemove))
+            {
+                itemsContained.Remove(itemToRemove);
+                return;
+            }
+
+            groundItems.Remove(itemToRemove);
+        }
 
         public void connect(Link link, Area destination)
         {
