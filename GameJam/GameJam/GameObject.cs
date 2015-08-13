@@ -149,7 +149,7 @@ namespace GameJam
         }
     }
 
-    public class Container : GameObject
+    class Container : GameObject
     {
         private bool accessible;
         private string blockedDesc;
@@ -249,7 +249,7 @@ namespace GameJam
         }
     }
 
-    public class Item : GameObject
+    class Item : GameObject
     {
         public string name;
         public string seenDesc;
@@ -294,7 +294,7 @@ namespace GameJam
             keywords = inKeywords;
         }
 
-        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.", string inInitSeenDesc, string inInitPickupDesc)
+        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inInitPickupDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
             : base(inDescription, inKeywords)
         {
             name = inName;
