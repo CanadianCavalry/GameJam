@@ -60,7 +60,7 @@ namespace GameJam
                 if (gameObject.keywords.Contains(keyword))
                 {
                     objectList.Add(gameObject);
-                    if (gameObject.open)
+                    if (gameObject.isOpen == true)
                     {
                         foreach (GameObject heldObject in gameObject.itemsContained)
                         {
@@ -92,7 +92,7 @@ namespace GameJam
             return objectList;
         }
 
-        public string executeCommend(string command, IDictionary<string, GameObject> args)
+        public string executeCommand(string command, Dictionary<string, GameObject> args)
         {
             if (!args)
             {

@@ -73,7 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
+    <Compile Include="GameLogic.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Player.cs" />

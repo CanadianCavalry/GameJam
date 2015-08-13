@@ -20,19 +20,17 @@ namespace GameJam
     /// </summary>
     public partial class Gui : Window
     {
+        private GameLogic logic;
+
         public Gui()
         {
             InitializeComponent();
+            logic = new GameLogic();
         }
 
         public void displayText(string toDisplay)
         {
             AppendLineToChatBox(toDisplay);
-        }
-
-        public string getInput()
-        {
-            return input;
         }
 
         /// <summary>
@@ -56,7 +54,10 @@ namespace GameJam
         private void SendMessage()
         {
             string message = inputText.Text;
-            input = message;
+
+            string output = logic.runGame(message);
+
+            displayText(output);
         }
 
         /// <summary>
@@ -77,7 +78,9 @@ namespace GameJam
         private void MessageText_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
                 SendMessage();
+            }
         }
     }
 }
