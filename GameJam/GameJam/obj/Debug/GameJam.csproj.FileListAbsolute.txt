@@ -1,0 +1,2 @@
+D:\Users\Darkreaper\Git\Workspace\GameJam\GameJam\bin\Debug\GameJam.exe.config
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\bin\Debug\GameJam.exe.config
