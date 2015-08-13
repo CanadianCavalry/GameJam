@@ -49,13 +49,13 @@ namespace GameJam
         }
 
         /// <summary>
-        /// Send the entered message
+        /// Process the entered message
         /// </summary>
-        private void SendMessage()
+        private void ProcessMessage()
         {
             string message = inputText.Text;
 
-            string output = logic.runGame(message);
+            string output = logic.processMessage(message);
 
             displayText(output);
         }
@@ -67,7 +67,7 @@ namespace GameJam
         /// <param name="e"></param>
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            SendMessage();
+            ProcessMessage();
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace GameJam
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
-                SendMessage();
+                ProcessMessage();
             }
         }
     }

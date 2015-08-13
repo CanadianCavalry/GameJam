@@ -19,7 +19,7 @@ namespace GameJam
             gameState = new GameState(new Player());
         }
 
-        public string runGame(string playerInput)
+        public string processMessage(string playerInput)
         {
             Player player = gameState.player;
 
