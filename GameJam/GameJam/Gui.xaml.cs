@@ -30,6 +30,8 @@ namespace GameJam
 
             string intro = logic.getIntro();
             displayText(intro);
+
+            inputText.Focus();
         }
 
         public void displayText(string toDisplay)
