@@ -4,16 +4,13 @@ using Player;
 
 public class GameObject
 {
-    public string name;
     public string description;
     public int idNum;
     public List<string> keywords;
-
-    public GameObject(string inName, string inDescription, int inIdNum, List<string> inKeywords)
+	
+    public GameObject(string inDescription, List<string> inKeywords)
     {
-        name = inName;
         description = inDescription;
-        idNum = inIdNum;
         keywords = inKeywords;
     }
 
@@ -22,6 +19,16 @@ public class GameObject
         idNum = inIdNum;
     }
 
+    public void setKeywords(List<string> inKeywords)
+    {
+        keywords = inKeywords;
+    }
+
+	public virtual string travel()
+	{
+		"That doesn't make sense.";
+	}
+	
     public virtual string lookAt()
     {
         return description;
@@ -93,32 +100,72 @@ public class Link : GameObject
 	private bool isAccessible;
 	private string blockedDesc;
 	private string travelDesc;
+	private string swimDesc;
+	private string floodDesc;
+	private bool firstUse;
 	private Area destination;
-	
-	public Link(Area inDestination, string inTravelDesc, string inBlockedDesc = "You can't go that way.")
+    private Link sibling;
+
+    public Link()
+    {
+		description = "default";
+		keywords = new List<string>();
+        isAccessible = true;
+        travelDesc = "You open the door and step through.";
+        blockedDesc = "You can't go that way.";
+		swimDesc = "You swim over to the door and force it open.";
+		floodDesc = "As you force the door open, water begins pouring through into the next room.";
+		firstUse = true;
+    }
+
+	public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and climb through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
 	{
+		description = inDescription;
+		keywords = inKeywords;
 		isAccessible = true;
 		travelDesc = inTravelDesc;
 		blockedDesc = inBlockedDesc;
+		swimDesc = inSwimDesc;
+		floodDesc = inFloodDesc;
+		isAccessible = true;
+		firstUse = true;
 	}
 	
-	public string travel(Player player)
+	public string travel(GameState state)
 	{
 		if (!isAccessible)
 		{
 			return blockedDesc;
 		}
 		
-		desc = travelDesc + "\n\n";
-		player.currentLocation = destination;
+		string desc = travelDesc + "\n\n";
+		state.player.currentLocation = destination;
 		
-		if (!player.currentLocation.isVisited())
+		if (firstUse)
 		{
-			player.currentLocation.markVisited();
-			desc += player.currentLocation.lookAt();
+			firstUse = false;
+			desc += floodDesc;
+			state.exposedRooms.Add(destination);
+		}
+		
+		if (!state.player.currentLocation.isVisited())
+		{
+			state.player.currentLocation.markVisited();
+			desc += state.player.currentLocation.lookAt();
 		}
 		return desc;
 	}
+
+	public string swim(GameState state)
+	{
+		return travel(state);
+	}
+	
+    public void makeSibling(Link siblingLink)
+    {
+        sibling = siblingLink;
+        siblingLink.sibling = this;
+    }
 
     public void setDestination(Area area)
     {
@@ -127,9 +174,116 @@ public class Link : GameObject
 	
 }
 
+public class Container : GameObject
+{
+	private List<Item> itemsContained;
+	private bool accessible;
+	private bool open;
+	private string blockedDesc;
+	private string openDesc;
+	private string closeDesc;
+	
+	public Container(string inDescription, List<string> inKeywords, string inOpenDesc, string inCloseDesc, string inBlockedDesc = "")
+	{
+		itemsContained = new List<Item>();
+		accessible = true;
+		open = false;
+		openDesc = inOpenDesc;
+		closeDesc = inCloseDesc;
+		blockedDesc = inBlockedDesc;
+		description = inDescription;
+		keywords = inKeywords;
+	}
+	
+	public addItem(itemToAdd)
+	{
+		itemsContained.Add(itemToAdd);
+	}
+	
+	public removeItem(itemToRemove)
+	{
+		itemsContained.Remove(itemToRemove);
+	}
+	
+	public string lookAt()
+	{
+		string desc = description;
+		if (open)
+		{
+			desc += " It's open.";
+			if (itemsContained.Count() != 0)
+			{
+				desc += " Inside you see:"
+				foreach (Item item in itemsContained)
+				{
+					desc += "\n" + item.name;
+				}
+			}
+		}
+		else
+		{
+			desc += " It's closed."
+		}
+		return desc;
+	}
+	
+	public string open()
+	{
+		if (!accessible)
+		{
+			return blockedDesc;
+		}
+		else if (open)
+		{
+			return "It's already open.";
+		}
+		else
+		{
+			open = true;
+			string desc = openDesc;
+			if (itemsContained.Count() != 0)
+			{
+				desc += " Inside you see:"
+				foreach (Item item in itemsContained)
+				{
+					desc += "\n" + item.name;
+				}
+			}
+			else
+			{
+				desc += " There's nothing inside.";
+			}
+		}
+	}
+	
+	public string close()
+	{
+		if (!open)
+		{
+			return "It's already closed.";
+		}
+		else
+		{
+			open = false;
+			return closeDesc;
+		}
+	}
+	
+	public void makeInaccessible(string inBlockedDesc)
+	{
+		accessible = false;
+		blockedDesc = inBlockedDesc;
+	}
+	
+	public void makeAccessible()
+	{
+		accessible = true;
+	}
+}
 
 public class Item : GameObject
 {
+    public string name;
     public string seenDesc;
     public string pickupDesc;
     public string dropDesc;
@@ -140,17 +294,34 @@ public class Item : GameObject
     public bool firstSeen;
     public bool firstTaken;
 
-    public Item(string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.", string inInitSeenDesc = inSeenDesc, string inInitPickupDesc = inPickupDesc) 
+    public Item()
     {
-        string seenDesc = inSeenDesc;
-        string pickupDesc = inPickupDesc;
-        string dropDesc = inDropDesc;
-        string initSeenDesc = inInitSeenDesc;
-        string initPickupDesc = inInitPickupDesc;
-        string inaccessibleDesc = null;
-        bool accessible = true;
-        bool firstSeen = true;
-        bool firstTaken = true;
+        name = "default";
+        seenDesc = "default";
+        pickupDesc = "default";
+        dropDesc = "default";
+        initSeenDesc = "default";
+        initPickupDesc = "default";
+        inaccessibleDesc = "default";
+        acessible = true;
+        firstSeen = true;
+        firstTaken = true;
+    }
+
+    public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.", string inInitSeenDesc = inSeenDesc, string inInitPickupDesc = inPickupDesc) 
+    {
+        name = inName;
+        seenDesc = inSeenDesc;
+        pickupDesc = inPickupDesc;
+        dropDesc = inDropDesc;
+        initSeenDesc = inInitSeenDesc;
+        initPickupDesc = inInitPickupDesc;
+        inaccessibleDesc = null;
+        accessible = true;
+        firstSeen = true;
+        firstTaken = true;
+        description = inDescription;
+        keywords = inKeywords;
     }
 
     public virtual string pickUp(Player player)
@@ -158,6 +329,7 @@ public class Item : GameObject
         if (accessible)
         {
             player.inventory.Add(this);
+			player.currentLocation.removeItem(this);
         }
         else
         {
@@ -171,13 +343,14 @@ public class Item : GameObject
         }
         else
         {
-            return pickipDesc;
+            return pickupDesc;
         }
     }
 
     public virtual string drop(Player player)
     {
         player.inventory.Remove(this);
+		player.currentLocation.groundItems.Add(this);
         return dropDesc;
     }
 
@@ -192,4 +365,3 @@ public class Item : GameObject
         inaccessibleDesc = inInaccessibleDesc;
     }
 }
-

@@ -8,18 +8,23 @@ using Locater;
 
 public class Main() 
 {
-	GameState gameState;
-	Parser parser;
-	GUI gui;
-	string playerResult;
-	string environmentResult;
+	public GameState gameState;
+	public Parser parser;
+	public GUI gui;
+	public string playerResult;
+	public string environmentResult;
+	public bool turnPassed;
 	List<GameObject> foundObjects;
 	IDictionary<string, GameObject> executionParams;
 
     public Main()
     {
+		gameState = new GameState();
+		turnPassed = false;
         parser = new Parser();
         gui = new GUI();
+		foundObjects = new List<GameObject>();
+		executionParams = new IDictionary<string, GameObject>();
     }
 
     public void runGame()
@@ -30,9 +35,11 @@ public class Main()
 	
 	        while (player.isAlive())
 	        {
+				//initialize all the variables we need for the turn
 		        playerResult = null;
 		        foundObjects = null;
 		        executionParams = null;
+				turnPassed = false;
 			
 		        string playerInput = GUI.getInput();	//TODO
 			
@@ -70,12 +77,13 @@ public class Main()
 			        executionParams["target"] = foundObjects[0];
 		        }
 			
-		        playerResult = gameState.executeAction(parserResult["command"], executionParams);	//TODO
+		        playerResult = gameState.executeAction(parserResult["command"], executionParams);
 		        environmentResult = gameState.turnPass();
 		        GUI.displayText(playerResult + "\n\n" + environmentResult);
+
 	        }
 	
-        GUI.displayText("Game Over");
+			GUI.displayText("Game Over");
         }
     }
 }

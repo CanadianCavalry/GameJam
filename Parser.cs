@@ -13,7 +13,7 @@ public class Parser
         command = "";
         target = "";
         recipient = "";
-		validCommands = new List<string>({"go","walk","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
+		validCommands = new List<string>({"go","walk", "swim","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
 		wordsToRemove = {"at", "to", "the", "of", "from", "through", "towards"};
 	}
 
