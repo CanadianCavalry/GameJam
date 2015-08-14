@@ -12,63 +12,80 @@ namespace GameJam
         {
             List<Area> world = new List<Area>();
 
+            int defaultMaxWaterLevel = 10;
+            string defaultFloodedDesc = "";
+
             Area control = new Area("Control room", 
-                "The main control stations sit atop a raised platform. A large, reinforced glass window provides a wide view of the front of the station.\nTo the north a hallway leads to Hub A.");
+                "The main control stations sit atop a raised platform. A large, reinforced glass window provides a wide view of the front of the station.\nTo the north a hallway leads to Hub A.",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
             control.addFeature(new GameObject("Sonar station", new List<string>(new string[] {})));
             control.addFeature(new GameObject("A large, reinforced glass window provides a wide view of the front of the station.", new List<string>(new string[]{})));
 
             Area hubA = new Area("Hub A",
-                "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.");
+                "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubA);
 
             Area moonPool = new Area("Moon pool",
-                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nTo the south is Hub A. The bio labs are to the west.");
+                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nTo the south is Hub A. The bio labs are to the west.",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(moonPool);
             setStartArea(player, moonPool);
 
             Area observationDeck = new Area("Observation deck",
-                "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.");
+                "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(observationDeck);
 
             Area bioLabA = new Area("Bio lab A",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabA);
 
             Area bioLabB = new Area("Bio lab B",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabB);
 
             Area bioLabC = new Area("Bio lab C",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabC);
 
             Area hubB = new Area("Hub B",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubB);
 
             Area cargoBay = new Area("Cargo bay",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(cargoBay);
 
             Area galley = new Area("Galley",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(galley);
 
             Area washroom = new Area("Washroom",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(washroom);
 
             Area livingQuarters = new Area("Living quarters",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(livingQuarters);
 
             Area connector = new Area("B-C Hub connector",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(connector);
 
             Area hubC = new Area("Hub C",
-                "");
+                "",
+                defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubC);
 
 

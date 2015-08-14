@@ -4,8 +4,10 @@ namespace GameJam
 {
     class Chinatown : WorldBuilder
     {
-        public override void buildWorld()
+        public override List<Area> buildWorld(Player player)
         {
+            List<Area> world = new List<Area>();
+
             //First you need to create an area to start with
             Area areaA = new Area("Gates", "You are standing on a street corner. To the west a large oriental archway stands over the road welcoming people. Beyond the archway lies a street market. To the south the street continues. The street also continues off to the north but you have no interest going that way.");
             //Add some stuff to the room
@@ -73,6 +75,8 @@ namespace GameJam
             firstKeywords = new string[] { "north", "xing fu's", "restaurant", "xing fu's restaurant", "chinese restaurant", "xing fu's chinese restaurant" };
             secondKeywords = new string[] { "south", "street", "exit" };
             linkAreas(areaC, firstDescription, firstKeywords, areaD, secondDescription, secondKeywords, true);
+
+            return world;
         }
     }
 }

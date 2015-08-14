@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class WorldBuilder
+    public class WorldBuilder
     {
-        public abstract List<Area> buildWorld(Player player)
+        public List<Area> buildWorld(Player player)
         {
             List<Area> world = new List<Area>();
             return world;

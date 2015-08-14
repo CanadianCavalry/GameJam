@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-
     public class Player
     {
         public Area currentLocation;

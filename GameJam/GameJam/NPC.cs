@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class Dialog
+    public class Dialog
     {
         public string response { get; private set; }
         public List<string> keywords;
@@ -14,7 +14,7 @@ namespace GameJam
         }
     }
 
-    class NPC : GameObject
+    public class NPC : GameObject
     {
         private List<Dialog> dialogOptions;
         private string name;

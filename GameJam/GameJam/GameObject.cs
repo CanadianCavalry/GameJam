@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class GameObject
+    public class GameObject
     {
         public string description;
         public int idNum;
@@ -129,7 +129,7 @@ namespace GameJam
         }
     }
 
-    class Link : GameObject
+    public class Link : GameObject
     {
         private bool isAccessible;
         private string blockedDesc;
@@ -209,7 +209,7 @@ namespace GameJam
         }
     }
 
-    class Container : GameObject
+    public class Container : GameObject
     {
         private bool accessible;
         private string blockedDesc;
@@ -309,7 +309,7 @@ namespace GameJam
         }
     }
 
-    class Item : GameObject
+    public class Item : GameObject
     {
         public string name;
         public string seenDesc;

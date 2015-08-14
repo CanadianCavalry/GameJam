@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class GameState
+    public class GameState
     {
         public Player player;
         public List<Area> world;
