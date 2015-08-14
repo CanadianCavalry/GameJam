@@ -36,7 +36,7 @@ namespace GameJam
             world.Add(hubA);
 
             Area moonPool = new Area("Moon pool",
-                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nTo the south is Hub A. The bio labs are to the west.",
+                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nEast is Hub C. To the south is Hub A. The bio labs are to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(moonPool);
 
@@ -46,52 +46,52 @@ namespace GameJam
             world.Add(observationDeck);
 
             Area bioLabA = new Area("Bio lab A",
-                "",
+                "\nThe Moon pool is east of you. South is a winding connector that takes you to the Observation deck. To the west is the specimen study area and the rest of the lab. ",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabA);
 
             Area bioLabB = new Area("Bio lab B",
-                "",
+                "Counters run along the north and west walls.\nThe lab entrance is to the east. South you can see the Dive prep area.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabB);
 
             Area bioLabC = new Area("Bio lab C",
-                "",
+                "\nLooking north you can see into the specimen lab. The airlock is to the south.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabC);
 
             Area hubB = new Area("Hub B",
-                "",
+                "A pair of ladders hang down on either side of a small raised platform just above head height.\nNorth are the ladders leading up to the connector bridging Hub B and Hub C. To the east is the galley. To the South is the adjoining cargo bay and to the west is Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubB);
 
             Area cargoBay = new Area("Cargo bay",
-                "",
+                "\nTo the north is Hub B. The airlock used for resupply is built into the south wall.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(cargoBay);
 
             Area galley = new Area("Galley",
-                "",
+                "A small fold out table extends from the east wall. A few chairs sit surrounding the table. In the southeast corner is a small sink. In the northeast corner is a simple stove.\nThe living quarters are to the north, washrooms to the south. Hub B is to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(galley);
 
             Area washroom = new Area("Washroom",
-                "",
+                "Shower stalls line the south wall. Two toilet stalls are squeezed into the northwest corner. A pair of sinks line the east wall with mirrors bolted to the wall above them.\nGoing north will take you back to the galley.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(washroom);
 
             Area livingQuarters = new Area("Living quarters",
-                "",
+                "The room is separated into two sections with a thick curtain dividing them. The entrance area has two long cushioned seats running the length of the east and west walls. Beyond the curtain are stacks of sleeping bunks used by the crew.\nThe galley is to the south.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(livingQuarters);
 
             Area connector = new Area("B-C Hub connector",
-                "",
+                "The connector gradually slopes up and then back down.\nNorth is Hub C. South is Hub B.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(connector);
 
             Area hubC = new Area("Hub C",
-                "",
+                "The ceiling in this room is higher than any of the others. Shelves are built into the eastern wall. A pair of ladders lead down to the western lower level. Additional shelving can be found on the lower level behind the ladders.\nThe Hub B-C connector is south. The Moon pool is to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubC);
 
@@ -106,6 +106,11 @@ namespace GameJam
             string moonPoolDescription = "The main submarine and equipment room.";
             string[] moonPoolKeywords = { "north", "moon pool", "sub room", "north moon pool", "north sub room" };
             linkAreas(hubA, hubADescription, hubAKeywords, moonPool, moonPoolDescription, moonPoolKeywords);
+
+            hubAKeywords = new string[] { "west", "hub a", "huba", "west hub", "west hub a", "west huba" };
+            string hubBDescription = "A connector hub.";
+            string[] hubBKeywords = { "east", "hub b", "hubb", "east hub", "east hub b", "east hubb" };
+            linkAreas(hubA, hubADescription, hubAKeywords, hubB, hubBDescription, hubBKeywords);
 
             hubAKeywords = new string[] { "east", "hub", "hub a", "huba", "east hub", "east hub a", "east huba" };
             string observationDeckDescription = "The observation deck.";
@@ -130,6 +135,40 @@ namespace GameJam
             string bioLabCDescription = "Dive prep area and gear storage.";
             string[] bioLabCKeywords = { "south", "lab c", "bio lab c", "south lab", "south bio lab", "south bio lab c" };
             linkAreas(bioLabB, bioLabBDescription, bioLabBKeywords, bioLabC, bioLabCDescription, bioLabCKeywords);
+
+            hubBKeywords = new string[] { "south", "hub", "hub b", "hubb", "south hub", "south hub b", "south hubb" };
+            string connectorDescription = "A long connecting corridor.";
+            string[] connectorKeywords = { "north", "connector", "corridor", "hub connector", "hub corridor", "north connector", "north corridor", "north hub connector" };
+            linkAreas(hubB, hubBDescription, hubBKeywords, connector, connectorDescription, connectorKeywords);
+
+            hubBKeywords = new string[] { "west", "hub", "hub b", "hubb", "west hub", "west hub b", "west hubb" };
+            string galleyDescription = "The galley.";
+            string[] galleyKeywords = { "east", "galley", "east galley" };
+            linkAreas(hubB, hubBDescription, hubBKeywords, galley, galleyDescription, galleyKeywords);
+
+            hubBKeywords = new string[] { "north", "hub", "hub b", "hubb", "north hub", "north hub b", "north hubb" };
+            string cargoBayDescription = "The cargo bay.";
+            string[] cargoBayKeywords = { "south", "cargo bay", "south cargo bay" };
+            linkAreas(hubB, hubBDescription, hubBKeywords, cargoBay, cargoBayDescription, cargoBayKeywords);
+
+            connectorKeywords = new string[] { "south", "connector", "corridor", "hub connector", "hub corridor", "south connector", "south corridor", "south hub connector" };
+            string hubCDescription = "A connector hub and storage room.";
+            string[] hubCKeywords = { "north", "hub", "hub c", "hubc", "north hub", "north hub c", "north hubc" };
+            linkAreas(connector, connectorDescription, connectorKeywords, hubC, hubCDescription, hubCKeywords);
+
+            moonPoolKeywords = new string[] { "west", "moon pool", "sub room", "west moon pool", "west sub room" };
+            hubCKeywords = new string[] { "east", "hub", "hub c", "hubc", "east hub", "east hub c", "east hubc" };
+            linkAreas(moonPool, moonPoolDescription, moonPoolKeywords, hubC, hubCDescription, hubCKeywords);
+
+            galleyKeywords = new string[] { "south", "galley", "south galley" };
+            string livingQuartersDescription = "The living quarters.";
+            string[] livingQuartersKeywords = new string[] { "north", "livingquarters", "living quarters", "north livingquarters", "north living quarters" };
+            linkAreas(galley, galleyDescription, galleyKeywords, livingQuarters, livingQuartersDescription, livingQuartersKeywords);
+
+            galleyKeywords = new string[] { "north", "galley", "north galley" };
+            string washroomDescription = "The washroom.";
+            string[] washroomKeywords = { "south", "washroom", "showers", "toilet", "toilets", "head", "south washroom" };
+            linkAreas(galley, galleyDescription, galleyKeywords, washroom, washroomDescription, washroomKeywords);
 
             return world;
         }
