@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class Parser
+    public class Parser
     {
         private string command;
         private string target;
@@ -15,7 +15,7 @@ namespace GameJam
             command = "";
             target = "";
             recipient = "";
-            validCommands = new List<string>(new string[] { "go", "walk", "get", "take", "look", "examine", "eat", "drink", "read", "talk", "ask", "drop", "use", "open", "close", "equip", "attack", "reload" });
+            validCommands = new List<string>(new string[] { "go", "walk", "swim", "get", "take", "look", "examine", "eat", "drink", "read", "talk", "ask", "drop", "use", "open", "close", "equip", "attack", "reload" });
             wordsToRemove = new List<string>(new string[] { "at", "to", "the", "of", "from", "through", "towards" });
         }
 

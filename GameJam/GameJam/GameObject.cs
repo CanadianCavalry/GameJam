@@ -33,17 +33,37 @@ namespace GameJam
             return description;
         }
 
-        public virtual string pickUp()
+        public virtual string swim(GameState state)
+        {
+            return "That doesn't make sense";
+        }
+
+        public virtual string travel(GameState state)
+        {
+            return "That doesn't make sense.";
+        }
+
+        public virtual string pickUp(Player player)
         {
             return "You can't pick that up.";
         }
 
-        public virtual string drop()
+        public virtual string drop(Player player)
         {
             return "You're not holding that.";
         }
 
-        public virtual string use()
+        public virtual string equip(Player player)
+        {
+            return "You can't equip that.";
+        }
+
+        public virtual string attack(Player player)
+        {
+            return "You can't attack that.";
+        }
+
+        public virtual string use(Player player)
         {
             return "It has no immediately obvious use.";
         }
@@ -78,12 +98,12 @@ namespace GameJam
             return "That isn't a weapon.";
         }
 
-        public virtual string eat()
+        public virtual string eat(Player player)
         {
             return "you can't eat that.";
         }
 
-        public virtual string drink()
+        public virtual string drink(Player player)
         {
             return "you can't drink that.";
         }
@@ -92,6 +112,21 @@ namespace GameJam
         {
             return "There's nothing to read.";
         }
+
+        public virtual string talk()
+        {
+            return "You can't talk to that.";
+        }
+
+        public virtual string open()
+        {
+            return "You can't open that.";
+        }
+
+        public virtual string close()
+        {
+            return "You can't close that.";
+        }
     }
 
     class Link : GameObject
@@ -99,27 +134,40 @@ namespace GameJam
         private bool isAccessible;
         private string blockedDesc;
         private string travelDesc;
+        private string swimDesc;
+        private string floodDesc;
+        private bool firstUse;
         private Area destination;
         private Link sibling;
 
         public Link()
             : base("", null)
         {
+            description = "default";
+            keywords = new List<string>();
             isAccessible = true;
             travelDesc = "You open the door and step through.";
             blockedDesc = "You can't go that way.";
-            description = "Default Description";
+            swimDesc = "You swim over to the door and force it open.";
+            floodDesc = "As you force the door open, water begins pouring through into the next room.";
+            firstUse = true;
         }
 
-        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and step through.", string inBlockedDesc = "You can't go that way.")
+        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and climb through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
             : base(inDescription, inKeywords)
         {
+            description = inDescription;
+            keywords = inKeywords;
             isAccessible = true;
             travelDesc = inTravelDesc;
             blockedDesc = inBlockedDesc;
+            swimDesc = inSwimDesc;
+            floodDesc = inFloodDesc;
+            isAccessible = true;
+            firstUse = true;
         }
 
-        public string travel(Player player)
+        public string travel(GameState state)
         {
             if (!isAccessible)
             {
@@ -127,14 +175,26 @@ namespace GameJam
             }
 
             string desc = travelDesc + "\n\n";
-            player.currentLocation = destination;
+            state.player.currentLocation = destination;
 
-            if (!player.currentLocation.isVisited())
+            if (firstUse)
             {
-                player.currentLocation.markVisited();
-                desc += player.currentLocation.lookAt();
+                firstUse = false;
+                desc += floodDesc;
+                state.exposedRooms.Add(destination);
+            }
+
+            if (!state.player.currentLocation.isVisited())
+            {
+                state.player.currentLocation.markVisited();
+                desc += state.player.currentLocation.lookAt();
             }
             return desc;
+        }
+
+        public string swim(GameState state)
+        {
+            return travel(state);
         }
 
         public void makeSibling(Link siblingLink)
@@ -315,7 +375,7 @@ namespace GameJam
         {
             if (accessible)
             {
-                player.addToInventory(this);
+                player.addItem(this);
                 player.currentLocation.removeItem(this);
             }
             else
@@ -336,9 +396,14 @@ namespace GameJam
 
         public virtual string drop(Player player)
         {
-            player.removeFromInventory(this);
+            player.removeItem(this);
             player.currentLocation.groundItems.Add(this);
             return dropDesc;
+        }
+
+        public virtual string equip(Player player)
+        {
+            return player.equip(this);
         }
 
         public virtual void makeAccessible()

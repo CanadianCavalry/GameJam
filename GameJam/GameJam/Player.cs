@@ -2,24 +2,37 @@ using System.Collections.Generic;
 
 namespace GameJam
 {
-    class Player
+
+    public class Player
     {
         public Area currentLocation;
-        private List<Item> inventory;
+        public List<Item> inventory;
+        private int health;
+        private int air;
         private Item mainHand;
         private Item offHand;
         private Item armor;
         private int armorRating;
-        private bool alive;
 
         public Player()
         {
             inventory = new List<Item>();
-            alive = true;
+            health = 10;
+            air = 4;
             mainHand = null;
             offHand = null;
             armor = null;
             armorRating = 0;
+        }
+
+        public int getAir()
+        {
+            return air;
+        }
+
+        public void reduceAir()
+        {
+            air--;
         }
 
         public void addItem(Item itemToAdd)
@@ -32,6 +45,18 @@ namespace GameJam
             inventory.Remove(itemToRemove);
         }
 
+        public string equip(Item item)
+        {
+            mainHand = item;
+            return "You equip the " + item.name + ".";
+        }
+
+        public string unequip()
+        {
+            mainHand = null;
+            return "You free your hands.";
+        }
+
         public string defend()
         {
             return "You take a defensive stance.";
@@ -39,23 +64,15 @@ namespace GameJam
 
         public bool isAlive()
         {
-            return alive;
-        }
-
-        internal void addToInventory(GameJam.Item item)
-        {
-            inventory.Add(item);
-        }
-
-        internal void removeFromInventory(GameJam.Item item)
-        {
-            inventory.Remove(item);
-        }
-
-        internal List<GameObject> getInventory()
-        {
-            List<GameObject> inventoryContents = new List<GameObject>(inventory);
-            return inventoryContents;
+            if (health <= 0)
+            {
+                return false;
+            }
+            else if ((air <= 0) && (currentLocation.isSubmerged()))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

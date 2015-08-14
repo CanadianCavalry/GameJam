@@ -6,18 +6,25 @@ namespace GameJam
     {
         public Player player;
         public List<Area> world;
+        public List<Area> exposedRooms;
 
         public GameState(Player inPlayer, WorldBuilder builder)
         {
             player = inPlayer;
             world = builder.buildWorld(player);
+            exposedRooms = new List<Area>();
+        }
+
+        public void exposeRoom(Area areaToAdd)
+        {
+            exposedRooms.Add(areaToAdd);
         }
 
         public List<GameObject> getLocalObject(string keyword)
         {
             List<GameObject> objectList = new List<GameObject>();
 
-            foreach (GameObject gameObject in player.getInventory())
+            foreach (GameObject gameObject in player.inventory)
             {
                 if (gameObject.keywords.Contains(keyword))
                 {
@@ -98,7 +105,7 @@ namespace GameJam
 
         public string executeCommand(string command, Dictionary<string, GameObject> args)
         {
-            if (!args)
+            if (args.Count == 0)
             {
                 switch (command)
                 {
@@ -110,8 +117,9 @@ namespace GameJam
                     case "defend":
                         return player.defend();
                 }
+                return "Command not found.";
             }
-            else if (args["target"])
+            else
             {
                 GameObject target = args["target"];
 
@@ -125,7 +133,9 @@ namespace GameJam
                         return target.pickUp(player);
                     case "go":
                     case "walk":
-                        return target.travel(player);
+                        return target.travel(this);
+                    case "swim":
+                        return target.swim(this);
                     case "drop":
                         return target.drop(player);
                     case "use":
@@ -147,6 +157,29 @@ namespace GameJam
                     case "read":
                         return target.read();
                 }
+                return "Command not found!";
+            }
+        }
+
+        public string turnPass()
+        {
+            if (true)
+            {
+                string desc = "";
+
+                if (player.currentLocation.isSubmerged())
+                {
+                    player.reduceAir();
+                }
+
+                foreach (Area room in exposedRooms)
+                {
+                    if (room.increaseWaterLevel())
+                    {
+                        desc += "The rushing water completely fills the area.";
+                    }
+                }
+                return desc;
             }
         }
     }
