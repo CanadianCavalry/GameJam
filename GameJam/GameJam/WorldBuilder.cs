@@ -20,6 +20,7 @@ namespace GameJam
         public void setStartArea(Player player, Area toStartIn)
         {
             player.currentLocation = toStartIn;
+            toStartIn.isVisited();
         }
 
         public virtual string getIntro()
