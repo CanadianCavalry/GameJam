@@ -22,3 +22,7 @@ C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.csprojResolveAssemblyReference.cache
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.exe
 C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.pdb
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\bin\Debug\GameJam.exe
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\bin\Debug\GameJam.pdb
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.exe
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.pdb

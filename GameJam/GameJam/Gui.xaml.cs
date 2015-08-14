@@ -54,6 +54,9 @@ namespace GameJam
         private void ProcessMessage()
         {
             string message = inputText.Text;
+            inputText.Text = string.Empty;
+
+            displayText("> " + message);
 
             string output = logic.processMessage(message);
 
