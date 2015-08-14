@@ -105,6 +105,20 @@ namespace GameJam
 
         public string executeCommand(string command, Dictionary<string, GameObject> args)
         {
+            if (args == null)
+            {
+                switch (command)
+                {
+                    case "l":
+                    case "look":
+                        return player.currentLocation.lookAt();
+                    case "wait":
+                        return "You wait.";
+                    case "defend":
+                        return player.defend();
+                }
+                return "Command not found.";
+            }
             if (args.Count == 0)
             {
                 switch (command)
