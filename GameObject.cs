@@ -195,12 +195,12 @@ public class Container : GameObject
 		keywords = inKeywords;
 	}
 	
-	public addItem(itemToAdd)
+	public void addItem(itemToAdd)
 	{
 		itemsContained.Add(itemToAdd);
 	}
 	
-	public removeItem(itemToRemove)
+	public void removeItem(itemToRemove)
 	{
 		itemsContained.Remove(itemToRemove);
 	}
@@ -213,7 +213,7 @@ public class Container : GameObject
 			desc += " It's open.";
 			if (itemsContained.Count() != 0)
 			{
-				desc += " Inside you see:"
+				desc += " Inside you see:";
 				foreach (Item item in itemsContained)
 				{
 					desc += "\n" + item.name;
@@ -222,7 +222,7 @@ public class Container : GameObject
 		}
 		else
 		{
-			desc += " It's closed."
+			desc += " It's closed.";
 		}
 		return desc;
 	}

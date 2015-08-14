@@ -1,0 +1,10 @@
+D:\Users\Darkreaper\Git\Workspace\GameJam\GameJam\bin\Debug\GameJam.exe.config
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\bin\Debug\GameJam.exe.config
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.csprojResolveAssemblyReference.cache
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\Gui.baml
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\Gui.g.cs
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\App.g.cs
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam_MarkupCompile.cache
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.g.resources
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.Properties.Resources.resources
+D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.csproj.GenerateResource.Cache

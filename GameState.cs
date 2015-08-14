@@ -7,7 +7,7 @@ public class GameState
 	public Player player;
 	public List<Area> exposedRooms;
 
-    public GameState(inPlayer)
+    public GameState(Player inPlayer)
     {
 		player = inPlayer;
 		exposedRooms = new List<Area>();
@@ -71,7 +71,7 @@ public class GameState
 				{
 					foreach (GameObject heldObject in gameObject.itemsContained)
 					{
-						if heldObject.keywords.Contains(keyword)
+						if (heldObject.keywords.Contains(keyword))
 						{
 							resultList.Add(heldObject);
 						}
@@ -166,7 +166,7 @@ public class GameState
 				player.reduceAir();
 			}
 			
-			for (Area room in exposedRooms)
+			foreach (Area room in exposedRooms)
 			{
 				if (room.increaseWaterLevel())
 				{

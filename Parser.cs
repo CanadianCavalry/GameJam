@@ -13,8 +13,8 @@ public class Parser
         command = "";
         target = "";
         recipient = "";
-		validCommands = new List<string>({"go","walk", "swim","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
-		wordsToRemove = {"at", "to", "the", "of", "from", "through", "towards"};
+		validCommands = new List<string>(new string[] {"go","walk", "swim","get","take","look","examine","eat","drink","read","talk","ask","drop","use","open","close","equip","attack","reload"});
+		wordsToRemove = new List<string>(new string[] {"at", "to", "the", "of", "from", "through", "towards"});
 	}
 
     public IDictionary<string, string> parseInput(string inputString)

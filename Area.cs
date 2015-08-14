@@ -117,7 +117,7 @@ public class Area
 		
 		if (npcs.Count() > 0)
 		{
-			for (NPC npc in npcs)
+			foreach (NPC npc in npcs)
 			{
 				if (npc.firstSeen)
 				{
@@ -150,7 +150,7 @@ public class Area
 		{	
 			itemsContained.Remove(itemToRemove);
 		}
-		else if (groundItems.Contains(itemToRemove)
+		else if (groundItems.Contains(itemToRemove))
 		{
 			groundItems.Remove(itemToRemove);
 		}
