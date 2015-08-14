@@ -21,12 +21,19 @@ namespace GameJam
     public partial class Gui : Window
     {
         private GameLogic logic;
+        private Queue<string> messageLog;
+        private int maxLogSize;
+        private int logPointer;
 
         public Gui()
         {
             InitializeComponent();
             logic = new GameLogic();
             inputText.KeyUp += new KeyEventHandler(MessageText_KeyUp);
+
+            messageLog = new Queue<string>();
+            maxLogSize = 10;
+            logPointer = 0;
 
             string intro = logic.getIntro();
             displayText(intro);
@@ -37,6 +44,64 @@ namespace GameJam
         public void displayText(string toDisplay)
         {
             AppendLineToChatBox(toDisplay);
+        }
+
+        /// <summary>
+        /// Add the provided message to the message log
+        /// </summary>
+        /// <param name="message"></param>
+        private void AddMessageToLog(string message)
+        {
+            messageLog.Enqueue(message);
+
+            while (messageLog.Count > maxLogSize)
+            {
+                messageLog.Dequeue();
+            }
+
+            logPointer = messageLog.Count - 1;
+        }
+
+        /// <summary>
+        /// Get the previously selected message in the log
+        /// </summary>
+        /// <param name="message"></param>
+        private void RestorePreviousMessage()
+        {
+            if (messageLog.Count == 0)
+            {
+                return;
+            }
+
+            string previousMessage = messageLog.ElementAt(logPointer);
+            inputText.Text = previousMessage;
+
+            logPointer--;
+            if (logPointer < 0)
+            {
+                logPointer = 0;
+            }
+        }
+
+        /// <summary>
+        /// Get the following selected message in the log
+        /// </summary>
+        /// <param name="message"></param>
+        private void RestoreNextMessage()
+        {
+            if (messageLog.Count == 0)
+            {
+                return;
+            }
+
+            logPointer++;
+            if (logPointer >= messageLog.Count)
+            {
+                logPointer = messageLog.Count - 1;
+            }
+
+            string nextMessage = messageLog.ElementAt(logPointer);
+            inputText.Text = nextMessage;
         }
 
         /// <summary>
@@ -61,6 +126,8 @@ namespace GameJam
         {
             string message = inputText.Text;
             inputText.Text = string.Empty;
+
+            AddMessageToLog(message);
 
             displayText("> " + message);
 
@@ -89,6 +156,16 @@ namespace GameJam
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
                 ProcessMessage();
+            }
+
+            if (e.Key == Key.Up)
+            {
+                RestorePreviousMessage();
+            }
+
+            if (e.Key == Key.Down)
+            {
+                RestoreNextMessage();
             }
         }
     }
