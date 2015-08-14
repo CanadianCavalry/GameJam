@@ -8,6 +8,11 @@ namespace GameJam
 {
     class Belisarius : WorldBuilder
     {
+        public override string getIntro()
+        {
+            return introduction;
+        }
+
         public override List<Area> buildWorld(Player player)
         {
             List<Area> world = new List<Area>();
@@ -15,12 +20,15 @@ namespace GameJam
             int defaultMaxWaterLevel = 10;
             string defaultFloodedDesc = "";
 
+            introduction = "Hello";
+
             Area control = new Area("Control room", 
                 "The main control stations sit atop a raised platform. A large, reinforced glass window provides a wide view of the front of the station.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
             control.addFeature(new GameObject("Sonar station", new List<string>(new string[] {})));
             control.addFeature(new GameObject("A large, reinforced glass window provides a wide view of the front of the station.", new List<string>(new string[]{})));
+            setStartArea(player, control);
 
             Area hubA = new Area("Hub A",
                 "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
@@ -31,7 +39,6 @@ namespace GameJam
                 "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nTo the south is Hub A. The bio labs are to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(moonPool);
-            setStartArea(player, moonPool);
 
             Area observationDeck = new Area("Observation deck",
                 "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",

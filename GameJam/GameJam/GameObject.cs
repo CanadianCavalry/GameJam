@@ -167,7 +167,7 @@ namespace GameJam
             firstUse = true;
         }
 
-        public string travel(GameState state)
+        public override string travel(GameState state)
         {
             if (!isAccessible)
             {
@@ -187,12 +187,12 @@ namespace GameJam
             if (!state.player.currentLocation.isVisited())
             {
                 state.player.currentLocation.markVisited();
-                desc += state.player.currentLocation.lookAt();
+                desc += "\n" + state.player.currentLocation.lookAt();
             }
             return desc;
         }
 
-        public string swim(GameState state)
+        public override string swim(GameState state)
         {
             return travel(state);
         }
@@ -238,7 +238,7 @@ namespace GameJam
             itemsContained.Remove(itemToRemove);
         }
 
-        public string lookAt()
+        public override string lookAt()
         {
             string desc = description;
             if (isOpen == true)
@@ -259,7 +259,7 @@ namespace GameJam
             return desc;
         }
 
-        public string open()
+        public override string open()
         {
             if (!accessible)
             {
@@ -286,7 +286,7 @@ namespace GameJam
             return desc;
         }
 
-        public string close()
+        public override string close()
         {
             if (!isOpen)
             {
@@ -371,7 +371,7 @@ namespace GameJam
             keywords = inKeywords;
         }
 
-        public virtual string pickUp(Player player)
+        public override string pickUp(Player player)
         {
             if (accessible)
             {
@@ -394,14 +394,14 @@ namespace GameJam
             }
         }
 
-        public virtual string drop(Player player)
+        public override string drop(Player player)
         {
             player.removeItem(this);
             player.currentLocation.groundItems.Add(this);
             return dropDesc;
         }
 
-        public virtual string equip(Player player)
+        public override string equip(Player player)
         {
             return player.equip(this);
         }

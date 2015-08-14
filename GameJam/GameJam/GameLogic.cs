@@ -27,52 +27,56 @@ namespace GameJam
         {
             Player player = gameState.player;
 
-            if (player.isAlive() == true)
+            if (player.isAlive() == false)
             {
-                //initialize all the variables we need for the turn
-                playerResult = null;
-                foundObjects = null;
-                executionParams = null;
-                turnPassed = false;
+                return "Game Over";
+            }
+            //initialize all the variables we need for the turn
+            playerResult = string.Empty;
+            foundObjects = new List<GameObject>();
+            executionParams = new Dictionary<string, GameObject>();
+            turnPassed = false;
 
-                //If there's no input, go back and try again
-                if (playerInput.Equals(string.Empty) == true)
-                {
-                    return string.Empty;
-                }
-
-                Dictionary<string, string> parserResult = parser.parseInput(playerInput);
-
-                //If the parser returns false, then the command is not recognized
-                if (parserResult == null)
-                {
-                    return "I don't understand that command.";
-                }
-
-                //If there's a target specified, attempt to retrieve it
-                if (parserResult.ContainsKey("target"))
-                {
-                    foundObjects = gameState.getLocalObject(parserResult["target"]);
-
-                    if (foundObjects.Count == 0)
-                    {
-                        return "There is nothing like that here.";
-                    }
-                    else if (foundObjects.Count > 1)
-                    {
-                        return "You need to be more specific.";
-                    }
-
-                    executionParams["target"] = foundObjects[0];
-                }
-
-                playerResult = gameState.executeCommand(parserResult["command"], executionParams);
-                environmentResult = gameState.turnPass();
-                string output = playerResult + "\n\n" + environmentResult;
-                return output;
+            //If there's no input, go back and try again
+            if (playerInput.Equals(string.Empty) == true)
+            {
+                return string.Empty;
             }
 
-            return "Game Over";
+            Dictionary<string, string> parserResult = parser.parseInput(playerInput);
+
+            //If the parser returns false, then the command is not recognized
+            if (parserResult == null)
+            {
+                return "I don't understand that command.";
+            }
+
+            //If there's a target specified, attempt to retrieve it
+            if (parserResult.ContainsKey("target"))
+            {
+                foundObjects = gameState.getLocalObject(parserResult["target"]);
+
+                if (foundObjects.Count == 0)
+                {
+                    return "There is nothing like that here.";
+                }
+                else if (foundObjects.Count > 1)
+                {
+                    return "You need to be more specific.";
+                }
+
+                executionParams["target"] = foundObjects[0];
+            }
+
+            playerResult = gameState.executeCommand(parserResult["command"], executionParams);
+            environmentResult = gameState.turnPass();
+            string output = playerResult + "\n\n" + environmentResult;
+            return output;
+        }
+
+        internal string getIntro()
+        {
+            return gameState.getIntro();
         }
     }
 }

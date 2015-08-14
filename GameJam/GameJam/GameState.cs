@@ -7,12 +7,14 @@ namespace GameJam
         public Player player;
         public List<Area> world;
         public List<Area> exposedRooms;
+        private string introduction;
 
         public GameState(Player inPlayer, WorldBuilder builder)
         {
             player = inPlayer;
             world = builder.buildWorld(player);
             exposedRooms = new List<Area>();
+            introduction = builder.getIntro();
         }
 
         public void exposeRoom(Area areaToAdd)
@@ -92,14 +94,6 @@ namespace GameJam
                 }
             }
 
-            foreach (GameObject gameObject in player.currentLocation.features)
-            {
-                if (gameObject.keywords.Contains(keyword))
-                {
-                    objectList.Add(gameObject);
-                }
-            }
-
             return objectList;
         }
 
@@ -136,18 +130,23 @@ namespace GameJam
             else
             {
                 GameObject target = args["target"];
+                string result;
 
                 switch (command)
                 {
                     case "look":
                     case "examine":
-                        return target.lookAt();
+                        result = target.lookAt();
+                        return result;
                     case "get":
                     case "take":
-                        return target.pickUp(player);
+                        result = target.pickUp(player);
+                        return result;
                     case "go":
+                    case "move":
                     case "walk":
-                        return target.travel(this);
+                        result = target.travel(this);
+                        return result;
                     case "swim":
                         return target.swim(this);
                     case "drop":
@@ -195,6 +194,11 @@ namespace GameJam
                 }
                 return desc;
             }
+        }
+
+        internal string getIntro()
+        {
+            return introduction;
         }
     }
 }

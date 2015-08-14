@@ -15,13 +15,14 @@ namespace GameJam
             command = "";
             target = "";
             recipient = "";
-            validCommands = new List<string>(new string[] { "go", "walk", "swim", "get", "take", "look", "examine", "eat", "drink", "read", "talk", "ask", "drop", "use", "open", "close", "equip", "attack", "reload" });
+            validCommands = new List<string>(new string[] { "go", "move", "walk", "swim", "get", "take", "look", "examine", "eat", "drink", "read", "talk", "ask", "drop", "use", "open", "close", "equip", "attack", "reload" });
             wordsToRemove = new List<string>(new string[] { "at", "to", "the", "of", "from", "through", "towards" });
         }
 
         public Dictionary<string, string> parseInput(string inputString)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
+            target = string.Empty;
 
             //Make the input lower case and then split it on the space character
             string lowString = inputString.ToLower();
@@ -47,12 +48,19 @@ namespace GameJam
                 }
             }
 
+            if (inputArray.Count == 0)
+            {
+                result["command"] = command;
+                return result;
+            }
+
             //get the rest of the words as the target
-            while (inputArray.Count > 0)
+            while (inputArray.Count > 1)
             {
                 target += inputArray[0] + " ";
                 inputArray.RemoveAt(0);
             }
+            target += inputArray[0];
 
             result["command"] = command;
             if (target != "")

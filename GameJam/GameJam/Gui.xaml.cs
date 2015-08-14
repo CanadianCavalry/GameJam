@@ -27,6 +27,9 @@ namespace GameJam
             InitializeComponent();
             logic = new GameLogic();
             inputText.KeyUp += new KeyEventHandler(MessageText_KeyUp);
+
+            string intro = logic.getIntro();
+            displayText(intro);
         }
 
         public void displayText(string toDisplay)
