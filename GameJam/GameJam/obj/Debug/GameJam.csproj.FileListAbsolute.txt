@@ -9,3 +9,16 @@ D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.g.resources
 D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.Properties.Resources.resources
 D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.csproj.GenerateResource.Cache
 C:\Users\Thomas\Documents\GitHub\GameJam\GameJam\GameJam\bin\Debug\GameJam.exe.config
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\bin\Debug\GameJam.exe.config
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\Gui.baml
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\Gui.g.cs
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\App.g.cs
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam_MarkupCompile.cache
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.g.resources
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.Properties.Resources.resources
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.csproj.GenerateResource.Cache
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\bin\Debug\GameJam.exe
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\bin\Debug\GameJam.pdb
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.csprojResolveAssemblyReference.cache
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.exe
+C:\Users\CanadianCavalry\Documents\Visual Studio 2012\Projects\TextGame\GameJam\GameJam\obj\Debug\GameJam.pdb

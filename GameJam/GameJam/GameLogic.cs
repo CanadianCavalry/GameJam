@@ -12,13 +12,13 @@ namespace GameJam
         private string environmentResult;
         private bool turnPassed;
         private List<GameObject> foundObjects;
-        private IDictionary<string, GameObject> executionParams;
+        private Dictionary<string, GameObject> executionParams;
 
         public GameLogic()
         {
             parser = new Parser();
             turnPassed = false;
-            gameState = new GameState(new Player());
+            gameState = new GameState(new Player(), new Belisarius());
             foundObjects = new List<GameObject>();
             executionParams = new Dictionary<string, GameObject>();
         }

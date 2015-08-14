@@ -4,7 +4,7 @@ namespace GameJam
 {
     public class WorldBuilder
     {
-        public List<Area> buildWorld(Player player)
+        public virtual List<Area> buildWorld(Player player)
         {
             List<Area> world = new List<Area>();
             return world;
