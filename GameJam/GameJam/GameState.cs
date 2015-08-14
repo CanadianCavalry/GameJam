@@ -5,10 +5,12 @@ namespace GameJam
     class GameState
     {
         public Player player;
+        public List<Area> world;
 
-        public GameState(Player inPlayer)
+        public GameState(Player inPlayer, WorldBuilder builder)
         {
             player = inPlayer;
+            world = builder.buildWorld(player);
         }
 
         public List<GameObject> getLocalObject(string keyword)

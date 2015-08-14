@@ -4,8 +4,10 @@ namespace GameJam
 {
     class WorldBuilder
     {
-        public void buildWorld()
+        public abstract List<Area> buildWorld(Player player)
         {
+            List<Area> world = new List<Area>();
+            return world;
         }
 
         public void linkAreas(Area firstArea, string firstDescription, string[] firstKeywords, Area secondArea, string secondDescription, string[] secondKeywords, bool makeSiblings)
@@ -32,6 +34,11 @@ namespace GameJam
             //The reason we need to link both ways, is that links can be made to be one way, or to behave in unusual ways (in keeping with the horror theme
             // if we so desire. Making a link a sibling tells the engine that they are different ends of the same link. That way they are kept in sync
             // so if one is locked, for example, the other will be locked as well.
+        }
+
+        public void setStartArea(Player player, Area toStartIn)
+        {
+            player.currentLocation = toStartIn;
         }
     }
 }
