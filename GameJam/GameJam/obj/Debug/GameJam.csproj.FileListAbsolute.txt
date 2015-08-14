@@ -8,3 +8,4 @@ D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam_MarkupCompile.
 D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.g.resources
 D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.Properties.Resources.resources
 D:\Users\Darkreaper\Git\GameJam\GameJam\GameJam\obj\Debug\GameJam.csproj.GenerateResource.Cache
+C:\Users\Thomas\Documents\GitHub\GameJam\GameJam\GameJam\bin\Debug\GameJam.exe.config

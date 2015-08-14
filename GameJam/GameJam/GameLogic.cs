@@ -6,17 +6,21 @@ namespace GameJam
 
     class GameLogic
     {
-        GameState gameState;
-        Parser parser;
-        string playerResult;
-        string environmentResult;
-        List<GameObject> foundObjects;
-        IDictionary<string, GameObject> executionParams;
+        public GameState gameState;
+        public Parser parser;
+        private string playerResult;
+        private string environmentResult;
+        private bool turnPassed;
+        private List<GameObject> foundObjects;
+        private IDictionary<string, GameObject> executionParams;
 
         public GameLogic()
         {
             parser = new Parser();
+            turnPassed = false;
             gameState = new GameState(new Player());
+            foundObjects = new List<GameObject>();
+            executionParams = new Dictionary<string, GameObject>();
         }
 
         public string processMessage(string playerInput)
@@ -25,9 +29,11 @@ namespace GameJam
 
             if (player.isAlive() == true)
             {
+                //initialize all the variables we need for the turn
                 playerResult = null;
                 foundObjects = null;
                 executionParams = null;
+                turnPassed = false;
 
                 //If there's no input, go back and try again
                 if (playerInput.Equals(string.Empty) == true)
@@ -44,7 +50,7 @@ namespace GameJam
                 }
 
                 //If there's a target specified, attempt to retrieve it
-                if (parserResult["target"])
+                if (parserResult.ContainsKey("target"))
                 {
                     foundObjects = gameState.getLocalObject(parserResult["target"]);
 
@@ -60,7 +66,7 @@ namespace GameJam
                     executionParams["target"] = foundObjects[0];
                 }
 
-                playerResult = gameState.executeAction(parserResult["command"], executionParams);	//TODO
+                playerResult = gameState.executeCommand(parserResult["command"], executionParams);
                 environmentResult = gameState.turnPass();
                 string output = playerResult + "\n\n" + environmentResult;
                 return output;
