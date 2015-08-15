@@ -28,6 +28,12 @@ namespace GameJam
             keywords = inKeywords;
         }
 
+        public virtual GameObject getClone()
+        {
+            GameObject clone = new GameObject(description, keywords);
+            return clone;
+        }
+
         public virtual string lookAt()
         {
             return description;
@@ -228,6 +234,12 @@ namespace GameJam
             keywords = inKeywords;
         }
 
+        public override GameObject getClone()
+        {
+            Container clone = new Container(description, keywords, openDesc, closeDesc, blockedDesc);
+            return clone;
+        }
+
         public void addItem(Item itemToAdd)
         {
             itemsContained.Add(itemToAdd);
@@ -369,6 +381,12 @@ namespace GameJam
             firstTaken = true;
             description = inDescription;
             keywords = inKeywords;
+        }
+
+        public override GameObject getClone()
+        {
+            Item clone = new Item(description, keywords, name, seenDesc, initSeenDesc, initPickupDesc, pickupDesc, dropDesc);
+            return clone;
         }
 
         public override string pickUp(Player player)

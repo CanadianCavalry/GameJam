@@ -20,14 +20,18 @@ namespace GameJam
             int defaultMaxWaterLevel = 10;
             string defaultFloodedDesc = "";
 
+            Item extinguisher = new Item("A medium sized fire extinguisher.", new List<string>(new string[]{"extinguisher", "fire extinguisher"}), "Fire extinguisher", "You notice a fire extinguisher attached to the wall.");
+
             introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
 
             Area control = new Area("Control room", 
                 "The main control stations sit atop a raised platform. A large, reinforced glass window provides a wide view of the front of the station.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
-            control.addFeature(new GameObject("Sonar station", new List<string>(new string[] {})));
-            control.addFeature(new GameObject("A large, reinforced glass window provides a wide view of the front of the station.", new List<string>(new string[]{})));
+            control.addFeature(new GameObject("A Sonar console pings quietly.", new List<string>(new string[] {"sonar", "sonar console"})));
+            control.addFeature(new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "window" })));
+            control.addFeature(new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" })));
+            control.addItemToGround((Item)extinguisher.getClone());
             setStartArea(player, control);
 
             Area hubA = new Area("Hub A",
