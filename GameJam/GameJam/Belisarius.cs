@@ -23,8 +23,31 @@ namespace GameJam
             //Features
             GameObject sonar = new GameObject("A Sonar console pings quietly.", new List<string>(new string[] { "sonar", "sonar console" }));
             GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
+            GameObject viewPort = new GameObject("A small bubble window which allows you to look outside.", new List<string>(new string[] { "viewport", "window" }));
             GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "window" }));
+            GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}));
+            GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "console", "crane controls" }));
+            GameObject bilgePump = new GameObject("A water pump to deal with flooding in case of an emergency.", new List<string>(new string[] { "pump", "bilge pump" }));
+            GameObject divingAirCompressor = new GameObject("An air compressor for refilling diving tanks.", new List<string>(new string[] { "compressor", "air compressor" }));
+            GameObject microscope = new GameObject("A microscope for examining biological specimens.", new List<string>(new string[] { "microscope", "scope" }));
+            GameObject airlock = new GameObject("An airlock leads outside the station.", new List<string>(new string[] { "airlock" }));
+            GameObject galleyTable = new GameObject("A small fold out table extends from the east wall.", new List<string>(new string[] { "table", "foldout table" }));
+            GameObject chairs = new GameObject("A few chairs sit surrounding the table.", new List<string>(new string[] { "chairs" }));
+            GameObject sink = new GameObject("In the southeast corner is a small sink.", new List<string>(new string[] { "sink" }));
+            GameObject stove = new GameObject("In the northeast corner is a simple, electric stove.", new List<string>(new string[] { "stove" }));
+            GameObject couch = new GameObject("A long padded seat with back cushions attached to the wall.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }));
+            GameObject bunks = new GameObject("There are several bunk beds used by the crew.", new List<string>(new string[] { "bed", "beds", "bunk", "bunks", "bunkbed", "bunkbeds" }));
+            GameObject livingQuartersTable = new GameObject("A long table bolted to the floor sits in front of one of the couches.", new List<string>(new string[] { "table" }));
 
+            //Containers
+            Container cabinet = new Container("A small cabinet set into the wall.", new List<string>(new string[] {"cabinet"}), "You open the cabinet and look inside.", "You shut the cabinet door and hear it click shut.", "You try to open the door but it's jammed shut.");
+            Container storageLocker = new Container("A metal storage locker attached to the wall.", new List<string>(new string[] {"locker", "storage locker", "metal locker", "metal storage locker"}), "You open the locker door and look inside.", "You shut the locker door shut.", "It's locked.");
+            Container cupboard = new Container("A cupboard built under the counter.", new List<string>(new string[] {"cupboard"}), "You open the cupboard.", "You push the cupboard shut.", "You go to open the cupboard but it won't budge.");
+            Container fridge = new Container("A medium sized refrigeration unit.", new List<string>(new string[] {"fridge", "cooler", "refrigerator"}), "You lift the top lid of the fridge and look inside.", "You pull the lid down and you hear it seal shut.", "You try to lift the top lid of the fridge but it's stuck.");
+            Container shelves = new Container("Storage shelves.", new List<string>(new string[] { "shelf" }), "You look to see what's on the shelves.", "You turn away from the shelves.");
+            Container specimenJar = new Container("A small clear jar for storing biological speciments.", new List<string>(new string[] { "jar", "specimen jar" }), "You lift the lid off the top and reach inside.", "You take your hand out and replace the lid.", "The lid is stuck. You can't get it open.");
+            Container specimenTank = new Container("A large glass tank filled with water for storing live speciments.", new List<string>(new string[] { "aquarium", "water tank", "specimen tank" }), "You lift up the lid and peer inside.", "You set the lid back down.", "You can't get the lid open.");
+            Container trunk = new Container("A wide box for storing personal belongings.", new List<string>(new string[] {"trunk", "box"}), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
 
             //Items
             Item drySuit = new Item("A waterproof, full body suit meant to be filled slightly with air.", new List<string>(new string[] { "suit", "dry suit", "dive suit", "dry dive suit" }), "Dry suit", "A dry suit hangs from a rack.");
@@ -51,7 +74,7 @@ namespace GameJam
 
             //Areas
             Area control = new Area("Control room", 
-                "The main control stations sit atop a raised platform. A large, reinforced glass window provides a wide view of the front of the station.\nTo the north a hallway leads to Hub A.",
+                "The main control stations sit atop a raised platform.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
             control.addFeature(sonar.getClone());
@@ -64,46 +87,72 @@ namespace GameJam
                 "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubA);
+            hubA.addFeature(bilgePump.getClone());
 
             Area moonPool = new Area("Moon pool",
-                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars. The chains of the overhead sub crane jingle softly.\nEast is Hub C. To the south is Hub A. The bio labs are to the west.",
+                "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars.\nEast is Hub C. To the south is Hub A. The bio labs are to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(moonPool);
+            moonPool.addFeature(overheadGantryCrane.getClone());
+            moonPool.addFeature(craneControls.getClone());
+            moonPool.addContainer((Container)cabinet.getClone());
 
             Area observationDeck = new Area("Observation deck",
                 "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(observationDeck);
+            observationDeck.addFeature(viewingWindow.getClone());
+            observationDeck.addFeature(viewPort.getClone());
 
             Area bioLabA = new Area("Bio lab A",
                 "\nThe Moon pool is east of you. South is a winding connector that takes you to the Observation deck. To the west is the specimen study area and the rest of the lab. ",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabA);
+            bioLabA.addFeature(microscope.getClone());
+            bioLabA.addContainer((Container)cabinet.getClone());
 
             Area bioLabB = new Area("Bio lab B",
                 "Counters run along the north and west walls.\nThe lab entrance is to the east. South you can see the Dive prep area.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabB);
+            bioLabB.addFeature(microscope.getClone());
+            bioLabB.addContainer((Container)cabinet.getClone());
+            bioLabB.addContainer((Container)specimenJar.getClone());
+            bioLabB.addContainer((Container)specimenTank.getClone());
 
             Area bioLabC = new Area("Bio lab C",
                 "\nLooking north you can see into the specimen lab. The airlock is to the south.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabC);
+            bioLabC.addFeature(divingAirCompressor.getClone());
+            bioLabC.addFeature(airlock.getClone());
+            bioLabC.addContainer((Container)storageLocker.getClone());
+            bioLabC.addContainer((Container)shelves.getClone());
 
             Area hubB = new Area("Hub B",
                 "A pair of ladders hang down on either side of a small raised platform just above head height.\nNorth are the ladders leading up to the connector bridging Hub B and Hub C. To the east is the galley. To the South is the adjoining cargo bay and to the west is Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubB);
+            hubB.addContainer((Container)shelves.getClone());
 
             Area cargoBay = new Area("Cargo bay",
                 "\nTo the north is Hub B. The airlock used for resupply is built into the south wall.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(cargoBay);
+            cargoBay.addFeature(airlock.getClone());
+            cargoBay.addContainer((Container)shelves.getClone());
 
             Area galley = new Area("Galley",
-                "A small fold out table extends from the east wall. A few chairs sit surrounding the table. In the southeast corner is a small sink. In the northeast corner is a simple stove.\nThe living quarters are to the north, washrooms to the south. Hub B is to the west.",
+                "A few dirty dishes sit on the counter.\nThe living quarters are to the north, washrooms to the south. Hub B is to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(galley);
+            galley.addContainer((Container)cupboard.getClone());
+            galley.addContainer((Container)fridge.getClone());
+            galley.addFeature(galleyTable.getClone());
+            galley.addFeature(chairs.getClone());
+            galley.addFeature(sink.getClone());
+            galley.addFeature(stove.getClone());
+            galley.addItemToGround((Item)extinguisher.getClone());
 
             Area washroom = new Area("Washroom",
                 "Shower stalls line the south wall. Two toilet stalls are squeezed into the northwest corner. A pair of sinks line the east wall with mirrors bolted to the wall above them.\nGoing north will take you back to the galley.",
@@ -114,6 +163,10 @@ namespace GameJam
                 "The room is separated into two sections with a thick curtain dividing them. The entrance area has two long cushioned seats running the length of the east and west walls. Beyond the curtain are stacks of sleeping bunks used by the crew.\nThe galley is to the south.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(livingQuarters);
+            livingQuarters.addFeature(couch.getClone());
+            livingQuarters.addFeature(bunks.getClone());
+            livingQuarters.addFeature(livingQuartersTable.getClone());
+            livingQuarters.addContainer((Container) trunk.getClone());
 
             Area connector = new Area("B-C Hub connector",
                 "The connector gradually slopes up and then back down.\nNorth is Hub C. South is Hub B.",
@@ -124,6 +177,7 @@ namespace GameJam
                 "The ceiling in this room is higher than any of the others. Shelves are built into the eastern wall. A pair of ladders lead down to the western lower level. Additional shelving can be found on the lower level behind the ladders.\nThe Hub B-C connector is south. The Moon pool is to the west.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubC);
+            hubC.addContainer((Container)shelves.getClone());
 
             //Links
             string hubADescription = "A connector hub.";
