@@ -14,10 +14,12 @@ namespace GameJam
         public string talkResponse;
         public bool firstSeen;
         public Area currentLocation;
+        private int damage;
+        private string damageType;
         public Behaviour behaviour;
         private Dictionary<string, int> vulnerabilities;
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string demeanor = Demeanor.indifferent, int inStrength = 5)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -29,7 +31,7 @@ namespace GameJam
             vulnerabilities = new Dictionary<string, int>();
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string demeanor = Demeanor.indifferent, int inStrength = 5)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -41,20 +43,22 @@ namespace GameJam
             vulnerabilities = new Dictionary<string, int>();
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage, string inDamageType, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities)
             : base(inDescription, inKeywords)
         {
             name = inName;
             seenDesc = inSeenDesc;
             initSeenDesc = inInitSeenDesc;
             currentLocation = null;
+            damage = inDamage;
+            damageType = inDamageType;
             behaviour = inBehaviour;
             vulnerabilities = inVulnerabilities;
         }
 
         public override GameObject getClone()
         {
-            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, behaviour, vulnerabilities);
+            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, damage, damageType, behaviour, vulnerabilities);
             return clone;
         }
 
@@ -111,6 +115,9 @@ namespace GameJam
         public override string attackPlayer(Player player)
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
+
+            // ToDo Have Enemy attack Player
+
             return response;
         }
 

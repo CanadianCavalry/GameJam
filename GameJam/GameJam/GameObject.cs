@@ -338,12 +338,12 @@ namespace GameJam
         private int damage;
         private string damageType;
         private string secondaryDamageType;
-        public static string heat = "Heat";
-        public static string light = "Light";
-        public static string blunt = "Blunt";
-        public static string sharp = "Sharp";
-        public static string shock = "Shock";
-        public static string other = "Other";
+        public const string heat = "Heat";
+        public const string light = "Light";
+        public const string blunt = "Blunt";
+        public const string sharp = "Sharp";
+        public const string shock = "Shock";
+        public const string other = "Other";
 
         public Item()
             : base("", null)
