@@ -15,6 +15,7 @@ namespace GameJam
         public bool firstSeen;
         public Area currentLocation;
         public Behaviour behaviour;
+        private Dictionary<string, int> vulnerabilities;
 
         public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string demeanor = Demeanor.indifferent, int inStrength = 5)
             : base(inDescription, inKeywords)
@@ -25,6 +26,7 @@ namespace GameJam
             currentLocation = null;
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
+            vulnerabilities = new Dictionary<string, int>();
         }
 
         public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string demeanor = Demeanor.indifferent, int inStrength = 5)
@@ -36,9 +38,10 @@ namespace GameJam
             currentLocation = null;
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
+            vulnerabilities = new Dictionary<string, int>();
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, Behaviour inBehaviour)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -46,12 +49,47 @@ namespace GameJam
             initSeenDesc = inInitSeenDesc;
             currentLocation = null;
             behaviour = inBehaviour;
+            vulnerabilities = inVulnerabilities;
         }
 
         public override GameObject getClone()
         {
-            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, behaviour);
+            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, behaviour, vulnerabilities);
             return clone;
+        }
+
+        public void addVulnerability(string vulnerabilityToAdd, int value)
+        {
+            bool alreadyHasVulnerability = vulnerabilities.ContainsKey(vulnerabilityToAdd);
+            if (alreadyHasVulnerability == true)
+            {
+                vulnerabilities[vulnerabilityToAdd] = value;
+                return;
+            }
+
+            vulnerabilities.Add(vulnerabilityToAdd, value);
+        }
+
+        public void removeVulnerability(string vulnerabilityToRemove)
+        {
+            vulnerabilities.Remove(vulnerabilityToRemove);
+        }
+
+        private int addTypeBonusesToDamage(int damage, List<string> damageTypes)
+        {
+            foreach (string vulnerability in vulnerabilities.Keys)
+            {
+                foreach (string damageType in damageTypes)
+                {
+                    bool weakToType = vulnerability.Equals(damageType);
+                    if (weakToType == true)
+                    {
+                        int damageBonus = vulnerabilities[vulnerability];
+                        damage += damageBonus;
+                    }
+                }
+            }
+            return damage;
         }
 
         public override string lookAt()
@@ -59,14 +97,18 @@ namespace GameJam
             return description;
         }
 
-        public override string attack()
+        public override string attack(Player player)
         {
-            int damage = 0;
-            string response = behaviour.getResponse(null, name, Stimulus.attack, damage);
+            Item weapon = player.getMainWeapon();
+            int damage = weapon.getDamage();
+            List<string> damageTypes = weapon.getDamageTypes();
+            damage = addTypeBonusesToDamage(damage, damageTypes);
+
+            string response = behaviour.getResponse(player, name, Stimulus.attack, damage);
             return response;
         }
 
-        public override string attack(Player player)
+        public override string attackPlayer(Player player)
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
             return response;
@@ -74,7 +116,16 @@ namespace GameJam
 
         public string threaten(Player player)
         {
-            int damage = 0;
+            Item weapon = player.getMainWeapon();
+            int damage = weapon.getDamage();
+            List<string> damageTypes = weapon.getDamageTypes();
+            damage = addTypeBonusesToDamage(damage, damageTypes);
+            damage /= 2;
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+
             string response = behaviour.getResponse(player, name, Stimulus.threat, damage);
             return response;
         }

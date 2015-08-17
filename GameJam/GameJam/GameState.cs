@@ -162,7 +162,7 @@ namespace GameJam
                     case "equip":
                         return target.equip(player);
                     case "attack":
-                        return target.attack(player);
+                        return target.attackPlayer(player);
                     case "eat":
                         return target.eat(player);
                     case "drink":

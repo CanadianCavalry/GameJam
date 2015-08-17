@@ -73,5 +73,10 @@ namespace GameJam
             }
             return true;
         }
+
+        public Item getMainWeapon()
+        {
+            return mainHand;
+        }
     }
 }
