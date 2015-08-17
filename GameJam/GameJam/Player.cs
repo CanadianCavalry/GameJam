@@ -8,6 +8,7 @@ namespace GameJam
         public List<Item> inventory;
         private int health;
         private int air;
+        private const int maxAir = 4;
         private Item mainHand;
         private Item offHand;
         private Item armor;
@@ -29,9 +30,31 @@ namespace GameJam
             return air;
         }
 
+        public void breath()
+        {
+            bool submerged = currentLocation.isSubmerged();
+            if (submerged == true)
+            {
+                reduceAir();
+                return;
+            }
+
+            air++;
+
+            if (air > maxAir)
+            {
+                air = maxAir;
+            }
+        }
+
         public void reduceAir()
         {
             air--;
+
+            if (air < 0)
+            {
+                air = 0;
+            }
         }
 
         public void addItem(Item itemToAdd)
@@ -67,16 +90,29 @@ namespace GameJam
             {
                 return false;
             }
-            else if ((air <= 0) && (currentLocation.isSubmerged()))
+
+            if ((air <= 0) && (currentLocation.isSubmerged()))
             {
                 return false;
             }
+
             return true;
         }
 
         public Item getMainWeapon()
         {
             return mainHand;
+        }
+
+        public void takeDamage(int damage)
+        {
+            damage -= armorRating;
+            health -= damage;
+
+            if (health < 0)
+            {
+                health = 0;
+            }
         }
     }
 }

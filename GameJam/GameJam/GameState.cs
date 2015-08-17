@@ -180,14 +180,12 @@ namespace GameJam
             {
                 string desc = "";
 
-                if (player.currentLocation.isSubmerged())
-                {
-                    player.reduceAir();
-                }
+                player.breath();
 
                 foreach (Area room in exposedRooms)
                 {
-                    if (room.increaseWaterLevel())
+                    bool roomFlooded = room.increaseWaterLevel();
+                    if (roomFlooded == true)
                     {
                         desc += "The rushing water completely fills the area.";
                     }
