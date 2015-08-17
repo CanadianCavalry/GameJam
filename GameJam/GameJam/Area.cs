@@ -65,6 +65,11 @@ namespace GameJam
             return waterLevel;
         }
 
+        public int getMaxWaterLevel()
+        {
+            return maxWaterLevel;
+        }
+
         public bool increaseWaterLevel()
         {
             if (!submerged)

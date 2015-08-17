@@ -71,7 +71,7 @@ namespace GameJam
             return "You can't equip that.";
         }
 
-        public virtual string attack(Player player)
+        public virtual string attackPlayer(Player player)
         {
             return "You can't attack that.";
         }
@@ -101,7 +101,7 @@ namespace GameJam
             return "That's not something you can equip.";
         }
 
-        public virtual string attack()
+        public virtual string attack(Player player)
         {
             return "You're not attacking that...";
         }
@@ -342,6 +342,16 @@ namespace GameJam
         public bool firstTaken;
         public bool inInventory;
 
+        private int damage;
+        private string damageType;
+        private string secondaryDamageType;
+        public const string heat = "Heat";
+        public const string light = "Light";
+        public const string blunt = "Blunt";
+        public const string sharp = "Sharp";
+        public const string shock = "Shock";
+        public const string other = "Other";
+
         public Item()
             : base("", null)
         {
@@ -356,9 +366,13 @@ namespace GameJam
             firstSeen = true;
             firstTaken = true;
             inInventory = false;
+
+            damage = 0;
+            damageType = Item.blunt;
+            secondaryDamageType = null;
         }
 
-        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
+        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inDamageType, int inDamage = 0, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -374,9 +388,35 @@ namespace GameJam
             inInventory = false;
             description = inDescription;
             keywords = inKeywords;
+
+            damage = inDamage;
+            damageType = inDamageType;
+            secondaryDamageType = null;
         }
 
-        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inInitPickupDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
+        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inDamageType, string inSecondaryType, int inDamage = 0, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
+            : base(inDescription, inKeywords)
+        {
+            name = inName;
+            seenDesc = inSeenDesc;
+            pickupDesc = inPickupDesc;
+            dropDesc = inDropDesc;
+            initSeenDesc = inSeenDesc;
+            initPickupDesc = inPickupDesc;
+            inaccessibleDesc = null;
+            accessible = true;
+            firstSeen = true;
+            firstTaken = true;
+            inInventory = false;
+            description = inDescription;
+            keywords = inKeywords;
+
+            damage = inDamage;
+            damageType = inDamageType;
+            secondaryDamageType = inSecondaryType;
+        }
+
+        public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inInitPickupDesc, string inDamageType, string inThreatenType, int inDamage = 0, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -392,12 +432,32 @@ namespace GameJam
             inInventory = false;
             description = inDescription;
             keywords = inKeywords;
+
+            damage = inDamage;
+            damageType = inDamageType;
         }
 
         public override GameObject getClone()
         {
-            Item clone = new Item(description, keywords, name, seenDesc, initSeenDesc, initPickupDesc, pickupDesc, dropDesc);
+            Item clone = new Item(description, keywords, name, seenDesc, initSeenDesc, initPickupDesc, damageType, secondaryDamageType, damage, pickupDesc, dropDesc);
             return clone;
+        }
+
+        public int getDamage()
+        {
+            return damage;
+        }
+
+        public List<string> getDamageTypes()
+        {
+            List<string> damageTypes = new List<string>();
+            damageTypes.Add(damageType);
+            if (secondaryDamageType != null)
+            {
+                damageTypes.Add(secondaryDamageType);
+            }
+
+            return damageTypes;
         }
 
         public override string pickUp(Player player)

@@ -17,9 +17,6 @@ namespace GameJam
         {
             List<Area> world = new List<Area>();
 
-            int defaultMaxWaterLevel = 10;
-            string defaultFloodedDesc = "";
-
             //Features
             GameObject sonar = new GameObject("A Sonar console pings quietly.", new List<string>(new string[] { "sonar", "sonar console" }));
             GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
@@ -50,41 +47,49 @@ namespace GameJam
             Container trunk = new Container("A wide box for storing personal belongings.", new List<string>(new string[] {"trunk", "box"}), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
 
             //Items
-            Item drySuit = new Item("A waterproof, full body suit meant to be filled slightly with air.", new List<string>(new string[] { "suit", "dry suit", "dive suit", "dry dive suit" }), "Dry suit", "A dry suit hangs from a rack.");
-            Item hazmatSuit = new Item("A heavy duty full body suit to protect against fire and other hazardous materials.", new List<string>(new string[] { "suit", "hazmat suit", "hazardous materials suit" }), "HazMat suit", "A hazardous materials suit lies folded up.");
-            Item diveGear = new Item("A dive helmet, fins and buoyancy control device used in deep sea diving.", new List<string>(new string[] { "gear", "dive gear", "helmet", "fins", "bcd" }), "Dive gear", "A BCD and dive helmet lay together. Searching around a bit you also find a pair of fins.");
-            Item scubaTank = new Item("A tank filled with compressed air for deep sea diving.", new List<string>(new string[] { "tank", "dive tank", "scuba tank" }), "Scuba tank", "There is a Scuba tank sitting upright.");
-            Item speargun = new Item("A spring loaded weapon capable of firing a barbed spear.", new List<string>(new string[] { "speargun", "gun" }), "Speargun", "You notice a speargun.");
-            Item wrench = new Item("A heavy adjustable wrench used to repair pipes.", new List<string>(new string[] { "wrench", "tool" }), "Wrench", "You find a plumbing wrench.");
-            Item screwdriver = new Item("A handsized tool used to tighten and loosen bolts and screws.", new List<string>(new string[] { "screwdriver", "tool" }), "Screwdriver", "You find a screwdriver.");
-            Item hammer = new Item("It's a hammer. A handsized tool used for hammering. You knew that...", new List<string>(new string[] { "hammer", "tool" }), "Hammer", "You spot a hammer.");
-            Item flashlight = new Item("A portable, handsized electic light.", new List<string>(new string[] { "light", "flashlight" }), "Flashlight", "You see a flashlight. Hopefully the batteries are charged.");
-            Item glowstick = new Item("A small plastic tube that provides colourful illumination once cracked.", new List<string>(new string[] { "glowstick" }), "Glowstick", "You notice a glowstick. Electronic music starts going through your head for some reason.");
-            Item divingKnife = new Item("A large knife used by divers.", new List<string>(new string[] { "knife", "dive knife" }), "Dive knife", "You spot a dive knife in its sheath.");
-            Item extinguisher = new Item("A medium sized fire extinguisher that dispenses foam fire retardent.", new List<string>(new string[] { "extinguisher", "fire extinguisher" }), "Fire extinguisher", "You notice a fire extinguisher attached to the wall.");
-            Item weldingTorch = new Item("A hyperbaric welding torch used for underwater welding.", new List<string>(new string[] { "torch", "welder", "welding torch", "underwater torch" }), "Welding torch", "You come across a welding torch and its connected fuel tank.");
-            Item weldingMask = new Item("A full face mask with a small window of tinted glass to look through.", new List<string>(new string[] { "mask", "welding mask", "welder's mask" }), "Welding mask", "You spot a welder's mask.");
-            Item steelRod = new Item("An arm length piece of steel rebar.", new List<string>(new string[] { "rod", "steel rod", "metal rod", "rebar" }), "Steel rod", "You come across a broken piece of steel rebar that could be used as a tool or a weapon.");
-            Item steelPipe = new Item("A short piece of steel pipe.", new List<string>(new string[] { "pipe", "steel pipe", "metal pipe" }), "Steel pipe", "You see a short section of metal pipe that could be used as a club.");
-            Item medkit = new Item("A case filled with medical supplies such as bandages, gauss and some pharmaceuticals.", new List<string>(new string[] { "kit", "medkit", "med kit" }), "Medkit", "A medical kit sits closed.");
-            Item defibrillator = new Item("A small electronic device used to restart a person's heart.", new List<string>(new string[] { "aed", "defibrillator" }), "Defibrillator", "An automatic external defibrillator lays packaged up neatly.");
-            Item adrenaline = new Item("A syringe filled with the powerful stimulant epinephrine.", new List<string>(new string[] { "adrenaline", "syringe" }), "Adrenaline shot", "A syringe of adrenaline sits in its packaging.");
+            Item drySuit = new Item("A waterproof, full body suit meant to be filled slightly with air.", new List<string>(new string[] { "suit", "dry suit", "dive suit", "dry dive suit" }), "Dry suit", "A dry suit hangs from a rack.", Item.other);
+            Item hazmatSuit = new Item("A heavy duty full body suit to protect against fire and other hazardous materials.", new List<string>(new string[] { "suit", "hazmat suit", "hazardous materials suit" }), "HazMat suit", "A hazardous materials suit lies folded up.", Item.other);
+            Item diveGear = new Item("A dive helmet, fins and buoyancy control device used in deep sea diving.", new List<string>(new string[] { "gear", "dive gear", "helmet", "fins", "bcd" }), "Dive gear", "A BCD and dive helmet lay together. Searching around a bit you also find a pair of fins.", Item.blunt);
+            Item scubaTank = new Item("A tank filled with compressed air for deep sea diving.", new List<string>(new string[] { "tank", "dive tank", "scuba tank" }), "Scuba tank", "There is a Scuba tank sitting upright.", Item.blunt, 9);
+            Item speargun = new Item("A spring loaded weapon capable of firing a barbed spear.", new List<string>(new string[] { "speargun", "gun" }), "Speargun", "You notice a speargun.", Item.sharp, 15);
+            Item wrench = new Item("A heavy adjustable wrench used to repair pipes.", new List<string>(new string[] { "wrench", "tool" }), "Wrench", "You find a plumbing wrench.", Item.blunt, 8);
+            Item screwdriver = new Item("A handsized tool used to tighten and loosen bolts and screws.", new List<string>(new string[] { "screwdriver", "tool" }), "Screwdriver", "You find a screwdriver.", Item.sharp, 3);
+            Item hammer = new Item("It's a hammer. A handsized tool used for hammering. You knew that...", new List<string>(new string[] { "hammer", "tool" }), "Hammer", "You spot a hammer.", Item.blunt, 5);
+            Item flashlight = new Item("A portable, handsized electic light.", new List<string>(new string[] { "light", "flashlight" }), "Flashlight", "You see a flashlight. Hopefully the batteries are charged.", Item.blunt, Item.light, 2);
+            Item glowstick = new Item("A small plastic tube that provides colourful illumination once cracked.", new List<string>(new string[] { "glowstick" }), "Glowstick", "You notice a glowstick. Electronic music starts going through your head for some reason.", Item.blunt);
+            Item divingKnife = new Item("A large knife used by divers.", new List<string>(new string[] { "knife", "dive knife" }), "Dive knife", "You spot a dive knife in its sheath.", Item.sharp, 5);
+            Item extinguisher = new Item("A medium sized fire extinguisher that dispenses foam fire retardent.", new List<string>(new string[] { "extinguisher", "fire extinguisher" }), "Fire extinguisher", "You notice a fire extinguisher attached to the wall.", Item.blunt, 7);
+            Item weldingTorch = new Item("A hyperbaric welding torch used for underwater welding.", new List<string>(new string[] { "torch", "welder", "welding torch", "underwater torch" }), "Welding torch", "You come across a welding torch and its connected fuel tank.", Item.heat, Item.light, 10);
+            Item weldingMask = new Item("A full face mask with a small window of tinted glass to look through.", new List<string>(new string[] { "mask", "welding mask", "welder's mask" }), "Welding mask", "You spot a welder's mask.", Item.other);
+            Item steelRod = new Item("An arm length piece of steel rebar.", new List<string>(new string[] { "rod", "steel rod", "metal rod", "rebar" }), "Steel rod", "You come across a broken piece of steel rebar that could be used as a tool or a weapon.", Item.blunt, Item.sharp, 6);
+            Item steelPipe = new Item("A short piece of steel pipe.", new List<string>(new string[] { "pipe", "steel pipe", "metal pipe" }), "Steel pipe", "You see a short section of metal pipe that could be used as a club.", Item.blunt, 7);
+            Item medkit = new Item("A case filled with medical supplies such as bandages, gauss and some pharmaceuticals.", new List<string>(new string[] { "kit", "medkit", "med kit" }), "Medkit", "A medical kit sits closed.", Item.other);
+            Item defibrillator = new Item("A small electronic device used to restart a person's heart.", new List<string>(new string[] { "aed", "defibrillator" }), "Defibrillator", "An automatic external defibrillator lays packaged up neatly.", Item.shock, 2);
+            Item adrenaline = new Item("A syringe filled with the powerful stimulant epinephrine.", new List<string>(new string[] { "adrenaline", "syringe" }), "Adrenaline shot", "A syringe of adrenaline sits in its packaging.", Item.sharp, 1);
 
             //Enemies
-            Enemy giantIsopod = new Enemy("", new List<string>(new string[] { "isopod" }), "Giant Isopod", "", Behaviour.passive);
+            Enemy giantIsopod = new Enemy("A nearly half meter long crustacean similar in appearance to a pill bug.", new List<string>(new string[] { "isopod" }), "Giant Isopod", "You see a giant isopod scuttling about.", 2, Item.sharp, Demeanor.indifferent, inStrength:3);
+            Enemy bobbitWorm = new Enemy("A three meter long predatory worm. A set of curved claws extend from its head, capable of cutting clean through its prey.", new List<string>(new string[] { "bobbit worm", "polychaete worm", "worm" }), "Polychaete Bobbit worm", "You are shocked to see a carniverous Bobbit worm crawling around on the floor.", 8, Item.sharp, Demeanor.aggressive, inStrength:4);
+            Enemy dunkleosteus = new Enemy("A ten meter long armoured bony fish sports a cutting jaw of solid bone.", new List<string>(new string[] { "dunkleosteus", "bony fish", "fish" }), "Dunkleosteus", "You are terrified to see a giant armoured fish swimming about in the room.", 12, Item.sharp, Demeanor.aggressive, inStrength:10);
+            Enemy lionsManeJellyfish = new Enemy("A jellyfish with a bell over two meters wide and thin, hairlike tentacles over thirty meters long.", new List<string>(new string[] { "lion's mane", "jellyfish", "lion's mane jellyfish" }), "Lion's Mane jellyfish", "A giant jellyfish slides about slowly.", 6, Item.shock, Demeanor.indifferent, inStrength:1);
+            Enemy gulperEel = new Enemy("Also known as the black swallower. This two meter long eel-like fish is pitch black and is capable of opening its maw wide enough to consume prey even larger than itself.", new List<string>(new string[] { "gulper", "gulper eel", "black eel", "eel", "black swallower" }), "Gulper eel", "A creepy looking black eel is swimming about.", 4, Item.sharp, Demeanor.curious, inStrength: 3);
+            Enemy lampreys = new Enemy("A swarm of parasitic worm-like fish that burrow through their victims' flesh to feed on their blood.", new List<string>(new string[] { "lampreys", "parasites" }), "Lampreys", "You notice several worm-like parasites swimming about in the water.", 1, Item.sharp, Demeanor.curious, inStrength:1);
 
             introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
 
             //Areas
+            int defaultMaxWaterLevel = 12;
+            string defaultFloodedDesc = "";
+
             Area control = new Area("Control room", 
                 "The main control stations sit atop a raised platform.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
+            setStartArea(player, control);
             control.addFeature(sonar.getClone());
             control.addFeature(viewingWindow.getClone());
             control.addFeature(gertrude.getClone());
             control.addItemToGround((Item)extinguisher.getClone());
-            setStartArea(player, control);
 
             Area hubA = new Area("Hub A",
                 "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
@@ -94,7 +99,7 @@ namespace GameJam
 
             Area moonPool = new Area("Moon pool",
                 "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars.\nEast is Hub C. To the south is Hub A. The bio labs are to the west.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 9, defaultFloodedDesc);
             world.Add(moonPool);
             moonPool.addFeature(overheadGantryCrane.getClone());
             moonPool.addFeature(craneControls.getClone());
@@ -103,7 +108,7 @@ namespace GameJam
 
             Area observationDeck = new Area("Observation deck",
                 "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(observationDeck);
             observationDeck.addFeature(viewingWindow.getClone());
             observationDeck.addFeature(viewPort.getClone());
@@ -165,7 +170,7 @@ namespace GameJam
 
             Area livingQuarters = new Area("Living quarters",
                 "The room is separated into two sections with a thick curtain dividing them. The entrance area has two long cushioned seats running the length of the east and west walls. Beyond the curtain are stacks of sleeping bunks used by the crew.\nThe galley is to the south.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(livingQuarters);
             livingQuarters.addFeature(couch.getClone());
             livingQuarters.addFeature(bunks.getClone());
@@ -174,7 +179,7 @@ namespace GameJam
 
             Area connector = new Area("B-C Hub connector",
                 "The connector gradually slopes up and then back down.\nNorth is Hub C. South is Hub B.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel - 6, defaultFloodedDesc);
             world.Add(connector);
 
             Area hubC = new Area("Hub C",
