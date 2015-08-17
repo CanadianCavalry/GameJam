@@ -70,6 +70,9 @@ namespace GameJam
             Item defibrillator = new Item("A small electronic device used to restart a person's heart.", new List<string>(new string[] { "aed", "defibrillator" }), "Defibrillator", "An automatic external defibrillator lays packaged up neatly.");
             Item adrenaline = new Item("A syringe filled with the powerful stimulant epinephrine.", new List<string>(new string[] { "adrenaline", "syringe" }), "Adrenaline shot", "A syringe of adrenaline sits in its packaging.");
 
+            //Enemies
+            Enemy giantIsopod = new Enemy("", new List<string>(new string[] { "isopod" }), "Giant Isopod", "", Behaviour.passive);
+
             introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
 
             //Areas
@@ -96,6 +99,7 @@ namespace GameJam
             moonPool.addFeature(overheadGantryCrane.getClone());
             moonPool.addFeature(craneControls.getClone());
             moonPool.addContainer((Container)cabinet.getClone());
+            moonPool.addEnemy((Enemy)giantIsopod.getClone());
 
             Area observationDeck = new Area("Observation deck",
                 "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",
