@@ -49,12 +49,12 @@ namespace GameJam
             talkResponse = null;
         }
 
-        public string lookAt()
+        public override string lookAt()
         {
             return description;
         }
 
-        public string talk()
+        public override string talk()
         {
             return talkResponse;
         }

@@ -17,7 +17,7 @@ namespace GameJam
         public List<Item> itemsContained;
         public List<Item> groundItems;
         public List<NPC> npcs;
-        //public List<Enemy> enemies;
+        public List<Enemy> enemies;
         public List<Link> links;
 
         public Area()
@@ -41,7 +41,7 @@ namespace GameJam
             itemsContained = new List<Item>();
             groundItems = new List<Item>();
             npcs = new List<NPC>();
-            //enemies = new List<Enemy>();
+            enemies = new List<Enemy>();
             links = new List<Link>();
         }
 
@@ -197,6 +197,18 @@ namespace GameJam
         {
             npcs.Remove(npcToRemove);
             npcToRemove.currentLocation = null;
+        }
+
+        public void addEnemy(Enemy enemyToAdd)
+        {
+            enemies.Add(enemyToAdd);
+            enemyToAdd.currentLocation = this;
+        }
+
+        public void removeEnemy(Enemy enemyToRemove)
+        {
+            enemies.Remove(enemyToRemove);
+            enemyToRemove.currentLocation = null;
         }
     }
 }

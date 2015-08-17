@@ -56,6 +56,7 @@
     </ApplicationDefinition>
     <Compile Include="Belisarius.cs" />
     <Compile Include="Chinatown.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="WorldBuilder.cs" />
     <Page Include="Gui.xaml">
       <Generator>MSBuild:Compile</Generator>
