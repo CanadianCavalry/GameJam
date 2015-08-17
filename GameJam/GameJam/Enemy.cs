@@ -61,26 +61,27 @@ namespace GameJam
 
         public override string attack()
         {
-            string response = behaviour.getResponse(Stimulus.attack);
+            int damage = 0;
+            string response = behaviour.getResponse(name, Stimulus.attack, damage);
             return response;
         }
 
         public override string attack(Player player)
         {
-            string response = "";
-
+            string response = behaviour.getResponse(name, Stimulus.approach, 0);
             return response;
         }
 
         public string threaten()
         {
-            string response = behaviour.getResponse(Stimulus.threat);
+            int damage = 0;
+            string response = behaviour.getResponse(name, Stimulus.threat, damage);
             return response;
         }
 
         public override string talk()
         {
-            string response = behaviour.getResponse(Stimulus.sound);
+            string response = behaviour.getResponse(name, Stimulus.sound, 0);
             return response;
         }
     }
@@ -309,9 +310,9 @@ namespace GameJam
             }
         }
 
-        private string behave(int damage, List<Tuple<int, string>> behaviour)
+        private string behave(string name, string action, int damage, List<Tuple<int, string>> behaviour)
         {
-            string response = "You";
+            string response = String.Format("You {0} the {1}", action.ToLower(), name);
 
             damage += 2 * wounds;
             foreach (Tuple<int, string> conditionPair in behaviour)
@@ -329,19 +330,17 @@ namespace GameJam
                     wounds++;
                     damage += 2;
 
-                    response += " wound the creature";
+                    response += " " + Condition.wounded.ToLower() + " it and";
 
                     int lethalThreshold = behaviour[0].Item1;
                     if (damage > lethalThreshold)
                     {
                         currentCondition = Condition.deceased;
 
-                        response += ", killing it.";
+                        response += " " + Condition.deceased.ToLower();
 
                         return response;
                     }
-
-                    response += ", and";
 
                     continue;
                 }
@@ -355,58 +354,88 @@ namespace GameJam
 
                 if (condition.Equals(Condition.passive))
                 {
-                    response += " don't seem to affect it.";
+                    response += " " + Condition.passive.ToLower();
                     return response;
                 }
 
-                response += " " + currentCondition + " it.";
+                response += " " + currentCondition.ToLower() + " it.";
             }
 
             return response;
         }
 
-        private string respondToAttack(int damage)
+        private string respondToAttack(string name, string action, int damage)
         {
             string response = string.Empty;
 
             switch (currentCondition)
             {
                 case Condition.passive:
-                    response = behave(damage, passiveBehaviour);
+                    response = behave(name, action, damage, passiveBehaviour);
                     break;
 
                 case Condition.aggravated:
-                    response = behave(damage, aggravatedBehaviour);
+                    response = behave(name, action, damage, aggravatedBehaviour);
                     break;
 
                 case Condition.enraged:
-                    response = behave(damage, enragedBehaviour);
+                    response = behave(name, action, damage, enragedBehaviour);
                     break;
 
                 case Condition.frightened:
-                    response = behave(damage, frightenedBehaviour);
+                    response = behave(name, action, damage, frightenedBehaviour);
                     break;
             }
 
             return response;
         }
 
-        public string getResponse(string stimulus)
+        private string attackResponse()
+        {
+            string response = "It ";
+            switch (currentCondition)
+            {
+                case Condition.aggravated:
+                    response += "lashes out at you.";
+                    break;
+
+                case Condition.enraged:
+                    response += "savagely attacks you.";
+                    break;
+
+                case Condition.frightened:
+                    response += "keeps its distance from you.";
+                    break;
+
+                default:
+                    response += "just seems to ignore you though.";
+                    break;
+            }
+
+            return response;
+        }
+
+        public string getResponse(string name, string stimulus, int damage)
         {
             string response = string.Empty;
 
             switch (stimulus)
             {
                 case Stimulus.approach:
+                    response = respondToAttack(name, Stimulus.approach, 0);
+                    response += " " + attackResponse();
                     break;
 
                 case Stimulus.sound:
+                    response = respondToAttack(name, Stimulus.sound, 0);
                     break;
 
                 case Stimulus.threat:
+                    response = respondToAttack(name, Stimulus.threat, damage);
                     break;
 
                 case Stimulus.attack:
+                    response = respondToAttack(name, Stimulus.attack, damage);
                     break;
             }
 
@@ -426,8 +455,8 @@ namespace GameJam
     public static class Stimulus
     {
         public const string approach = "Approach";
-        public const string sound = "Sound";
-        public const string threat = "Threat";
+        public const string sound = "Startle";
+        public const string threat = "Threaten";
         public const string attack = "Attack";
     }
 
@@ -435,11 +464,11 @@ namespace GameJam
     {
         public const string aggravated = "Aggravate";
         public const string enraged = "Enrage";
-        public const string passive = "Passive";
+        public const string passive = "Don't seem to affect it.";
         public const string pained = "Injure";
-        public const string incapacitated = "Incapacitat";
+        public const string incapacitated = "Incapacitate";
         public const string frightened = "Frighten";
-        public const string wounded = "Wound";
-        public const string deceased = "Deceased";
+        public const string wounded = "Wounding";
+        public const string deceased = "It dies.";
     }
 }
