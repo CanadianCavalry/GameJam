@@ -17,9 +17,6 @@ namespace GameJam
         {
             List<Area> world = new List<Area>();
 
-            int defaultMaxWaterLevel = 10;
-            string defaultFloodedDesc = "";
-
             //Features
             GameObject sonar = new GameObject("A Sonar console pings quietly.", new List<string>(new string[] { "sonar", "sonar console" }));
             GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
@@ -81,15 +78,18 @@ namespace GameJam
             introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
 
             //Areas
+            int defaultMaxWaterLevel = 12;
+            string defaultFloodedDesc = "";
+
             Area control = new Area("Control room", 
                 "The main control stations sit atop a raised platform.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
+            setStartArea(player, control);
             control.addFeature(sonar.getClone());
             control.addFeature(viewingWindow.getClone());
             control.addFeature(gertrude.getClone());
             control.addItemToGround((Item)extinguisher.getClone());
-            setStartArea(player, control);
 
             Area hubA = new Area("Hub A",
                 "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
@@ -99,7 +99,7 @@ namespace GameJam
 
             Area moonPool = new Area("Moon pool",
                 "In the center of the room is a large pool that leads outside the station. Surrounding the pool are four reinforced pillars.\nEast is Hub C. To the south is Hub A. The bio labs are to the west.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 9, defaultFloodedDesc);
             world.Add(moonPool);
             moonPool.addFeature(overheadGantryCrane.getClone());
             moonPool.addFeature(craneControls.getClone());
@@ -108,7 +108,7 @@ namespace GameJam
 
             Area observationDeck = new Area("Observation deck",
                 "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.\nA twisting corridor leads north towards the bio labs. Hub A is to the east.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(observationDeck);
             observationDeck.addFeature(viewingWindow.getClone());
             observationDeck.addFeature(viewPort.getClone());
@@ -170,7 +170,7 @@ namespace GameJam
 
             Area livingQuarters = new Area("Living quarters",
                 "The room is separated into two sections with a thick curtain dividing them. The entrance area has two long cushioned seats running the length of the east and west walls. Beyond the curtain are stacks of sleeping bunks used by the crew.\nThe galley is to the south.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(livingQuarters);
             livingQuarters.addFeature(couch.getClone());
             livingQuarters.addFeature(bunks.getClone());
@@ -179,7 +179,7 @@ namespace GameJam
 
             Area connector = new Area("B-C Hub connector",
                 "The connector gradually slopes up and then back down.\nNorth is Hub C. South is Hub B.",
-                defaultMaxWaterLevel, defaultFloodedDesc);
+                defaultMaxWaterLevel - 6, defaultFloodedDesc);
             world.Add(connector);
 
             Area hubC = new Area("Hub C",
