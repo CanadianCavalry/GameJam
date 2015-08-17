@@ -62,26 +62,26 @@ namespace GameJam
         public override string attack()
         {
             int damage = 0;
-            string response = behaviour.getResponse(name, Stimulus.attack, damage);
+            string response = behaviour.getResponse(null, name, Stimulus.attack, damage);
             return response;
         }
 
         public override string attack(Player player)
         {
-            string response = behaviour.getResponse(name, Stimulus.approach, 0);
+            string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
             return response;
         }
 
-        public string threaten()
+        public string threaten(Player player)
         {
             int damage = 0;
-            string response = behaviour.getResponse(name, Stimulus.threat, damage);
+            string response = behaviour.getResponse(player, name, Stimulus.threat, damage);
             return response;
         }
 
         public override string talk()
         {
-            string response = behaviour.getResponse(name, Stimulus.sound, 0);
+            string response = behaviour.getResponse(null, name, Stimulus.sound, 0);
             return response;
         }
     }
@@ -364,7 +364,7 @@ namespace GameJam
             return response;
         }
 
-        private string respondToAttack(string name, string action, int damage)
+        private string respondToStimulus(string name, string action, int damage)
         {
             string response = string.Empty;
 
@@ -390,7 +390,7 @@ namespace GameJam
             return response;
         }
 
-        private string attackResponse()
+        private string attackResponse(Player player)
         {
             string response = "It ";
             switch (currentCondition)
@@ -415,27 +415,27 @@ namespace GameJam
             return response;
         }
 
-        public string getResponse(string name, string stimulus, int damage)
+        public string getResponse(Player player, string name, string stimulus, int damage)
         {
             string response = string.Empty;
 
             switch (stimulus)
             {
                 case Stimulus.approach:
-                    response = respondToAttack(name, Stimulus.approach, 0);
-                    response += " " + attackResponse();
+                    response = respondToStimulus(name, Stimulus.approach, 0);
+                    response += " " + attackResponse(player);
                     break;
 
                 case Stimulus.sound:
-                    response = respondToAttack(name, Stimulus.sound, 0);
+                    response = respondToStimulus(name, Stimulus.sound, 0);
                     break;
 
                 case Stimulus.threat:
-                    response = respondToAttack(name, Stimulus.threat, damage);
+                    response = respondToStimulus(name, Stimulus.threat, damage);
                     break;
 
                 case Stimulus.attack:
-                    response = respondToAttack(name, Stimulus.attack, damage);
+                    response = respondToStimulus(name, Stimulus.attack, damage);
                     break;
             }
 

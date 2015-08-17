@@ -445,4 +445,26 @@ namespace GameJam
             inaccessibleDesc = inInaccessibleDesc;
         }
     }
+
+    public class Weapon : Item
+    {
+        private int damage;
+
+        public Weapon(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, int inDamage, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
+            : base(inDescription, inKeywords, inName, inSeenDesc, inPickupDesc, inDropDesc)
+        {
+            damage = inDamage;
+        }
+
+        public Weapon(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inInitPickupDesc, int inDamage, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
+            : base(inDescription, inKeywords, inName, inSeenDesc, inInitSeenDesc, inInitPickupDesc, inPickupDesc, inDropDesc)
+        {
+            damage = inDamage;
+        }
+
+        public int getDamage()
+        {
+            return damage;
+        }
+    }
 }
