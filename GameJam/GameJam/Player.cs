@@ -13,6 +13,7 @@ namespace GameJam
         private Item offHand;
         private Item armor;
         private int armorRating;
+        private Dictionary<string, int> vulnerabilities;
 
         public Player()
         {
@@ -55,6 +56,23 @@ namespace GameJam
             {
                 air = 0;
             }
+        }
+
+        public void addVulnerability(string vulnerabilityToAdd, int value)
+        {
+            bool alreadyHasVulnerability = vulnerabilities.ContainsKey(vulnerabilityToAdd);
+            if (alreadyHasVulnerability == true)
+            {
+                vulnerabilities[vulnerabilityToAdd] = value;
+                return;
+            }
+
+            vulnerabilities.Add(vulnerabilityToAdd, value);
+        }
+
+        public void removeVulnerability(string vulnerabilityToRemove)
+        {
+            vulnerabilities.Remove(vulnerabilityToRemove);
         }
 
         public void addItem(Item itemToAdd)
@@ -104,15 +122,39 @@ namespace GameJam
             return mainHand;
         }
 
-        public void takeDamage(int damage)
+        public void takeDamage(int damage, string damageType)
         {
+            damage = addTypeBonusesToDamage(damage, new List<string>(new string[] { damageType }));
+
             damage -= armorRating;
+            if (damage <= 0)
+            {
+                return;
+            }
+
             health -= damage;
 
             if (health < 0)
             {
                 health = 0;
             }
+        }
+
+        private int addTypeBonusesToDamage(int damage, List<string> damageTypes)
+        {
+            foreach (string vulnerability in vulnerabilities.Keys)
+            {
+                foreach (string damageType in damageTypes)
+                {
+                    bool weakToType = vulnerability.Equals(damageType);
+                    if (weakToType == true)
+                    {
+                        int damageBonus = vulnerabilities[vulnerability];
+                        damage += damageBonus;
+                    }
+                }
+            }
+            return damage;
         }
     }
 }

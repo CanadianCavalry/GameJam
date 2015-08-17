@@ -116,7 +116,7 @@ namespace GameJam
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
 
-            // ToDo Have Enemy attack Player
+            player.takeDamage(damage, damageType);
 
             return response;
         }
