@@ -333,6 +333,7 @@ namespace GameJam
         public bool accessible;
         public bool firstSeen;
         public bool firstTaken;
+        public bool inInventory;
 
         public Item()
             : base("", null)
@@ -347,6 +348,7 @@ namespace GameJam
             accessible = true;
             firstSeen = true;
             firstTaken = true;
+            inInventory = false;
         }
 
         public Item(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inPickupDesc = "Got it.", string inDropDesc = "Dropped.")
@@ -362,6 +364,7 @@ namespace GameJam
             accessible = true;
             firstSeen = true;
             firstTaken = true;
+            inInventory = false;
             description = inDescription;
             keywords = inKeywords;
         }
@@ -379,6 +382,7 @@ namespace GameJam
             accessible = true;
             firstSeen = true;
             firstTaken = true;
+            inInventory = false;
             description = inDescription;
             keywords = inKeywords;
         }
@@ -393,8 +397,13 @@ namespace GameJam
         {
             if (accessible)
             {
+                if (inInventory)
+                {
+                    return "You are already holding that.";
+                }
                 player.addItem(this);
                 player.currentLocation.removeItem(this);
+                inInventory = true;
             }
             else
             {
@@ -416,6 +425,7 @@ namespace GameJam
         {
             player.removeItem(this);
             player.currentLocation.groundItems.Add(this);
+            inInventory = false;
             return dropDesc;
         }
 

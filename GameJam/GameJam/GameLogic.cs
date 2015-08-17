@@ -56,6 +56,7 @@ namespace GameJam
             {
                 foundObjects = gameState.getLocalObject(parserResult["target"]);
 
+
                 if (foundObjects.Count == 0)
                 {
                     return "There is nothing like that here.";
