@@ -31,13 +31,15 @@ namespace GameJam
             return air;
         }
 
-        public void breath()
+        public string breathe()
         {
+            string desc = string.Empty;
             bool submerged = currentLocation.isSubmerged();
             if (submerged == true)
             {
                 reduceAir();
-                return;
+                desc = describeAirLeft();
+                return desc;
             }
 
             air++;
@@ -46,6 +48,8 @@ namespace GameJam
             {
                 air = maxAir;
             }
+
+            return desc;
         }
 
         public void reduceAir()
@@ -56,6 +60,35 @@ namespace GameJam
             {
                 air = 0;
             }
+        }
+
+        public string describeAirLeft()
+        {
+            string desc = "\n";
+            switch (air)
+            {
+                case 0:
+                    desc += "You can't hold it anymore. Water fills your lungs and everything goes dark.";
+                    break;
+
+                case 1:
+                    desc += "Your lungs burn! You need air now!";
+                    break;
+
+                //case 2:
+                //    desc += "Your lungs are starting to burn. You need to come up for air soon.";
+                //    break;
+
+                case 2:
+                    desc += "You continue to hold your breath.";
+                    break;
+
+                default:
+                    desc += "You take a deep breath as you are plunged into the icy water.";
+                    break;
+            }
+
+            return desc;
         }
 
         public void addVulnerability(string vulnerabilityToAdd, int value)

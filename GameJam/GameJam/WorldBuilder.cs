@@ -21,6 +21,7 @@ namespace GameJam
         {
             player.currentLocation = toStartIn;
             toStartIn.isVisited();
+            toStartIn.increaseWaterLevel();
         }
 
         public virtual string getIntro()

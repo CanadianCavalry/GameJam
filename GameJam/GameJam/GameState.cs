@@ -8,6 +8,7 @@ namespace GameJam
         public List<Area> world;
         public List<Area> exposedRooms;
         private string introduction;
+        private bool turnPasses;
 
         public GameState(Player inPlayer, WorldBuilder builder)
         {
@@ -15,6 +16,7 @@ namespace GameJam
             world = builder.buildWorld(player);
             exposedRooms = new List<Area>();
             introduction = builder.getIntro();
+            turnPasses = false;
         }
 
         public void exposeRoom(Area areaToAdd)
@@ -99,12 +101,15 @@ namespace GameJam
 
         public string executeCommand(string command, Dictionary<string, GameObject> args)
         {
+            turnPasses = true;
+
             if (args == null)
             {
                 switch (command)
                 {
                     case "l":
                     case "look":
+                        turnPasses = false;
                         return player.currentLocation.lookAt();
                     case "wait":
                         return "You wait.";
@@ -119,6 +124,7 @@ namespace GameJam
                 {
                     case "l":
                     case "look":
+                        turnPasses = false;
                         return player.currentLocation.lookAt();
                     case "wait":
                         return "You wait.";
@@ -136,6 +142,7 @@ namespace GameJam
                 {
                     case "look":
                     case "examine":
+                        turnPasses = false;
                         result = target.lookAt();
                         return result;
                     case "get":
@@ -170,31 +177,83 @@ namespace GameJam
                     case "read":
                         return target.read();
                 }
+
+                turnPasses = false;
                 return "Command not found!";
             }
         }
 
         public string turnPass()
         {
-            if (true)
+            string desc = "";
+            if (turnPasses == true)
             {
-                string desc = "";
-
-                player.breath();
-
                 foreach (Area room in exposedRooms)
                 {
                     bool roomFlooded = room.increaseWaterLevel();
-                    if (roomFlooded == true)
-                    {
-                        desc += "The rushing water completely fills the area.";
-                    }
                 }
+                //if (!desc.Equals(string.Empty))
+                //{
+                //    desc += " ";
+                //}
+                desc += describeWaterLevel(player.currentLocation);
+
+                desc += player.breathe();
+
+                turnPasses = false;
+
                 return desc;
             }
+
+            return desc;
         }
 
-        internal string getIntro()
+        private string describeWaterLevel(Area currentArea)
+        {
+            string desc = string.Empty;
+            bool completelyFlooded = currentArea.isSubmerged();
+            if (completelyFlooded == true)
+            {
+                desc = "The rushing water completely fills the area.";
+                return desc;
+            }
+
+            int waterVolume = currentArea.getWaterLevel();
+            int maxVolume = currentArea.getMaxWaterLevel();
+            int waterLevel = maxVolume / waterVolume;
+
+            switch (waterLevel)
+            {
+                case 1:
+                    break;
+
+                case 2:
+                    desc = "The room has almost completely flooded.";
+                    break;
+
+                case 3:
+                    desc = "The water is getting pretty high.";
+                    break;
+
+                case 4:
+                    desc = "The water is coming up to your knees.";
+                    break;
+
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    desc = "You can feel water soaking into your shoes.";
+                    break;
+
+                default:
+                    break;
+            }
+
+            return desc;
+        }
+
+        public string getIntro()
         {
             return introduction;
         }
