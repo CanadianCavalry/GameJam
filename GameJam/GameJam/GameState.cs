@@ -97,6 +97,20 @@ namespace GameJam
             return objectList;
         }
 
+        private List<GameObject> findObjectInList(string keyword, List<GameObject> objectList)
+        {
+            List<GameObject> returnList = new List<GameObject>();
+
+            foreach (GameObject gameObject in objectList)
+            {
+                if (gameObject.keywords.Contains(keyword))
+                {
+                    objectList.Add(gameObject);
+                }
+            }
+            return returnList;
+        }
+
         public string executeCommand(string command, Dictionary<string, GameObject> args)
         {
             if (args == null)

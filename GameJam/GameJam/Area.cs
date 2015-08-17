@@ -81,8 +81,10 @@ namespace GameJam
 
         public string lookAt()
         {
+            //Start with the name
             string desc = name + "\n";
 
+            //Add the areas base description
             if (isSubmerged())
             {
                 desc += floodDesc;
@@ -92,6 +94,32 @@ namespace GameJam
                 desc += description;
             }
 
+            //Add the seenDescription of any features
+            if (features.Count > 0)
+            {
+                foreach (GameObject feature in features)
+                {
+                    desc += " " + feature.seenDesc;
+                }
+            }
+
+            //Add the seen description of any NPCs
+            if (npcs.Count > 0)
+            {
+                foreach (NPC npc in npcs)
+                {
+                    if (npc.firstSeen)
+                    {
+                        desc += " " + npc.initSeenDesc;
+                        npc.firstSeen = false;
+                    }
+                    else
+                    {
+                        desc += " " + npc.seenDesc;
+                    }
+                }
+
+            //Add the seen descriptions of all items in the room
             if (itemsContained.Count > 0)
             {
                 foreach (Item item in itemsContained)
@@ -116,20 +144,7 @@ namespace GameJam
                 }
             }
 
-            if (npcs.Count > 0)
-            {
-                foreach (NPC npc in npcs)
-                {
-                    if (npc.firstSeen)
-                    {
-                        desc += " " + npc.initSeenDesc;
-                        npc.firstSeen = false;
-                    }
-                    else
-                    {
-                        desc += " " + npc.seenDesc;
-                    }
-                }
+            
             }
 
             return desc;
