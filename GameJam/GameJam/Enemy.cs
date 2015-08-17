@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameJam
 {
-    class Enemy : GameObject
+    public class Enemy : GameObject
     {
         private string name;
         public string seenDesc;
@@ -416,30 +416,30 @@ namespace GameJam
 
     public static class Demeanor
     {
-        public static const string aggressive = "Aggresive";
-        public static const string curious = "Curious";
-        public static const string indifferent = "Indifferent";
-        public static const string apprehensive = "Apprehensive";
-        public static const string reclusive = "Reclusive";
+        public const string aggressive = "Aggresive";
+        public const string curious = "Curious";
+        public const string indifferent = "Indifferent";
+        public const string apprehensive = "Apprehensive";
+        public const string reclusive = "Reclusive";
     }
 
     public static class Stimulus
     {
-        public static const string approach = "Approach";
-        public static const string sound = "Sound";
-        public static const string threat = "Threat";
-        public static const string attack = "Attack";
+        public const string approach = "Approach";
+        public const string sound = "Sound";
+        public const string threat = "Threat";
+        public const string attack = "Attack";
     }
 
-    public class Condition
+    public static class Condition
     {
-        public static const string aggravated = "Aggravate";
-        public static const string enraged = "Enrage";
-        public static const string passive = "Passive";
-        public static const string pained = "Injure";
-        public static const string incapacitated = "Incapacitat";
-        public static const string frightened = "Frighten";
-        public static const string wounded = "Wound";
-        public static const string deceased = "Deceased";
+        public const string aggravated = "Aggravate";
+        public const string enraged = "Enrage";
+        public const string passive = "Passive";
+        public const string pained = "Injure";
+        public const string incapacitated = "Incapacitat";
+        public const string frightened = "Frighten";
+        public const string wounded = "Wound";
+        public const string deceased = "Deceased";
     }
 }
