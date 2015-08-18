@@ -116,6 +116,7 @@ namespace GameJam
                     case "defend":
                         return player.defend();
                 }
+                turnPasses = false;
                 return "Command not found.";
             }
             if (args.Count == 0)
@@ -131,6 +132,7 @@ namespace GameJam
                     case "defend":
                         return player.defend();
                 }
+                turnPasses = false;
                 return "Command not found.";
             }
             else
@@ -186,24 +188,24 @@ namespace GameJam
         public string turnPass()
         {
             string desc = "";
-            if (turnPasses == true)
+            if (turnPasses == false)
             {
-                foreach (Area room in exposedRooms)
-                {
-                    bool roomFlooded = room.increaseWaterLevel();
-                }
-                //if (!desc.Equals(string.Empty))
-                //{
-                //    desc += " ";
-                //}
-                desc += describeWaterLevel(player.currentLocation);
-
-                desc += player.breathe();
-
-                turnPasses = false;
-
                 return desc;
             }
+
+            foreach (Area room in exposedRooms)
+            {
+                bool roomFlooded = room.increaseWaterLevel();
+            }
+            //if (!desc.Equals(string.Empty))
+            //{
+            //    desc += " ";
+            //}
+            desc += describeWaterLevel(player.currentLocation);
+
+            desc += player.breathe();
+
+            turnPasses = false;
 
             return desc;
         }
