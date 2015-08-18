@@ -221,7 +221,14 @@ namespace GameJam
             {
                 state.player.currentLocation.markVisited();
                 desc += "\n" + state.player.currentLocation.lookAt();
+                return desc;
             }
+
+            foreach (Enemy creature in state.player.currentLocation.enemies)
+            {
+                desc += " " + creature.seenDesc;
+            }
+
             return desc;
         }
 
