@@ -29,6 +29,12 @@ namespace GameJam
             char[] delimiters = { ' ' };
             List<string> inputArray = new List<string>(lowString.Split(delimiters));
 
+            //Remove excess particles
+            foreach (string word in wordsToRemove)
+            {
+                inputArray.Remove(word);
+            }
+
             //take the first word as the command
             command = inputArray[0];
             inputArray.RemoveAt(0);
