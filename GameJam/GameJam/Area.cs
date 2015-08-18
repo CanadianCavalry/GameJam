@@ -147,6 +147,20 @@ namespace GameJam
                 }
             }
 
+            //Add the seen description of any Enemies
+            foreach (Enemy creature in enemies)
+            {
+                if (creature.firstSeen)
+                {
+                    desc += " " + creature.initSeenDesc;
+                    creature.firstSeen = false;
+                }
+                else
+                {
+                    desc += " " + creature.seenDesc;
+                }
+            }
+
             //Add the seen descriptions of all items in the room
             if (itemsContained.Count > 0)
             {
