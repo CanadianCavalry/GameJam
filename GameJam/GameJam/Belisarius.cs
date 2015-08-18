@@ -30,7 +30,7 @@ namespace GameJam
             GameObject divingAirCompressor = new GameObject("The compressor fills the southwest corner of the room.", new List<string>(new string[] { "compressor", "air compressor" }), "An air compressor for refilling diving tanks.");
             GameObject microscope = new GameObject("A microscope sits on the counter.", new List<string>(new string[] { "microscope", "scope" }), "A high powered microscope for examining biological specimens.");
             GameObject airlock = new GameObject("An airlock is built into the south wall.", new List<string>(new string[] { "airlock" }), "A door sized airlock leading outside.");
-            GameObject galleyTable = new GameObject("A small fold out table extends from the east wall.", new List<string>(new string[] { "table", "foldout table" }), "A few dishes and some of the crews' personal belongings lay scatterd across the table.");
+            GameObject galleyTable = new GameObject("A small fold down table extends westward from the counter.", new List<string>(new string[] { "table", "foldout table" }), "A few dishes and some of the crews' personal belongings lay scatterd across the table.");
             GameObject chairs = new GameObject("A few chairs sit surrounding the table.", new List<string>(new string[] { "chairs" }), "Simple chairs with padded seats.");
             GameObject sink = new GameObject("In the southeast corner is a small sink.", new List<string>(new string[] { "sink" }), "The sink is filled with dirty dishes.");
             GameObject stove = new GameObject("In the northeast corner is the stove.", new List<string>(new string[] { "stove" }), "A simple, electric stove with two burners.");
@@ -106,6 +106,7 @@ namespace GameJam
                 defaultMaxWaterLevel + 9, defaultFloodedDesc);
             world.Add(moonPool);
             moonPool.addFeature(overheadGantryCrane.getClone());
+            moonPool.addFeature(bilgePump.getClone());
             moonPool.addFeature(craneControls.getClone());
             moonPool.addFeature(miniSub.getClone());
             moonPool.addContainer((Container)cabinet.getClone());
@@ -118,6 +119,7 @@ namespace GameJam
             world.Add(observationDeck);
             observationDeck.addFeature(viewingWindow.getClone());
             observationDeck.addFeature(viewPort.getClone());
+            observationDeck.addFeature(bilgePump.getClone());
 
             Area bioLabA = new Area("Bio lab A",
                 "A counter runs along the north wall.",
@@ -143,6 +145,7 @@ namespace GameJam
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabC);
             bioLabC.addFeature(divingAirCompressor.getClone());
+            bioLabC.addFeature(bilgePump.getClone());
             bioLabC.addFeature(airlock.getClone());
             bioLabC.addContainer((Container)storageLocker.getClone());
             bioLabC.addContainer((Container)shelves.getClone());
@@ -159,6 +162,7 @@ namespace GameJam
                 "To the north is Hub B.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(cargoBay);
+            cargoBay.addFeature(bilgePump.getClone());
             cargoBay.addFeature(airlock.getClone());
             cargoBay.addContainer((Container)shelves.getClone());
 
@@ -191,6 +195,7 @@ namespace GameJam
             world.Add(livingQuarters);
             livingQuarters.addFeature(couch.getClone());
             livingQuarters.addFeature(livingQuartersTable.getClone());
+            livingQuarters.addFeature(bilgePump.getClone());
             livingQuarters.addFeature(bunks.getClone());
             livingQuarters.addContainer((Container)trunk.getClone());
 

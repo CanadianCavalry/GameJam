@@ -40,6 +40,13 @@ namespace GameJam
                 foreach (Link link in room.links)
                 {
                     Area roomToAdd = link.getDestination();
+
+                    bool alreadyFlooding = roomToAdd.getIsFlooding();
+                    if (alreadyFlooding == true)
+                    {
+                        continue;
+                    }
+
                     bool roomHasBeenVisited = roomToAdd.isVisited();
                     if (roomHasBeenVisited == false)
                     {
@@ -266,6 +273,20 @@ namespace GameJam
             {
                 bool roomFlooded = room.increaseWaterLevel();
             }
+
+            List<Enemy> allCreatures = new List<Enemy>();
+            foreach (Area room in world)
+            {
+                foreach (Enemy creature in room.enemies)
+                {
+                    allCreatures.Add(creature);
+                }
+            }
+            foreach (Enemy creature in allCreatures)
+            {
+                creature.moveAround(player);
+            }
+
             //if (!desc.Equals(string.Empty))
             //{
             //    desc += " ";

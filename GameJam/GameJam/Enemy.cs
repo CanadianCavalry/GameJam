@@ -17,9 +17,10 @@ namespace GameJam
         private int damage;
         private string damageType;
         public Behaviour behaviour;
+        private bool waterLocked;
         private Dictionary<string, int> vulnerabilities;
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -29,9 +30,10 @@ namespace GameJam
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
             vulnerabilities = new Dictionary<string, int>();
+            waterLocked = inWaterLocked;
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -41,9 +43,10 @@ namespace GameJam
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
             vulnerabilities = new Dictionary<string, int>();
+            waterLocked = inWaterLocked;
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage, string inDamageType, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage, string inDamageType, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities, bool inWaterLocked)
             : base(inDescription, inKeywords)
         {
             name = inName;
@@ -54,11 +57,12 @@ namespace GameJam
             damageType = inDamageType;
             behaviour = inBehaviour;
             vulnerabilities = inVulnerabilities;
+            waterLocked = inWaterLocked;
         }
 
         public override GameObject getClone()
         {
-            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, damage, damageType, behaviour, vulnerabilities);
+            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, damage, damageType, behaviour, vulnerabilities, waterLocked);
             return clone;
         }
 
@@ -112,6 +116,154 @@ namespace GameJam
             return response;
         }
 
+        public void moveAround(Player player)
+        {
+            Area playerRoom = player.currentLocation;
+            Random random = new Random();
+            int randomIndex;
+            Area randomRoom;
+            List<Area> adjacentRooms;
+
+            string currentMood = behaviour.currentMood;
+            switch (currentMood)
+            {
+                case Mood.enraged:
+                    foreach (Link connector in currentLocation.links)
+                    {
+                        Area adjacentRoom = connector.getDestination();
+
+                        bool playerIsAdjacent = playerRoom.Equals(adjacentRoom);
+                        if (playerIsAdjacent == false)
+                        {
+                            continue;
+                        }
+
+                        if (waterLocked == true)
+                        {
+                            bool roomHasWater = playerRoom.getIsFlooding();
+                            if (roomHasWater == false)
+                            {
+                                return;
+                            }
+                        }
+
+                        currentLocation.removeEnemy(this);
+                        currentLocation = playerRoom;
+                        playerRoom.addEnemy(this);
+                    }
+                    break;
+
+                case Mood.aggravated:
+                    adjacentRooms = new List<Area>();
+                    foreach (Link connector in currentLocation.links)
+                    {
+                        Area adjacentRoom = connector.getDestination();
+
+                        if (waterLocked == true)
+                        {
+                            bool roomHasWater = playerRoom.getIsFlooding();
+                            if (roomHasWater == false)
+                            {
+                                return;
+                            }
+                        }
+
+                        adjacentRooms.Add(adjacentRoom);
+                    }
+                    if (adjacentRooms.Count == 0)
+                    {
+                        return;
+                    }
+                    for (int i = 0; i < adjacentRooms.Count; i++)
+                    {
+                        adjacentRooms.Add(playerRoom);
+                    }
+
+                    randomIndex = random.Next(0, adjacentRooms.Count);
+                    randomRoom = adjacentRooms[randomIndex];
+
+                    currentLocation.removeEnemy(this);
+                    currentLocation = randomRoom;
+                    randomRoom.addEnemy(this);
+                    break;
+
+                case Mood.frightened:
+                    List<Area> emptyRooms = new List<Area>();
+                    foreach (Link connector in currentLocation.links)
+                    {
+                        Area adjacentRoom = connector.getDestination();
+
+                        bool playerIsAdjacent = playerRoom.Equals(adjacentRoom);
+                        if (playerIsAdjacent == true)
+                        {
+                            continue;
+                        }
+
+                        if (waterLocked == true)
+                        {
+                            bool roomHasWater = adjacentRoom.getIsFlooding();
+                            if (roomHasWater == false)
+                            {
+                                continue;
+                            }
+                        }
+
+                        emptyRooms.Add(adjacentRoom);
+                    }
+                    if (emptyRooms.Count == 0)
+                    {
+                        return;
+                    }
+
+                    randomIndex = random.Next(0, emptyRooms.Count);
+                    randomRoom = emptyRooms[randomIndex];
+
+                    currentLocation.removeEnemy(this);
+                    currentLocation = randomRoom;
+                    randomRoom.addEnemy(this);
+                    break;
+
+                case Mood.calm:
+                    adjacentRooms = new List<Area>();
+                    foreach (Link connector in currentLocation.links)
+                    {
+                        Area adjacentRoom = connector.getDestination();
+
+                        if (waterLocked == true)
+                        {
+                            bool roomHasWater = adjacentRoom.getIsFlooding();
+                            if (roomHasWater == false)
+                            {
+                                continue;
+                            }
+                        }
+
+                        adjacentRooms.Add(adjacentRoom);
+                    }
+                    if (adjacentRooms.Count == 0)
+                    {
+                        return;
+                    }
+                    for (int i = 0; i < adjacentRooms.Count; i++)
+                    {
+                        adjacentRooms.Add(currentLocation);
+                    }
+
+                    randomIndex = random.Next(0, adjacentRooms.Count);
+                    randomRoom = adjacentRooms[randomIndex];
+                    bool alreadyInRoom = randomRoom.Equals(currentLocation);
+                    if (alreadyInRoom == true)
+                    {
+                        return;
+                    }
+
+                    currentLocation.removeEnemy(this);
+                    currentLocation = randomRoom;
+                    randomRoom.addEnemy(this);
+                    break;
+            }
+        }
+
         public override string attackPlayer(GameState state, Player player)
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
@@ -147,7 +299,7 @@ namespace GameJam
     public class Behaviour
     {
         public string demeanor;
-        public string currentCondition;
+        public string currentMood;
         private int strengthModifier = 5;
         private List<Tuple<int, string>> passiveBehaviour;
         private List<Tuple<int, string>> frightenedBehaviour;
@@ -158,7 +310,7 @@ namespace GameJam
         public Behaviour(string inDemeanor, int strength)
         {
             demeanor = inDemeanor;
-            currentCondition = Condition.passive;
+            currentMood = Mood.calm;
             wounds = 0;
 
             passiveBehaviour = new List<Tuple<int, string>>();
@@ -192,155 +344,174 @@ namespace GameJam
 
         private void setIndifferentBehaviour(int strength)
         {
-            addResponse(Condition.passive, 18, strength, Condition.deceased);
-            addResponse(Condition.passive, 10, strength, Condition.wounded);
-            addResponse(Condition.passive, 12, strength, Condition.incapacitated);
-            addResponse(Condition.passive, 5, strength, Condition.pained);
-            addResponse(Condition.passive, 10, strength, Condition.frightened);
-            addResponse(Condition.passive, 6, strength, Condition.enraged);
-            addResponse(Condition.passive, 3, strength, Condition.aggravated);
+            addResponse(Mood.calm, 18, strength, Mood.deceased);
+            addResponse(Mood.calm, 10, strength, Mood.wounded);
+            addResponse(Mood.calm, 12, strength, Mood.incapacitated);
+            addResponse(Mood.calm, 5, strength, Mood.pained);
+            addResponse(Mood.calm, 10, strength, Mood.frightened);
+            addResponse(Mood.calm, 6, strength, Mood.enraged);
+            addResponse(Mood.calm, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.aggravated, 18, strength, Condition.deceased);
-            addResponse(Condition.aggravated, 10, strength, Condition.wounded);
-            addResponse(Condition.aggravated, 14, strength, Condition.incapacitated);
-            addResponse(Condition.aggravated, 6, strength, Condition.pained);
-            addResponse(Condition.aggravated, 12, strength, Condition.frightened);
-            addResponse(Condition.aggravated, 4, strength, Condition.enraged);
+            addResponse(Mood.aggravated, 18, strength, Mood.deceased);
+            addResponse(Mood.aggravated, 10, strength, Mood.wounded);
+            addResponse(Mood.aggravated, 14, strength, Mood.incapacitated);
+            addResponse(Mood.aggravated, 6, strength, Mood.pained);
+            addResponse(Mood.aggravated, 12, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 4, strength, Mood.enraged);
+            addResponse(Mood.aggravated, 0, strength, Mood.calm);
 
-            addResponse(Condition.enraged, 18, strength, Condition.deceased);
-            addResponse(Condition.enraged, 10, strength, Condition.wounded);
-            addResponse(Condition.enraged, 15, strength, Condition.incapacitated);
-            addResponse(Condition.enraged, 8, strength, Condition.pained);
-            addResponse(Condition.enraged, 14, strength, Condition.frightened);
+            addResponse(Mood.enraged, 18, strength, Mood.deceased);
+            addResponse(Mood.enraged, 10, strength, Mood.wounded);
+            addResponse(Mood.enraged, 15, strength, Mood.incapacitated);
+            addResponse(Mood.enraged, 8, strength, Mood.pained);
+            addResponse(Mood.enraged, 14, strength, Mood.frightened);
+            addResponse(Mood.enraged, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.frightened, 18, strength, Condition.deceased);
-            addResponse(Condition.frightened, 10, strength, Condition.wounded);
-            addResponse(Condition.frightened, 14, strength, Condition.incapacitated);
-            addResponse(Condition.frightened, 5, strength, Condition.pained);
-            addResponse(Condition.frightened, 8, strength, Condition.enraged);
+            addResponse(Mood.frightened, 18, strength, Mood.deceased);
+            addResponse(Mood.frightened, 10, strength, Mood.wounded);
+            addResponse(Mood.frightened, 14, strength, Mood.incapacitated);
+            addResponse(Mood.frightened, 5, strength, Mood.pained);
+            addResponse(Mood.frightened, 8, strength, Mood.enraged);
+            addResponse(Mood.frightened, 0, strength, Mood.calm);
         }
 
         private void setCuriousBehaviour(int strength)
         {
-            addResponse(Condition.passive, 18, strength, Condition.deceased);
-            addResponse(Condition.passive, 10, strength, Condition.wounded);
-            addResponse(Condition.passive, 12, strength, Condition.incapacitated);
-            addResponse(Condition.passive, 5, strength, Condition.pained);
-            addResponse(Condition.passive, 10, strength, Condition.frightened);
-            addResponse(Condition.passive, 6, strength, Condition.enraged);
-            addResponse(Condition.passive, 3, strength, Condition.aggravated);
+            addResponse(Mood.calm, 18, strength, Mood.deceased);
+            addResponse(Mood.calm, 10, strength, Mood.wounded);
+            addResponse(Mood.calm, 12, strength, Mood.incapacitated);
+            addResponse(Mood.calm, 5, strength, Mood.pained);
+            addResponse(Mood.calm, 10, strength, Mood.frightened);
+            addResponse(Mood.calm, 6, strength, Mood.enraged);
+            addResponse(Mood.calm, 3, strength, Mood.aggravated);
+            addResponse(Mood.calm, 0, strength, Mood.calm);
 
-            addResponse(Condition.aggravated, 18, strength, Condition.deceased);
-            addResponse(Condition.aggravated, 10, strength, Condition.wounded);
-            addResponse(Condition.aggravated, 14, strength, Condition.incapacitated);
-            addResponse(Condition.aggravated, 6, strength, Condition.pained);
-            addResponse(Condition.aggravated, 12, strength, Condition.frightened);
-            addResponse(Condition.aggravated, 4, strength, Condition.enraged);
+            addResponse(Mood.aggravated, 18, strength, Mood.deceased);
+            addResponse(Mood.aggravated, 10, strength, Mood.wounded);
+            addResponse(Mood.aggravated, 14, strength, Mood.incapacitated);
+            addResponse(Mood.aggravated, 6, strength, Mood.pained);
+            addResponse(Mood.aggravated, 12, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 4, strength, Mood.enraged);
+            addResponse(Mood.aggravated, 0, strength, Mood.calm);
 
-            addResponse(Condition.enraged, 18, strength, Condition.deceased);
-            addResponse(Condition.enraged, 10, strength, Condition.wounded);
-            addResponse(Condition.enraged, 15, strength, Condition.incapacitated);
-            addResponse(Condition.enraged, 8, strength, Condition.pained);
-            addResponse(Condition.enraged, 14, strength, Condition.frightened);
+            addResponse(Mood.enraged, 18, strength, Mood.deceased);
+            addResponse(Mood.enraged, 10, strength, Mood.wounded);
+            addResponse(Mood.enraged, 15, strength, Mood.incapacitated);
+            addResponse(Mood.enraged, 8, strength, Mood.pained);
+            addResponse(Mood.enraged, 14, strength, Mood.frightened);
+            addResponse(Mood.enraged, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.frightened, 18, strength, Condition.deceased);
-            addResponse(Condition.frightened, 10, strength, Condition.wounded);
-            addResponse(Condition.frightened, 14, strength, Condition.incapacitated);
-            addResponse(Condition.frightened, 5, strength, Condition.pained);
-            addResponse(Condition.frightened, 8, strength, Condition.enraged);
+            addResponse(Mood.frightened, 18, strength, Mood.deceased);
+            addResponse(Mood.frightened, 10, strength, Mood.wounded);
+            addResponse(Mood.frightened, 14, strength, Mood.incapacitated);
+            addResponse(Mood.frightened, 5, strength, Mood.pained);
+            addResponse(Mood.frightened, 8, strength, Mood.enraged);
+            addResponse(Mood.frightened, 0, strength, Mood.calm);
         }
 
         private void setAggressiveBehaviour(int strength)
         {
-            addResponse(Condition.passive, 18, strength, Condition.deceased);
-            addResponse(Condition.passive, 10, strength, Condition.wounded);
-            addResponse(Condition.passive, 12, strength, Condition.incapacitated);
-            addResponse(Condition.passive, 5, strength, Condition.pained);
-            addResponse(Condition.passive, 10, strength, Condition.frightened);
-            addResponse(Condition.passive, 6, strength, Condition.enraged);
-            addResponse(Condition.passive, 3, strength, Condition.aggravated);
+            addResponse(Mood.calm, 18, strength, Mood.deceased);
+            addResponse(Mood.calm, 10, strength, Mood.wounded);
+            addResponse(Mood.calm, 12, strength, Mood.incapacitated);
+            addResponse(Mood.calm, 5, strength, Mood.pained);
+            addResponse(Mood.calm, 10, strength, Mood.frightened);
+            addResponse(Mood.calm, 6, strength, Mood.enraged);
+            addResponse(Mood.calm, 3, strength, Mood.aggravated);
 
-            addResponse(Condition.aggravated, 18, strength, Condition.deceased);
-            addResponse(Condition.aggravated, 10, strength, Condition.wounded);
-            addResponse(Condition.aggravated, 14, strength, Condition.incapacitated);
-            addResponse(Condition.aggravated, 6, strength, Condition.pained);
-            addResponse(Condition.aggravated, 12, strength, Condition.frightened);
-            addResponse(Condition.aggravated, 4, strength, Condition.enraged);
+            addResponse(Mood.aggravated, 18, strength, Mood.deceased);
+            addResponse(Mood.aggravated, 10, strength, Mood.wounded);
+            addResponse(Mood.aggravated, 14, strength, Mood.incapacitated);
+            addResponse(Mood.aggravated, 6, strength, Mood.pained);
+            addResponse(Mood.aggravated, 12, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 4, strength, Mood.enraged);
+            addResponse(Mood.aggravated, 0, strength, Mood.calm);
 
-            addResponse(Condition.enraged, 18, strength, Condition.deceased);
-            addResponse(Condition.enraged, 10, strength, Condition.wounded);
-            addResponse(Condition.enraged, 15, strength, Condition.incapacitated);
-            addResponse(Condition.enraged, 8, strength, Condition.pained);
-            addResponse(Condition.enraged, 14, strength, Condition.frightened);
+            addResponse(Mood.enraged, 18, strength, Mood.deceased);
+            addResponse(Mood.enraged, 10, strength, Mood.wounded);
+            addResponse(Mood.enraged, 15, strength, Mood.incapacitated);
+            addResponse(Mood.enraged, 8, strength, Mood.pained);
+            addResponse(Mood.enraged, 14, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.frightened, 18, strength, Condition.deceased);
-            addResponse(Condition.frightened, 10, strength, Condition.wounded);
-            addResponse(Condition.frightened, 14, strength, Condition.incapacitated);
-            addResponse(Condition.frightened, 5, strength, Condition.pained);
-            addResponse(Condition.frightened, 8, strength, Condition.enraged);
+            addResponse(Mood.frightened, 18, strength, Mood.deceased);
+            addResponse(Mood.frightened, 10, strength, Mood.wounded);
+            addResponse(Mood.frightened, 14, strength, Mood.incapacitated);
+            addResponse(Mood.frightened, 5, strength, Mood.pained);
+            addResponse(Mood.frightened, 8, strength, Mood.enraged);
+            addResponse(Mood.frightened, 0, strength, Mood.calm);
         }
 
         private void setApprehensiveBehaviour(int strength)
         {
-            addResponse(Condition.passive, 18, strength, Condition.deceased);
-            addResponse(Condition.passive, 10, strength, Condition.wounded);
-            addResponse(Condition.passive, 12, strength, Condition.incapacitated);
-            addResponse(Condition.passive, 5, strength, Condition.pained);
-            addResponse(Condition.passive, 10, strength, Condition.frightened);
-            addResponse(Condition.passive, 6, strength, Condition.enraged);
-            addResponse(Condition.passive, 3, strength, Condition.aggravated);
+            addResponse(Mood.calm, 18, strength, Mood.deceased);
+            addResponse(Mood.calm, 10, strength, Mood.wounded);
+            addResponse(Mood.calm, 12, strength, Mood.incapacitated);
+            addResponse(Mood.calm, 5, strength, Mood.pained);
+            addResponse(Mood.calm, 10, strength, Mood.frightened);
+            addResponse(Mood.calm, 6, strength, Mood.enraged);
+            addResponse(Mood.calm, 3, strength, Mood.aggravated);
+            addResponse(Mood.calm, 0, strength, Mood.calm);
 
-            addResponse(Condition.aggravated, 18, strength, Condition.deceased);
-            addResponse(Condition.aggravated, 10, strength, Condition.wounded);
-            addResponse(Condition.aggravated, 14, strength, Condition.incapacitated);
-            addResponse(Condition.aggravated, 6, strength, Condition.pained);
-            addResponse(Condition.aggravated, 12, strength, Condition.frightened);
-            addResponse(Condition.aggravated, 4, strength, Condition.enraged);
+            addResponse(Mood.aggravated, 18, strength, Mood.deceased);
+            addResponse(Mood.aggravated, 10, strength, Mood.wounded);
+            addResponse(Mood.aggravated, 14, strength, Mood.incapacitated);
+            addResponse(Mood.aggravated, 6, strength, Mood.pained);
+            addResponse(Mood.aggravated, 12, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 4, strength, Mood.enraged);
+            addResponse(Mood.aggravated, 0, strength, Mood.calm);
 
-            addResponse(Condition.enraged, 18, strength, Condition.deceased);
-            addResponse(Condition.enraged, 10, strength, Condition.wounded);
-            addResponse(Condition.enraged, 15, strength, Condition.incapacitated);
-            addResponse(Condition.enraged, 8, strength, Condition.pained);
-            addResponse(Condition.enraged, 14, strength, Condition.frightened);
+            addResponse(Mood.enraged, 18, strength, Mood.deceased);
+            addResponse(Mood.enraged, 10, strength, Mood.wounded);
+            addResponse(Mood.enraged, 15, strength, Mood.incapacitated);
+            addResponse(Mood.enraged, 8, strength, Mood.pained);
+            addResponse(Mood.enraged, 14, strength, Mood.frightened);
+            addResponse(Mood.enraged, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.frightened, 18, strength, Condition.deceased);
-            addResponse(Condition.frightened, 10, strength, Condition.wounded);
-            addResponse(Condition.frightened, 14, strength, Condition.incapacitated);
-            addResponse(Condition.frightened, 5, strength, Condition.pained);
-            addResponse(Condition.frightened, 8, strength, Condition.enraged);
+            addResponse(Mood.frightened, 18, strength, Mood.deceased);
+            addResponse(Mood.frightened, 10, strength, Mood.wounded);
+            addResponse(Mood.frightened, 14, strength, Mood.incapacitated);
+            addResponse(Mood.frightened, 5, strength, Mood.pained);
+            addResponse(Mood.frightened, 8, strength, Mood.enraged);
+            addResponse(Mood.frightened, 0, strength, Mood.calm);
         }
 
         private void setReclusiveBehaviour(int strength)
         {
-            addResponse(Condition.passive, 18, strength, Condition.deceased);
-            addResponse(Condition.passive, 10, strength, Condition.wounded);
-            addResponse(Condition.passive, 12, strength, Condition.incapacitated);
-            addResponse(Condition.passive, 5, strength, Condition.pained);
-            addResponse(Condition.passive, 10, strength, Condition.frightened);
-            addResponse(Condition.passive, 6, strength, Condition.enraged);
-            addResponse(Condition.passive, 3, strength, Condition.aggravated);
+            addResponse(Mood.calm, 18, strength, Mood.deceased);
+            addResponse(Mood.calm, 10, strength, Mood.wounded);
+            addResponse(Mood.calm, 12, strength, Mood.incapacitated);
+            addResponse(Mood.calm, 5, strength, Mood.pained);
+            addResponse(Mood.calm, 10, strength, Mood.frightened);
+            addResponse(Mood.calm, 6, strength, Mood.enraged);
+            addResponse(Mood.calm, 3, strength, Mood.aggravated);
+            addResponse(Mood.calm, 0, strength, Mood.calm);
 
-            addResponse(Condition.aggravated, 18, strength, Condition.deceased);
-            addResponse(Condition.aggravated, 10, strength, Condition.wounded);
-            addResponse(Condition.aggravated, 14, strength, Condition.incapacitated);
-            addResponse(Condition.aggravated, 6, strength, Condition.pained);
-            addResponse(Condition.aggravated, 12, strength, Condition.frightened);
-            addResponse(Condition.aggravated, 4, strength, Condition.enraged);
+            addResponse(Mood.aggravated, 18, strength, Mood.deceased);
+            addResponse(Mood.aggravated, 10, strength, Mood.wounded);
+            addResponse(Mood.aggravated, 14, strength, Mood.incapacitated);
+            addResponse(Mood.aggravated, 6, strength, Mood.pained);
+            addResponse(Mood.aggravated, 12, strength, Mood.frightened);
+            addResponse(Mood.aggravated, 4, strength, Mood.enraged);
+            addResponse(Mood.aggravated, 0, strength, Mood.aggravated);
 
-            addResponse(Condition.enraged, 18, strength, Condition.deceased);
-            addResponse(Condition.enraged, 10, strength, Condition.wounded);
-            addResponse(Condition.enraged, 15, strength, Condition.incapacitated);
-            addResponse(Condition.enraged, 8, strength, Condition.pained);
-            addResponse(Condition.enraged, 14, strength, Condition.frightened);
+            addResponse(Mood.enraged, 18, strength, Mood.deceased);
+            addResponse(Mood.enraged, 10, strength, Mood.wounded);
+            addResponse(Mood.enraged, 15, strength, Mood.incapacitated);
+            addResponse(Mood.enraged, 8, strength, Mood.pained);
+            addResponse(Mood.enraged, 14, strength, Mood.frightened);
+            addResponse(Mood.enraged, 3, strength, Mood.aggravated);
+            addResponse(Mood.enraged, 0, strength, Mood.calm);
 
-            addResponse(Condition.frightened, 18, strength, Condition.deceased);
-            addResponse(Condition.frightened, 10, strength, Condition.wounded);
-            addResponse(Condition.frightened, 14, strength, Condition.incapacitated);
-            addResponse(Condition.frightened, 5, strength, Condition.pained);
-            addResponse(Condition.frightened, 8, strength, Condition.enraged);
+            addResponse(Mood.frightened, 18, strength, Mood.deceased);
+            addResponse(Mood.frightened, 10, strength, Mood.wounded);
+            addResponse(Mood.frightened, 14, strength, Mood.incapacitated);
+            addResponse(Mood.frightened, 5, strength, Mood.pained);
+            addResponse(Mood.frightened, 8, strength, Mood.enraged);
+            addResponse(Mood.frightened, 0, strength, Mood.calm);
         }
 
-        private void addResponse(string conditionalBehaviour, int threshold, int strength, string endCondition)
+        private void addResponse(string moodBehaviour, int threshold, int strength, string endCondition)
         {
             int modifiedThreshold = threshold * strength / strengthModifier;
             if (modifiedThreshold < 0)
@@ -348,21 +519,21 @@ namespace GameJam
                 modifiedThreshold = 0;
             }
 
-            switch (conditionalBehaviour)
+            switch (moodBehaviour)
             {
-                case Condition.passive:
+                case Mood.calm:
                     passiveBehaviour.Add(new Tuple<int, string>(modifiedThreshold, endCondition));
                     break;
 
-                case Condition.aggravated:
+                case Mood.aggravated:
                     aggravatedBehaviour.Add(new Tuple<int, string>(modifiedThreshold, endCondition));
                     break;
 
-                case Condition.enraged:
+                case Mood.enraged:
                     enragedBehaviour.Add(new Tuple<int, string>(modifiedThreshold, endCondition));
                     break;
 
-                case Condition.frightened:
+                case Mood.frightened:
                     frightenedBehaviour.Add(new Tuple<int, string>(modifiedThreshold, endCondition));
                     break;
             }
@@ -383,19 +554,19 @@ namespace GameJam
                     continue;
                 }
 
-                if (condition.Equals(Condition.wounded))
+                if (condition.Equals(Mood.wounded))
                 {
                     wounds++;
                     damage += 2;
 
-                    response += " " + Condition.wounded.ToLower() + " it and";
+                    response += " " + Mood.wounded.ToLower() + " it and";
 
                     int lethalThreshold = behaviour[0].Item1;
                     if (damage > lethalThreshold)
                     {
-                        currentCondition = Condition.deceased;
+                        currentMood = Mood.deceased;
 
-                        response += " " + Condition.deceased.ToLower();
+                        response += " " + Mood.deceased.ToLower();
 
                         return response;
                     }
@@ -403,20 +574,20 @@ namespace GameJam
                     continue;
                 }
 
-                if (condition.Equals(Condition.pained))
+                if (condition.Equals(Mood.pained))
                 {
                     continue;
                 }
 
-                currentCondition = condition;
+                currentMood = condition;
 
-                if (condition.Equals(Condition.passive))
+                if (condition.Equals(Mood.calm))
                 {
-                    response += " " + Condition.passive.ToLower();
+                    response += " " + Mood.calm.ToLower();
                     return response;
                 }
 
-                response += " " + currentCondition.ToLower() + " it.";
+                response += " " + currentMood.ToLower() + " it.";
             }
 
             return response;
@@ -426,21 +597,21 @@ namespace GameJam
         {
             string response = string.Empty;
 
-            switch (currentCondition)
+            switch (currentMood)
             {
-                case Condition.passive:
+                case Mood.calm:
                     response = behave(name, action, damage, passiveBehaviour);
                     break;
 
-                case Condition.aggravated:
+                case Mood.aggravated:
                     response = behave(name, action, damage, aggravatedBehaviour);
                     break;
 
-                case Condition.enraged:
+                case Mood.enraged:
                     response = behave(name, action, damage, enragedBehaviour);
                     break;
 
-                case Condition.frightened:
+                case Mood.frightened:
                     response = behave(name, action, damage, frightenedBehaviour);
                     break;
             }
@@ -451,17 +622,17 @@ namespace GameJam
         private string attackResponse(Player player)
         {
             string response = "It ";
-            switch (currentCondition)
+            switch (currentMood)
             {
-                case Condition.aggravated:
+                case Mood.aggravated:
                     response += "lashes out at you.";
                     break;
 
-                case Condition.enraged:
+                case Mood.enraged:
                     response += "savagely attacks you.";
                     break;
 
-                case Condition.frightened:
+                case Mood.frightened:
                     response += "keeps its distance from you.";
                     break;
 
@@ -518,11 +689,11 @@ namespace GameJam
         public const string attack = "Attack";
     }
 
-    public static class Condition
+    public static class Mood
     {
         public const string aggravated = "Aggravate";
         public const string enraged = "Enrage";
-        public const string passive = "Don't seem to affect it.";
+        public const string calm = "Don't seem to affect it.";
         public const string pained = "Injure";
         public const string incapacitated = "Incapacitate";
         public const string frightened = "Frighten";
