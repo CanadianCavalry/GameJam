@@ -4,7 +4,7 @@ namespace GameJam
 {
     class Chinatown : WorldBuilder
     {
-        public override List<Area> buildWorld(Player player)
+        public override List<Area> buildWorld(GameState state, Player player)
         {
             List<Area> world = new List<Area>();
 

@@ -13,7 +13,7 @@ namespace GameJam
             return introduction;
         }
 
-        public override List<Area> buildWorld(Player player)
+        public override List<Area> buildWorld(GameState state, Player player)
         {
             List<Area> world = new List<Area>();
 
@@ -76,8 +76,6 @@ namespace GameJam
             Enemy gulperEel = new Enemy("Also known as the black swallower. This two meter long eel-like fish is pitch black and is capable of opening its maw wide enough to consume prey even larger than itself.", new List<string>(new string[] { "gulper", "gulper eel", "black eel", "eel", "black swallower" }), "Gulper eel", "A creepy looking black eel is swimming about.", 4, Item.sharp, Demeanor.curious, inStrength: 3);
             Enemy lampreys = new Enemy("A swarm of parasitic worm-like fish that burrow through their victims' flesh to feed on their blood.", new List<string>(new string[] { "lampreys", "parasites" }), "Lampreys", "You notice several worm-like parasites swimming about in the water.", 1, Item.sharp, Demeanor.curious, inStrength:1);
 
-            introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
-
             //Areas
             int defaultMaxWaterLevel = 12;
             string defaultFloodedDesc = "";
@@ -86,7 +84,6 @@ namespace GameJam
                 "The main control stations sit atop a raised platform.\nTo the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
-            setStartArea(player, control);
             control.addFeature(sonar.getClone());
             control.addFeature(brokenWindow.getClone());
             control.addFeature(gertrude.getClone());
@@ -146,7 +143,7 @@ namespace GameJam
             hubB.addContainer((Container)shelves.getClone());
 
             Area cargoBay = new Area("Cargo bay",
-                "\nTo the north is Hub B. The airlock used for resupply is built into the south wall.",
+                "The resupply sub unloads into this cargo bay.\nTo the north is Hub B.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(cargoBay);
             cargoBay.addFeature(airlock.getClone());
@@ -170,7 +167,7 @@ namespace GameJam
             world.Add(washroom);
 
             Area livingQuarters = new Area("Living quarters",
-                "The room is separated into two sections with a thick curtain dividing them. The entrance area has two long cushioned seats running the length of the east and west walls. Beyond the curtain are stacks of sleeping bunks used by the crew.\nThe galley is to the south.",
+                "The room is separated into two sections with a thick curtain dividing them. The outer area is a common area, behind the curtain is the sleeping area used by the crew.\nThe galley is to the south.",
                 defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(livingQuarters);
             livingQuarters.addFeature(couch.getClone());
@@ -263,6 +260,12 @@ namespace GameJam
             string washroomDescription = "The washroom.";
             string[] washroomKeywords = { "south", "washroom", "showers", "toilet", "toilets", "head", "south washroom" };
             linkAreas(galley, galleyDescription, galleyKeywords, washroom, washroomDescription, washroomKeywords);
+
+            //Set start conditions
+            setStartArea(player, livingQuarters);
+            exposeArea(state, control);
+            //introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
+            introduction = "You are awakened violently as you are knocked out of your bed. The metal walls around you still reverberate from the impact of whatever rudely awakened you. Several klaxons begin to sound loudly. The hull has been breached!";
 
             return world;
         }

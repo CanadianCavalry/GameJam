@@ -11,17 +11,22 @@ namespace GameJam
             introduction = string.Empty;
         }
 
-        public virtual List<Area> buildWorld(Player player)
+        public virtual List<Area> buildWorld(GameState state, Player player)
         {
             List<Area> world = new List<Area>();
             return world;
         }
 
-        public void setStartArea(Player player, Area toStartIn)
+        public void setStartArea(Player player, Area areaToStartIn)
         {
-            player.currentLocation = toStartIn;
-            toStartIn.isVisited();
-            toStartIn.increaseWaterLevel();
+            player.currentLocation = areaToStartIn;
+            areaToStartIn.isVisited();
+        }
+
+        public void exposeArea(GameState state, Area areaToExpose)
+        {
+            state.exposeRoom(areaToExpose);
+            areaToExpose.increaseWaterLevel();
         }
 
         public virtual string getIntro()

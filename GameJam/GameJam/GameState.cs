@@ -13,8 +13,9 @@ namespace GameJam
         public GameState(Player inPlayer, WorldBuilder builder)
         {
             player = inPlayer;
-            world = builder.buildWorld(player);
             exposedRooms = new List<Area>();
+
+            world = builder.buildWorld(this, player);
             introduction = builder.getIntro();
             turnPasses = false;
         }
