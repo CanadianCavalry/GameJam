@@ -18,24 +18,25 @@ namespace GameJam
             List<Area> world = new List<Area>();
 
             //Features
-            GameObject sonar = new GameObject("The active sonar console shows a large mass slowly moving about beyond the station.", new List<string>(new string[] { "sonar", "sonar console" }), "A Sonar console pings quietly.");
-            GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
-            GameObject viewPort = new GameObject("Several small bubble viewports allow you to look outside.", new List<string>(new string[] { "viewports", "bubble viewports", "bubble windows", "windows" }));
-            GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "large window", "window" }));
-            GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "large window", "window" }));
-            GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}));
-            GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "crane controls", "console", "controls" }));
-            GameObject bilgePump = new GameObject("There is a water pump to deal with flooding in case of an emergency located in the corner.", new List<string>(new string[] { "pump", "bilge pump" }));
-            GameObject divingAirCompressor = new GameObject("An air compressor for refilling diving tanks.", new List<string>(new string[] { "compressor", "air compressor" }));
-            GameObject microscope = new GameObject("A microscope for examining biological specimens sits on the counter.", new List<string>(new string[] { "microscope", "scope" }));
-            GameObject airlock = new GameObject("An airlock leads outside the station.", new List<string>(new string[] { "airlock" }));
-            GameObject galleyTable = new GameObject("A small fold out table extends from the east wall.", new List<string>(new string[] { "table", "foldout table" }));
-            GameObject chairs = new GameObject("A few chairs sit surrounding the table.", new List<string>(new string[] { "chairs" }));
-            GameObject sink = new GameObject("In the southeast corner is a small sink.", new List<string>(new string[] { "sink" }));
-            GameObject stove = new GameObject("In the northeast corner is a simple, electric stove.", new List<string>(new string[] { "stove" }));
-            GameObject couch = new GameObject("Long padded seats with back cushions are attached to the west and east walls of the common area.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }));
-            GameObject bunks = new GameObject("There are several bunk beds used by the crew in the sleeping area.", new List<string>(new string[] { "bed", "beds", "bunk", "bunks", "bunkbed", "bunkbeds" }));
-            GameObject livingQuartersTable = new GameObject("A long table bolted to the floor sits in front of one of the couches.", new List<string>(new string[] { "table" }));
+            GameObject sonar = new GameObject("The Sonar console pings quietly.", new List<string>(new string[] { "sonar", "sonar console" }), "The active sonar console shows a large mass slowly moving about beyond the station.");
+            GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }), "An underwater telephone for communicating with the surface.");
+            GameObject viewPort = new GameObject("Multiple small bubble viewports line the west wall.", new List<string>(new string[] { "viewports", "bubble viewports", "bubble windows", "windows" }), "Looking out through one of the viewports you can't make anything out from the murky darkness.");
+            GameObject viewingWindow = new GameObject(" A large, reinforced glass window covers the south wall of the deck.", new List<string>(new string[] { "large window", "window" }), "Looking out into the gloom you think you can see something moving through the water but it's too dark to tell.");
+            GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "large window", "window" }), "Through the cracks and rushing water you're unable to make anything out.");
+            GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}), "An overhead gantry crane for lifting the minisub in and out of the moon pool. The controls are on the nearby pillar.");
+            GameObject craneControls = new GameObject("A set of controls on a console are attached to one of the pillars.", new List<string>(new string[] { "crane controls", "console", "controls" }), "A set of joysticks allow for the operation of the overhead crane.");
+            GameObject miniSub = new GameObject("The minisub sits next to the pool. It appears to be damaged.", new List<string>(new string[] { "mini sub", "minisub", "sub" }), "A three man minisub used for long distance excursions away from the station. It can also be used to return to the surface in case of emergencies. However there is a small tear in the metal side.");
+            GameObject bilgePump = new GameObject("There is a bilge pump located in the corner.", new List<string>(new string[] { "pump", "bilge pump", "water pump" }), "A water pump to deal with flooding in case of an emergency. However it isn't working for some reason.");
+            GameObject divingAirCompressor = new GameObject("The compressor fills the southwest corner of the room.", new List<string>(new string[] { "compressor", "air compressor" }), "An air compressor for refilling diving tanks.");
+            GameObject microscope = new GameObject("A microscope sits on the counter.", new List<string>(new string[] { "microscope", "scope" }), "A high powered microscope for examining biological specimens.");
+            GameObject airlock = new GameObject("An airlock is built into the south wall.", new List<string>(new string[] { "airlock" }), "A door sized airlock leading outside.");
+            GameObject galleyTable = new GameObject("A small fold out table extends from the east wall.", new List<string>(new string[] { "table", "foldout table" }), "A few dishes and some of the crews' personal belongings lay scatterd across the table.");
+            GameObject chairs = new GameObject("A few chairs sit surrounding the table.", new List<string>(new string[] { "chairs" }), "Simple chairs with padded seats.");
+            GameObject sink = new GameObject("In the southeast corner is a small sink.", new List<string>(new string[] { "sink" }), "The sink is filled with dirty dishes.");
+            GameObject stove = new GameObject("In the northeast corner is the stove.", new List<string>(new string[] { "stove" }), "A simple, electric stove with two burners.");
+            GameObject couch = new GameObject("Couches are attached to the west and east walls of the common area.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }), "Long padded seats with back cushions running the length of the wall.");
+            GameObject bunks = new GameObject("There are several bunk beds used by the crew in the sleeping area.", new List<string>(new string[] { "bed", "beds", "bunk", "bunks", "bunkbed", "bunkbeds" }), "Narrow bunk beds fill most of the available space in the sleeping area.");
+            GameObject livingQuartersTable = new GameObject("A long table bolted to the floor sits in front of one of the couches.", new List<string>(new string[] { "table" }), "A beatup deck of cards and a few old magazines litter the tabletop.");
 
             //Containers
             Container cabinet = new Container("A small cabinet set into the wall.", new List<string>(new string[] {"cabinet"}), "You open the cabinet and look inside.", "You shut the cabinet door and hear it click shut.", "You try to open the door but it's jammed shut.");
@@ -45,7 +46,7 @@ namespace GameJam
             Container shelves = new Container("Storage shelves.", new List<string>(new string[] { "shelf" }), "You look to see what's on the shelves.", "You turn away from the shelves.");
             Container specimenJar = new Container("A small clear jar for storing biological speciments.", new List<string>(new string[] { "jar", "specimen jar" }), "You lift the lid off the top and reach inside.", "You take your hand out and replace the lid.", "The lid is stuck. You can't get it open.");
             Container specimenTank = new Container("A large glass tank filled with water for storing live speciments.", new List<string>(new string[] { "aquarium", "water tank", "specimen tank" }), "You lift up the lid and peer inside.", "You set the lid back down.", "You can't get the lid open.");
-            Container trunk = new Container("A wide box for storing personal belongings.", new List<string>(new string[] {"trunk", "box"}), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
+            Container trunk = new Container("A wide box for storing personal belongings sits at the foot of your bunk.", new List<string>(new string[] {"trunk", "box"}), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
 
             //Items
             Item drySuit = new Item("A waterproof, full body suit meant to be filled slightly with air.", new List<string>(new string[] { "suit", "dry suit", "dive suit", "dry dive suit" }), "Dry suit", "A dry suit hangs from a rack.", Item.other);
@@ -107,7 +108,7 @@ namespace GameJam
             moonPool.addEnemy((Enemy)giantIsopod.getClone());
 
             Area observationDeck = new Area("Observation deck",
-                "Ladders lead down from the elevated walkway to the main observation deck. Multiple reinforced viewports line the west wall. A large, reinforced glass window covers the south wall of the deck.",
+                "Ladders lead down from the elevated walkway to the main observation deck.",
                 "A twisting corridor leads north towards the bio labs. Hub A is to the east.",
                 defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(observationDeck);
@@ -181,10 +182,10 @@ namespace GameJam
                 "The galley is to the south.",
                 defaultMaxWaterLevel + 6, defaultFloodedDesc);
             world.Add(livingQuarters);
-            livingQuarters.addFeature(bunks.getClone());
-            livingQuarters.addContainer((Container)trunk.getClone());
             livingQuarters.addFeature(couch.getClone());
             livingQuarters.addFeature(livingQuartersTable.getClone());
+            livingQuarters.addFeature(bunks.getClone());
+            livingQuarters.addContainer((Container)trunk.getClone());
 
             Area connector = new Area("B-C Hub connector",
                 "The connector gradually slopes up and then back down.",
