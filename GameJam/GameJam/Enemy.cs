@@ -127,6 +127,7 @@ namespace GameJam
             int randomIndex;
             Area randomRoom;
             List<Area> adjacentRooms;
+            int adjacentRoomsCount;
 
             string currentMood = behaviour.currentMood;
             switch (currentMood)
@@ -178,7 +179,8 @@ namespace GameJam
                     {
                         return;
                     }
-                    for (int i = 0; i < adjacentRooms.Count; i++)
+                    adjacentRoomsCount = adjacentRooms.Count;
+                    for (int i = 0; i < adjacentRoomsCount; i++)
                     {
                         adjacentRooms.Add(playerRoom);
                     }
@@ -248,7 +250,8 @@ namespace GameJam
                     {
                         return;
                     }
-                    for (int i = 0; i < adjacentRooms.Count; i++)
+                    adjacentRoomsCount = adjacentRooms.Count;
+                    for (int i = 0; i < adjacentRoomsCount; i++)
                     {
                         adjacentRooms.Add(currentLocation);
                     }
