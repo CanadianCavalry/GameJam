@@ -12,6 +12,7 @@ namespace GameJam
         public string seenDesc;
         public string initSeenDesc;
         public string talkResponse;
+        public string threatDesc;
         public bool firstSeen;
         public Area currentLocation;
         private int damage;
@@ -20,12 +21,13 @@ namespace GameJam
         private bool waterLocked;
         private Dictionary<string, int> vulnerabilities;
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inThreatenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
             : base(inDescription, inKeywords)
         {
             name = inName;
             seenDesc = inSeenDesc;
             initSeenDesc = inSeenDesc;
+            threatDesc = inThreatenDesc;
             currentLocation = null;
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
@@ -33,12 +35,13 @@ namespace GameJam
             waterLocked = inWaterLocked;
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inThreatenDesc, int inDamage = 0, string inDamageType = Item.other, string demeanor = Demeanor.indifferent, int inStrength = 5, bool inWaterLocked = true)
             : base(inDescription, inKeywords)
         {
             name = inName;
             seenDesc = inSeenDesc;
             initSeenDesc = inInitSeenDesc;
+            threatDesc = inThreatenDesc;
             currentLocation = null;
             talkResponse = string.Empty;
             behaviour = new Behaviour(demeanor, inStrength);
@@ -46,12 +49,13 @@ namespace GameJam
             waterLocked = inWaterLocked;
         }
 
-        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, int inDamage, string inDamageType, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities, bool inWaterLocked)
+        public Enemy(string inDescription, List<string> inKeywords, string inName, string inSeenDesc, string inInitSeenDesc, string inThreatenDesc, int inDamage, string inDamageType, Behaviour inBehaviour, Dictionary<string, int> inVulnerabilities, bool inWaterLocked)
             : base(inDescription, inKeywords)
         {
             name = inName;
             seenDesc = inSeenDesc;
             initSeenDesc = inInitSeenDesc;
+            threatDesc = inThreatenDesc;
             currentLocation = null;
             damage = inDamage;
             damageType = inDamageType;
@@ -62,7 +66,7 @@ namespace GameJam
 
         public override GameObject getClone()
         {
-            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, damage, damageType, behaviour, vulnerabilities, waterLocked);
+            Enemy clone = new Enemy(description, keywords, name, seenDesc, initSeenDesc, threatDesc, damage, damageType, behaviour, vulnerabilities, waterLocked);
             return clone;
         }
 
@@ -268,7 +272,15 @@ namespace GameJam
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
 
-            player.takeDamage(damage, damageType);
+            Random random = new Random();
+            int randomModifier = random.Next(GameState.damageRandomModifier) + GameState.damageRandomMin;
+            int modifiedDamage = damage + randomModifier;
+            if (modifiedDamage < 0)
+            {
+                modifiedDamage = 0;
+            }
+
+            player.takeDamage(modifiedDamage, damageType);
 
             return response;
         }
@@ -301,8 +313,6 @@ namespace GameJam
         public string demeanor;
         public string currentMood;
         private int strengthModifier = 5;
-        private const int damageRandomModifier = 5;
-        private const int damageRandomMin = -2;
         private List<Tuple<int, string>> passiveBehaviour;
         private List<Tuple<int, string>> frightenedBehaviour;
         private List<Tuple<int, string>> aggravatedBehaviour;
@@ -554,7 +564,7 @@ namespace GameJam
                 int threshold = conditionPair.Item1;
                 string condition = conditionPair.Item2;
 
-                int randomModifier = random.Next(damageRandomModifier) + damageRandomMin;
+                int randomModifier = random.Next(GameState.damageRandomModifier) + GameState.damageRandomMin;
                 damage += randomModifier;
                 if (damage < 0)
                 {

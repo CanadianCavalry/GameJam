@@ -9,6 +9,8 @@ namespace GameJam
         public List<Area> floodingRooms;
         private string introduction;
         private bool turnPasses;
+        public const int damageRandomModifier = 5;
+        public const int damageRandomMin = -2;
 
         public GameState(Player inPlayer, WorldBuilder builder)
         {
@@ -267,6 +269,11 @@ namespace GameJam
             {
                 return desc;
             }
+            //TODO
+            //foreach (Enemy creature in player.currentLocation.enemies)
+            //{
+            //    desc += creature.attackPlayer(this, player);
+            //}
 
             floodVisitedRooms();
             foreach (Area room in floodingRooms)
