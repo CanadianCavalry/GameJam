@@ -301,6 +301,8 @@ namespace GameJam
         public string demeanor;
         public string currentMood;
         private int strengthModifier = 5;
+        private const int damageRandomModifier = 5;
+        private const int damageRandomMin = -2;
         private List<Tuple<int, string>> passiveBehaviour;
         private List<Tuple<int, string>> frightenedBehaviour;
         private List<Tuple<int, string>> aggravatedBehaviour;
@@ -544,10 +546,20 @@ namespace GameJam
             string response = String.Format("You {0} the {1}", action.ToLower(), name);
 
             damage += 2 * wounds;
+
+            Random random = new Random();
+
             foreach (Tuple<int, string> conditionPair in behaviour)
             {
                 int threshold = conditionPair.Item1;
                 string condition = conditionPair.Item2;
+
+                int randomModifier = random.Next(damageRandomModifier) + damageRandomMin;
+                damage += randomModifier;
+                if (damage < 0)
+                {
+                    damage = 0;
+                }
 
                 if (damage < threshold)
                 {
