@@ -23,10 +23,10 @@ namespace GameJam
             areaToStartIn.isVisited();
         }
 
-        public void exposeArea(GameState state, Area areaToExpose)
+        public void floodArea(GameState state, Area areaToFlood)
         {
-            state.exposeRoom(areaToExpose);
-            areaToExpose.increaseWaterLevel();
+            state.startFloodingRoom(areaToFlood);
+            areaToFlood.increaseWaterLevel();
         }
 
         public virtual string getIntro()

@@ -10,6 +10,7 @@ namespace GameJam
         private string floodDesc;
         private string travelDescs;
         private bool visited;
+        private bool isFlooding;
         private bool submerged;
         private int waterLevel;
         private int maxWaterLevel;
@@ -26,6 +27,7 @@ namespace GameJam
             name = "Default Name";
             description = "Default Description";
             visited = false;
+            isFlooding = false;
         }
 
         public Area(string inName, string inDescription, string inTravelDescs, int inMaxWaterLevel, string inFloodDesc)
@@ -38,6 +40,7 @@ namespace GameJam
             waterLevel = 0;
             submerged = false;
             visited = false;
+            isFlooding = false;
             features = new List<GameObject>();
             containers = new List<Container>();
             itemsContained = new List<Item>();
@@ -70,6 +73,16 @@ namespace GameJam
         public int getMaxWaterLevel()
         {
             return maxWaterLevel;
+        }
+
+        public void startFlooding()
+        {
+            isFlooding = true;
+        }
+
+        public bool getIsFlooding()
+        {
+            return isFlooding;
         }
 
         public bool increaseWaterLevel()

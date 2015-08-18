@@ -23,7 +23,7 @@ namespace GameJam
             GameObject viewPort = new GameObject("Multiple small bubble viewports line the west wall.", new List<string>(new string[] { "viewports", "bubble viewports", "bubble windows", "windows" }), "Looking out through one of the viewports you can't make anything out from the murky darkness.");
             GameObject viewingWindow = new GameObject(" A large, reinforced glass window covers the south wall of the deck.", new List<string>(new string[] { "large window", "window" }), "Looking out into the gloom you think you can see something moving through the water but it's too dark to tell.");
             GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "large window", "window" }), "Through the cracks and rushing water you're unable to make anything out.");
-            GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}), "An overhead gantry crane for lifting the minisub in and out of the moon pool. The controls are on the nearby pillar.");
+            GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[] { "crane" }), "An overhead gantry crane for lifting the minisub in and out of the moon pool. The controls are on the nearby pillar.");
             GameObject craneControls = new GameObject("A set of controls on a console are attached to one of the pillars.", new List<string>(new string[] { "crane controls", "console", "controls" }), "A set of joysticks allow for the operation of the overhead crane.");
             GameObject miniSub = new GameObject("The minisub sits next to the pool. It appears to be damaged.", new List<string>(new string[] { "mini sub", "minisub", "sub" }), "A three man minisub used for long distance excursions away from the station. It can also be used to return to the surface in case of emergencies. However there is a small tear in the metal side.");
             GameObject bilgePump = new GameObject("There is a bilge pump located in the corner.", new List<string>(new string[] { "pump", "bilge pump", "water pump" }), "A water pump to deal with flooding in case of an emergency. However it isn't working for some reason.");
@@ -37,16 +37,19 @@ namespace GameJam
             GameObject couch = new GameObject("Couches are attached to the west and east walls of the common area.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }), "Long padded seats with back cushions running the length of the wall.");
             GameObject bunks = new GameObject("There are several bunk beds used by the crew in the sleeping area.", new List<string>(new string[] { "bed", "beds", "bunk", "bunks", "bunkbed", "bunkbeds" }), "Narrow bunk beds fill most of the available space in the sleeping area.");
             GameObject livingQuartersTable = new GameObject("A long table bolted to the floor sits in front of one of the couches.", new List<string>(new string[] { "table" }), "A beatup deck of cards and a few old magazines litter the tabletop.");
+            GameObject toilets = new GameObject("Two toilet stalls are squeezed into the southwest corner next to the sinks.", new List<string>(new string[] { "toilets", "toilet stalls" }), "The stalls are narrow and each has a stainless steel toilet filled with dark blue liquid.");
+            GameObject showers = new GameObject("Shower stalls line the east wall.", new List<string>(new string[] { "showers", "shower stalls" }), "Three small shower stalls cover the entire eastern wall.");
+            GameObject washroomSinks = new GameObject("A pair of sinks and mirrors line the west wall next to the washroom entrance.", new List<string>(new string[] { "sinks", "mirrors" }), "Both the sinks and mirrors are small and bolted to the wall. The sinks like everything else are stainless steel.");
 
             //Containers
-            Container cabinet = new Container("A small cabinet set into the wall.", new List<string>(new string[] {"cabinet"}), "You open the cabinet and look inside.", "You shut the cabinet door and hear it click shut.", "You try to open the door but it's jammed shut.");
-            Container storageLocker = new Container("A metal storage locker attached to the wall.", new List<string>(new string[] {"locker", "storage locker", "metal locker", "metal storage locker"}), "You open the locker door and look inside.", "You shut the locker door shut.", "It's locked.");
-            Container cupboard = new Container("A cupboard built under the counter.", new List<string>(new string[] {"cupboard"}), "You open the cupboard.", "You push the cupboard shut.", "You go to open the cupboard but it won't budge.");
-            Container fridge = new Container("A medium sized refrigeration unit.", new List<string>(new string[] {"fridge", "cooler", "refrigerator"}), "You lift the top lid of the fridge and look inside.", "You pull the lid down and you hear it seal shut.", "You try to lift the top lid of the fridge but it's stuck.");
-            Container shelves = new Container("Storage shelves.", new List<string>(new string[] { "shelf" }), "You look to see what's on the shelves.", "You turn away from the shelves.");
-            Container specimenJar = new Container("A small clear jar for storing biological speciments.", new List<string>(new string[] { "jar", "specimen jar" }), "You lift the lid off the top and reach inside.", "You take your hand out and replace the lid.", "The lid is stuck. You can't get it open.");
-            Container specimenTank = new Container("A large glass tank filled with water for storing live speciments.", new List<string>(new string[] { "aquarium", "water tank", "specimen tank" }), "You lift up the lid and peer inside.", "You set the lid back down.", "You can't get the lid open.");
-            Container trunk = new Container("A wide box for storing personal belongings sits at the foot of your bunk.", new List<string>(new string[] {"trunk", "box"}), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
+            Container cabinet = new Container("A small cabinet is set into the wall.", new List<string>(new string[] { "cabinet" }), "You open the cabinet and look inside.", "You shut the cabinet door and hear it click shut.", "You try to open the door but it's jammed shut.");
+            Container storageLocker = new Container("A metal storage locker is attached to the wall.", new List<string>(new string[] { "locker", "storage locker", "metal locker", "metal storage locker" }), "You open the locker door and look inside.", "You shut the locker door shut.", "It's locked.");
+            Container cupboard = new Container("A cupboard is built under the counter.", new List<string>(new string[] { "cupboard" }), "You open the cupboard.", "You push the cupboard shut.", "You go to open the cupboard but it won't budge.");
+            Container fridge = new Container("A medium sized refrigeration unit sits in the northwest corner.", new List<string>(new string[] { "fridge", "cooler", "refrigerator" }), "You lift the top lid of the fridge and look inside.", "You pull the lid down and you hear it seal shut.", "You try to lift the top lid of the fridge but it's stuck.");
+            Container shelves = new Container("There are several storage shelves.", new List<string>(new string[] { "shelf" }), "You look to see what's on the shelves.", "You turn away from the shelves.");
+            Container specimenJar = new Container("A small clear jar for storing biological speciments sits on the counter.", new List<string>(new string[] { "jar", "specimen jar" }), "You lift the lid off the top and reach inside.", "You take your hand out and replace the lid.", "The lid is stuck. You can't get it open.");
+            Container specimenTank = new Container("In the southeast corner sits a large glass tank. It is filled with water and is used for storing live speciments.", new List<string>(new string[] { "aquarium", "water tank", "specimen tank" }), "You lift up the lid and peer inside.", "You set the lid back down.", "You can't get the lid open.");
+            Container trunk = new Container("A wide boxy trunk for storing personal belongings sits at the foot of your bunk.", new List<string>(new string[] { "trunk", "box" }), "You lift up the lid of the trunk and look inside.", "You close the lid.", "The trunk is locked.");
 
             //Items
             Item drySuit = new Item("A waterproof, full body suit meant to be filled slightly with air.", new List<string>(new string[] { "suit", "dry suit", "dive suit", "dry dive suit" }), "Dry suit", "A dry suit hangs from a rack.", Item.other);
@@ -70,18 +73,18 @@ namespace GameJam
             Item adrenaline = new Item("A syringe filled with the powerful stimulant epinephrine.", new List<string>(new string[] { "adrenaline", "syringe" }), "Adrenaline shot", "A syringe of adrenaline sits in its packaging.", Item.sharp, 1);
 
             //Enemies
-            Enemy giantIsopod = new Enemy("A nearly half meter long crustacean similar in appearance to a pill bug.", new List<string>(new string[] { "isopod" }), "Giant Isopod", "You see a giant isopod scuttling about.", 2, Item.sharp, Demeanor.indifferent, inStrength:3);
-            Enemy bobbitWorm = new Enemy("A three meter long predatory worm. A set of curved claws extend from its head, capable of cutting clean through its prey.", new List<string>(new string[] { "bobbit worm", "polychaete worm", "worm" }), "Polychaete Bobbit worm", "You are shocked to see a carniverous Bobbit worm crawling around on the floor.", 8, Item.sharp, Demeanor.aggressive, inStrength:4);
-            Enemy dunkleosteus = new Enemy("A ten meter long armoured bony fish sports a cutting jaw of solid bone.", new List<string>(new string[] { "dunkleosteus", "bony fish", "fish" }), "Dunkleosteus", "You are terrified to see a giant armoured fish swimming about in the room.", 12, Item.sharp, Demeanor.aggressive, inStrength:10);
-            Enemy lionsManeJellyfish = new Enemy("A jellyfish with a bell over two meters wide and thin, hairlike tentacles over thirty meters long.", new List<string>(new string[] { "lion's mane", "jellyfish", "lion's mane jellyfish" }), "Lion's Mane jellyfish", "A giant jellyfish slides about slowly.", 6, Item.shock, Demeanor.indifferent, inStrength:1);
+            Enemy giantIsopod = new Enemy("A nearly half meter long crustacean similar in appearance to a pill bug.", new List<string>(new string[] { "isopod" }), "Giant Isopod", "You see a giant isopod scuttling about.", 2, Item.sharp, Demeanor.indifferent, inStrength: 3);
+            Enemy bobbitWorm = new Enemy("A three meter long predatory worm. A set of curved claws extend from its head, capable of cutting clean through its prey.", new List<string>(new string[] { "bobbit worm", "polychaete worm", "worm" }), "Polychaete Bobbit worm", "You are shocked to see a carniverous Bobbit worm crawling around on the floor.", 8, Item.sharp, Demeanor.aggressive, inStrength: 4);
+            Enemy dunkleosteus = new Enemy("A ten meter long armoured bony fish sports a cutting jaw of solid bone.", new List<string>(new string[] { "dunkleosteus", "bony fish", "fish" }), "Dunkleosteus", "You are terrified to see a giant armoured fish swimming about in the room.", 12, Item.sharp, Demeanor.aggressive, inStrength: 10);
+            Enemy lionsManeJellyfish = new Enemy("A jellyfish with a bell over two meters wide and thin, hairlike tentacles over thirty meters long.", new List<string>(new string[] { "lion's mane", "jellyfish", "lion's mane jellyfish" }), "Lion's Mane jellyfish", "A giant jellyfish slides about slowly.", 6, Item.shock, Demeanor.indifferent, inStrength: 1);
             Enemy gulperEel = new Enemy("Also known as the black swallower. This two meter long eel-like fish is pitch black and is capable of opening its maw wide enough to consume prey even larger than itself.", new List<string>(new string[] { "gulper", "gulper eel", "black eel", "eel", "black swallower" }), "Gulper eel", "A creepy looking black eel is swimming about.", 4, Item.sharp, Demeanor.curious, inStrength: 3);
-            Enemy lampreys = new Enemy("A swarm of parasitic worm-like fish that burrow through their victims' flesh to feed on their blood.", new List<string>(new string[] { "lampreys", "parasites" }), "Lampreys", "You notice several worm-like parasites swimming about in the water.", 1, Item.sharp, Demeanor.curious, inStrength:1);
+            Enemy lampreys = new Enemy("A swarm of parasitic worm-like fish that burrow through their victims' flesh to feed on their blood.", new List<string>(new string[] { "lampreys", "parasites" }), "Lampreys", "You notice several worm-like parasites swimming about in the water.", 1, Item.sharp, Demeanor.curious, inStrength: 1);
 
             //Areas
             int defaultMaxWaterLevel = 12;
             string defaultFloodedDesc = "";
 
-            Area control = new Area("Control room", 
+            Area control = new Area("Control room",
                 "The main control stations sit atop a raised platform.", "To the north a hallway leads to Hub A.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(control);
@@ -104,6 +107,7 @@ namespace GameJam
             world.Add(moonPool);
             moonPool.addFeature(overheadGantryCrane.getClone());
             moonPool.addFeature(craneControls.getClone());
+            moonPool.addFeature(miniSub.getClone());
             moonPool.addContainer((Container)cabinet.getClone());
             moonPool.addEnemy((Enemy)giantIsopod.getClone());
 
@@ -134,7 +138,7 @@ namespace GameJam
             bioLabB.addContainer((Container)specimenTank.getClone());
 
             Area bioLabC = new Area("Bio lab C",
-                "",
+                "This room is used by the divers for stoarge.",
                 "Looking north you can see into the specimen lab. The airlock is to the south.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(bioLabC);
@@ -172,10 +176,13 @@ namespace GameJam
             galley.addItemToGround((Item)extinguisher.getClone());
 
             Area washroom = new Area("Washroom",
-                "Shower stalls line the south wall. Two toilet stalls are squeezed into the northwest corner. A pair of sinks line the east wall with mirrors bolted to the wall above them.",
+                "This isn't really the time to be going to the washroom.",
                 "Going north will take you back to the galley.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(washroom);
+            washroom.addFeature(showers.getClone());
+            washroom.addFeature(washroomSinks.getClone());
+            washroom.addFeature(toilets.getClone());
 
             Area livingQuarters = new Area("Living quarters",
                 "The room is separated into two sections with a thick curtain dividing them. The outer area is a common area, behind the curtain is the sleeping area used by the crew.",
@@ -204,7 +211,7 @@ namespace GameJam
             string hubADescription = "A connector hub.";
             string[] hubAKeywords = { "north", "hub", "hub a", "huba", "north hub", "north hub a", "north huba" };
             string controlDescription = "The main control room.";
-            string[] controlKeywords = {"south", "control", "control room", "main control", "main control room", "south control", "south control room" };
+            string[] controlKeywords = { "south", "control", "control room", "main control", "main control room", "south control", "south control room" };
             linkAreas(control, controlDescription, controlKeywords, hubA, hubADescription, hubAKeywords);
 
             hubAKeywords = new string[] { "south", "hub", "hub a", "huba", "south hub", "south hub a", "south huba" };
@@ -277,7 +284,7 @@ namespace GameJam
 
             //Set start conditions
             setStartArea(player, livingQuarters);
-            exposeArea(state, control);
+            floodArea(state, control);
             //introduction = "Standing in the main control room looking out the window you notice a large shape moving in the murk.\nSuddenly the dark shape darts towards the station. You are knocked off your feet and hear a loud crash and feel reverberations through the floor beneath you. As you get to your feet you notice the window is badly cracked and water has begun to pour into the room.";
             introduction = "You are awakened violently as you are knocked out of your bed. The metal walls around you still reverberate from the impact of whatever rudely awakened you. Several klaxons begin to sound loudly. The hull has been breached!";
 

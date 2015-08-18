@@ -6,23 +6,49 @@ namespace GameJam
     {
         public Player player;
         public List<Area> world;
-        public List<Area> exposedRooms;
+        public List<Area> floodingRooms;
         private string introduction;
         private bool turnPasses;
 
         public GameState(Player inPlayer, WorldBuilder builder)
         {
             player = inPlayer;
-            exposedRooms = new List<Area>();
+            floodingRooms = new List<Area>();
 
             world = builder.buildWorld(this, player);
             introduction = builder.getIntro();
             turnPasses = false;
         }
 
-        public void exposeRoom(Area areaToAdd)
+        public void startFloodingRoom(Area areaToAdd)
         {
-            exposedRooms.Add(areaToAdd);
+            bool alreadyFlooding = areaToAdd.getIsFlooding();
+            if (alreadyFlooding == true)
+            {
+                return;
+            }
+
+            areaToAdd.startFlooding();
+            floodingRooms.Add(areaToAdd);
+        }
+
+        public void floodVisitedRooms()
+        {
+            List<Area> floodedRooms = new List<Area>(floodingRooms);
+            foreach (Area room in floodedRooms)
+            {
+                foreach (Link link in room.links)
+                {
+                    Area roomToAdd = link.getDestination();
+                    bool roomHasBeenVisited = roomToAdd.isVisited();
+                    if (roomHasBeenVisited == false)
+                    {
+                        continue;
+                    }
+
+                    startFloodingRoom(roomToAdd);
+                }
+            }
         }
 
         public List<GameObject> getLocalObject(string keyword)
@@ -235,7 +261,8 @@ namespace GameJam
                 return desc;
             }
 
-            foreach (Area room in exposedRooms)
+            floodVisitedRooms();
+            foreach (Area room in floodingRooms)
             {
                 bool roomFlooded = room.increaseWaterLevel();
             }

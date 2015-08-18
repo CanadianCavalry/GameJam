@@ -168,7 +168,6 @@ namespace GameJam
         private string travelDesc;
         private string swimDesc;
         private string floodDesc;
-        private bool firstUse;
         private Area destination;
         private Link sibling;
 
@@ -182,10 +181,9 @@ namespace GameJam
             blockedDesc = "You can't go that way.";
             swimDesc = "You swim over to the door and force it open.";
             floodDesc = "As you force the door open, water begins pouring through into the next room.";
-            firstUse = true;
         }
 
-        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and climb through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
+        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and step through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
             : base(inDescription, inKeywords)
         {
             description = inDescription;
@@ -196,7 +194,11 @@ namespace GameJam
             swimDesc = inSwimDesc;
             floodDesc = inFloodDesc;
             isAccessible = true;
-            firstUse = true;
+        }
+
+        public Area getDestination()
+        {
+            return destination;
         }
 
         public override string travel(GameState state)
@@ -206,14 +208,13 @@ namespace GameJam
                 return blockedDesc;
             }
 
-            string desc = travelDesc + "\n\n";
+            string desc = travelDesc;
             state.player.currentLocation = destination;
 
-            if (firstUse)
+            bool areaIsFlooding = destination.getIsFlooding();
+            if (areaIsFlooding == true)
             {
-                firstUse = false;
-                desc += floodDesc;
-                state.exposedRooms.Add(destination);
+                desc += " " + floodDesc;
             }
 
             if (!state.player.currentLocation.isVisited())
