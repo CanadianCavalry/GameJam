@@ -101,7 +101,7 @@ namespace GameJam
             return description;
         }
 
-        public override string attack(Player player)
+        public override string attack(GameState state, Player player)
         {
             Item weapon = player.getMainWeapon();
             int damage = weapon.getDamage();
@@ -112,7 +112,7 @@ namespace GameJam
             return response;
         }
 
-        public override string attackPlayer(Player player)
+        public override string attackPlayer(GameState state, Player player)
         {
             string response = behaviour.getResponse(player, name, Stimulus.approach, 0);
 
@@ -121,7 +121,7 @@ namespace GameJam
             return response;
         }
 
-        public string threaten(Player player)
+        public string threaten(GameState state, Player player)
         {
             Item weapon = player.getMainWeapon();
             int damage = weapon.getDamage();
@@ -137,7 +137,7 @@ namespace GameJam
             return response;
         }
 
-        public override string talk()
+        public override string talk(GameState state)
         {
             string response = behaviour.getResponse(null, name, Stimulus.sound, 0);
             return response;

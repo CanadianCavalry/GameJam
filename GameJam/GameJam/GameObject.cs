@@ -48,96 +48,115 @@ namespace GameJam
 
         public virtual string swim(GameState state)
         {
+            state.commandFailed();
             return "That doesn't make sense";
         }
 
         public virtual string travel(GameState state)
         {
+            state.commandFailed();
             return "That doesn't make sense.";
         }
 
-        public virtual string pickUp(Player player)
+        public virtual string pickUp(GameState state, Player player)
         {
+            state.commandFailed();
             return "You can't pick that up.";
         }
 
-        public virtual string drop(Player player)
+        public virtual string drop(GameState state, Player player)
         {
+            state.commandFailed();
             return "You're not holding that.";
         }
 
-        public virtual string equip(Player player)
+        public virtual string equip(GameState state, Player player)
         {
+            state.commandFailed();
             return "You can't equip that.";
         }
 
-        public virtual string attackPlayer(Player player)
+        public virtual string attackPlayer(GameState state, Player player)
         {
+            state.commandFailed();
             return "You can't attack that.";
         }
 
-        public virtual string use(Player player)
+        public virtual string use(GameState state, Player player)
         {
+            state.commandFailed();
             return "It has no immediately obvious use.";
         }
 
-        public virtual string useOn()
+        public virtual string useOn(GameState state)
         {
+            state.commandFailed();
             return "You don't know how to use it with that.";
         }
 
-        public virtual string openObject()
+        public virtual string openObject(GameState state)
         {
+            state.commandFailed();
             return "That isn't something you can open.";
         }
 
-        public virtual string closeObject()
+        public virtual string closeObject(GameState state)
         {
+            state.commandFailed();
             return "That isn't something you can close.";
         }
 
-        public virtual string equip()
+        public virtual string equip(GameState state)
         {
+            state.commandFailed();
             return "That's not something you can equip.";
         }
 
-        public virtual string attack(Player player)
+        public virtual string attack(GameState state, Player player)
         {
+            state.commandFailed();
             return "You're not attacking that...";
         }
 
-        public virtual string reload()
+        public virtual string reload(GameState state)
         {
+            state.commandFailed();
             return "That isn't a weapon.";
         }
 
-        public virtual string eat(Player player)
+        public virtual string eat(GameState state, Player player)
         {
+            state.commandFailed();
             return "you can't eat that.";
         }
 
-        public virtual string drink(Player player)
+        public virtual string drink(GameState state, Player player)
         {
+            state.commandFailed();
             return "you can't drink that.";
         }
 
-        public virtual string read()
+        public virtual string read(GameState state)
         {
+            state.commandFailed();
             return "There's nothing to read.";
         }
 
-        public virtual string talk()
+        public virtual string talk(GameState state)
         {
-            return "You can't talk to that.";
+            state.commandFailed();
+            return "You try to strike up a conversation but get no reply.";
         }
 
-        public virtual string open()
+        public virtual string open(GameState state)
         {
+            state.commandFailed();
             return "You can't open that.";
         }
 
-        public virtual string close()
+        public virtual string close(GameState state)
         {
+            state.commandFailed();
             return "You can't close that.";
         }
     }
@@ -278,7 +297,7 @@ namespace GameJam
             return desc;
         }
 
-        public override string open()
+        public override string open(GameState state)
         {
             if (!accessible)
             {
@@ -305,7 +324,7 @@ namespace GameJam
             return desc;
         }
 
-        public override string close()
+        public override string close(GameState state)
         {
             if (!isOpen)
             {
@@ -460,7 +479,7 @@ namespace GameJam
             return damageTypes;
         }
 
-        public override string pickUp(Player player)
+        public override string pickUp(GameState state, Player player)
         {
             if (accessible)
             {
@@ -488,7 +507,7 @@ namespace GameJam
             }
         }
 
-        public override string drop(Player player)
+        public override string drop(GameState state, Player player)
         {
             player.removeItem(this);
             player.currentLocation.groundItems.Add(this);
@@ -496,7 +515,7 @@ namespace GameJam
             return dropDesc;
         }
 
-        public override string equip(Player player)
+        public override string equip(GameState state, Player player)
         {
             return player.equip(this);
         }

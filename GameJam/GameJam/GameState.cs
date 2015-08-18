@@ -119,84 +119,111 @@ namespace GameJam
 
             if (args == null)
             {
-                switch (command)
-                {
-                    case "l":
-                    case "look":
-                        turnPasses = false;
-                        return player.currentLocation.lookAt();
-                    case "wait":
-                        return "You wait.";
-                    case "defend":
-                        return player.defend();
-                }
-                turnPasses = false;
-                return "Command not found.";
+                return executeCommandNoArgs(command);
             }
             if (args.Count == 0)
             {
-                switch (command)
-                {
-                    case "l":
-                    case "look":
-                        turnPasses = false;
-                        return player.currentLocation.lookAt();
-                    case "wait":
-                        return "You wait.";
-                    case "defend":
-                        return player.defend();
-                }
-                turnPasses = false;
-                return "Command not found.";
+                return executeCommandNoArgs(command);
             }
-            else
+
+            GameObject target = args["target"];
+            string result;
+
+            switch (command)
             {
-                GameObject target = args["target"];
-                string result;
+                case "look":
+                case "examine":
+                    turnPasses = false;
+                    result = target.lookAt();
+                    break;
 
-                switch (command)
-                {
-                    case "look":
-                    case "examine":
-                        turnPasses = false;
-                        result = target.lookAt();
-                        return result;
-                    case "get":
-                    case "take":
-                        result = target.pickUp(player);
-                        return result;
-                    case "go":
-                    case "move":
-                    case "walk":
-                        result = target.travel(this);
-                        return result;
-                    case "swim":
-                        return target.swim(this);
-                    case "drop":
-                        return target.drop(player);
-                    case "use":
-                        return target.use(player);
-                    case "talk":
-                        return target.talk();
-                    case "open":
-                        return target.open();
-                    case "close":
-                        return target.close();
-                    case "equip":
-                        return target.equip(player);
-                    case "attack":
-                        return target.attackPlayer(player);
-                    case "eat":
-                        return target.eat(player);
-                    case "drink":
-                        return target.drink(player);
-                    case "read":
-                        return target.read();
-                }
+                case "get":
+                case "take":
+                    result = target.pickUp(this, player);
+                    break;
 
-                turnPasses = false;
-                return "Command not found!";
+                case "go":
+                case "move":
+                case "walk":
+                    result = target.travel(this);
+                    break;
+
+                case "swim":
+                    result = target.swim(this);
+                    break;
+
+                case "drop":
+                    result = target.drop(this, player);
+                    break;
+
+                case "use":
+                    result = target.use(this, player);
+                    break;
+
+                case "talk":
+                    result = target.talk(this);
+                    break;
+
+                case "open":
+                    result = target.open(this);
+                    break;
+
+                case "close":
+                    result = target.close(this);
+                    break;
+
+                case "equip":
+                    result = target.equip(this, player);
+                    break;
+
+                case "attack":
+                    result = target.attackPlayer(this, player);
+                    break;
+
+                case "eat":
+                    result = target.eat(this, player);
+                    break;
+
+                case "drink":
+                    result = target.drink(this, player);
+                    break;
+
+                case "read":
+                    result = target.read(this);
+                    break;
+
+                default:
+                    turnPasses = false;
+                    result = "Command not found!";
+                    break;
             }
+
+            return result;
+        }
+
+        private string executeCommandNoArgs(string command)
+        {
+            switch (command)
+            {
+                case "l":
+                case "look":
+                    turnPasses = false;
+                    return player.currentLocation.lookAt();
+
+                case "wait":
+                    return "You wait.";
+
+                case "defend":
+                    return player.defend();
+            }
+
+            turnPasses = false;
+            return "Command not found.";
+        }
+
+        public void commandFailed()
+        {
+            turnPasses = false;
         }
 
         public string turnPass()
