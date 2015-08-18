@@ -24,7 +24,7 @@ namespace GameJam
             GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "large window", "window" }));
             GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "large window", "window" }));
             GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}));
-            GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "console", "crane controls" }));
+            GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "crane controls", "console", "controls" }));
             GameObject bilgePump = new GameObject("There is a water pump to deal with flooding in case of an emergency located in the corner.", new List<string>(new string[] { "pump", "bilge pump" }));
             GameObject divingAirCompressor = new GameObject("An air compressor for refilling diving tanks.", new List<string>(new string[] { "compressor", "air compressor" }));
             GameObject microscope = new GameObject("A microscope for examining biological specimens sits on the counter.", new List<string>(new string[] { "microscope", "scope" }));
