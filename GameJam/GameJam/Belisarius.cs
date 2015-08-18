@@ -20,9 +20,9 @@ namespace GameJam
             //Features
             GameObject sonar = new GameObject("A Sonar console pings quietly.", new List<string>(new string[] { "sonar", "sonar console" }));
             GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
-            GameObject viewPort = new GameObject("A small bubble window which allows you to look outside.", new List<string>(new string[] { "viewport", "window" }));
-            GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "window" }));
-            GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "window" }));
+            GameObject viewPort = new GameObject("Several small bubble viewports allow you to look outside.", new List<string>(new string[] { "viewports", "bubble viewports", "bubble windows", "windows" }));
+            GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "large window", "window" }));
+            GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "large window", "window" }));
             GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}));
             GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "console", "crane controls" }));
             GameObject bilgePump = new GameObject("There is a water pump to deal with flooding in case of an emergency located in the corner.", new List<string>(new string[] { "pump", "bilge pump" }));
@@ -93,7 +93,7 @@ namespace GameJam
             control.addItemToGround((Item)extinguisher.getClone());
 
             Area hubA = new Area("Hub A",
-                "One of the main connector hubs.\nTo the north you can see the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
+                "One of the main connector hubs.\nTo the north is the Moon pool. To the east lies Hub B. South is the main control room and to the west is the observation deck.",
                 defaultMaxWaterLevel, defaultFloodedDesc);
             world.Add(hubA);
             hubA.addFeature(bilgePump.getClone());

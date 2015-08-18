@@ -263,29 +263,31 @@ namespace GameJam
 
             int waterVolume = currentArea.getWaterLevel();
             int maxVolume = currentArea.getMaxWaterLevel();
-            int waterLevel = maxVolume / waterVolume;
+            int waterLevel = waterVolume * 10 / maxVolume;
 
             switch (waterLevel)
             {
-                case 1:
+                case 10:
                     break;
 
-                case 2:
+                case 9:
+                case 8:
+                case 7:
                     desc = "The room has almost completely flooded.";
                     break;
 
-                case 3:
+                case 6:
+                case 5:
                     desc = "The water is getting pretty high.";
                     break;
 
                 case 4:
+                case 3:
                     desc = "The water is coming up to your knees.";
                     break;
 
-                case 5:
-                case 6:
-                case 7:
-                case 8:
+                case 2:
+                case 1:
                     desc = "You can feel water soaking into your shoes.";
                     break;
 
