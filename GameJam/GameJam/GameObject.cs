@@ -5,17 +5,24 @@ namespace GameJam
     public class GameObject
     {
         public string description;
+        public string seenDesc;
         public int idNum;
         public List<string> keywords;
         public bool isOpen { get; protected set; }
         public List<Item> itemsContained { get; protected set; }
 
-        public GameObject(string inDescription, List<string> inKeywords)
+        public GameObject(string inDescription, List<string> inKeywords, string inSeenDesc = "")
         {
             description = inDescription;
             keywords = inKeywords;
             isOpen = false;
             itemsContained = new List<Item>();
+            seenDesc = inSeenDesc;
+            if (seenDesc == "")
+            {
+                seenDesc = description;
+            }
+
         }
 
         public void setIdNum(int inIdNum)
