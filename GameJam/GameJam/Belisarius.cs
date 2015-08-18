@@ -22,17 +22,18 @@ namespace GameJam
             GameObject gertrude = new GameObject("The Gertrude underwater telephone sits plugged into one of the consoles.", new List<string>(new string[] { "gertrude", "uqc", "phone", "telephone", "underwater phone", "underwater telephone", "gertrude phone" }));
             GameObject viewPort = new GameObject("A small bubble window which allows you to look outside.", new List<string>(new string[] { "viewport", "window" }));
             GameObject viewingWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station.", new List<string>(new string[] { "window" }));
+            GameObject brokenWindow = new GameObject("A large, reinforced glass window provides a wide view of what lies beyond the station. It has been badly cracked and is now leaking heavily.", new List<string>(new string[] { "broken window", "window" }));
             GameObject overheadGantryCrane = new GameObject("The chains of the overhead sub crane jingle softly.", new List<string>(new string[]{"crane"}));
             GameObject craneControls = new GameObject("The controls for the overhead crane are on a console attached to one of the pillars.", new List<string>(new string[] { "console", "crane controls" }));
-            GameObject bilgePump = new GameObject("A water pump to deal with flooding in case of an emergency.", new List<string>(new string[] { "pump", "bilge pump" }));
+            GameObject bilgePump = new GameObject("There is a water pump to deal with flooding in case of an emergency located in the corner.", new List<string>(new string[] { "pump", "bilge pump" }));
             GameObject divingAirCompressor = new GameObject("An air compressor for refilling diving tanks.", new List<string>(new string[] { "compressor", "air compressor" }));
-            GameObject microscope = new GameObject("A microscope for examining biological specimens.", new List<string>(new string[] { "microscope", "scope" }));
+            GameObject microscope = new GameObject("A microscope for examining biological specimens sits on the counter.", new List<string>(new string[] { "microscope", "scope" }));
             GameObject airlock = new GameObject("An airlock leads outside the station.", new List<string>(new string[] { "airlock" }));
             GameObject galleyTable = new GameObject("A small fold out table extends from the east wall.", new List<string>(new string[] { "table", "foldout table" }));
             GameObject chairs = new GameObject("A few chairs sit surrounding the table.", new List<string>(new string[] { "chairs" }));
             GameObject sink = new GameObject("In the southeast corner is a small sink.", new List<string>(new string[] { "sink" }));
             GameObject stove = new GameObject("In the northeast corner is a simple, electric stove.", new List<string>(new string[] { "stove" }));
-            GameObject couch = new GameObject("A long padded seat with back cushions attached to the wall.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }));
+            GameObject couch = new GameObject("Long padded seats with back cushions are attached to the west and east walls.", new List<string>(new string[] { "couch", "seat", "cushioned seat" }));
             GameObject bunks = new GameObject("There are several bunk beds used by the crew.", new List<string>(new string[] { "bed", "beds", "bunk", "bunks", "bunkbed", "bunkbeds" }));
             GameObject livingQuartersTable = new GameObject("A long table bolted to the floor sits in front of one of the couches.", new List<string>(new string[] { "table" }));
 
@@ -87,7 +88,7 @@ namespace GameJam
             world.Add(control);
             setStartArea(player, control);
             control.addFeature(sonar.getClone());
-            control.addFeature(viewingWindow.getClone());
+            control.addFeature(brokenWindow.getClone());
             control.addFeature(gertrude.getClone());
             control.addItemToGround((Item)extinguisher.getClone());
 

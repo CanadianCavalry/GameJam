@@ -54,7 +54,7 @@ namespace GameJam
             return description;
         }
 
-        public override string talk()
+        public override string talk(GameState state)
         {
             return talkResponse;
         }
