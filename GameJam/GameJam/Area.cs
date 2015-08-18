@@ -8,6 +8,7 @@ namespace GameJam
         private string name;
         private string description;
         private string floodDesc;
+        private string travelDescs;
         private bool visited;
         private bool submerged;
         private int waterLevel;
@@ -27,10 +28,11 @@ namespace GameJam
             visited = false;
         }
 
-        public Area(string inName, string inDescription, int inMaxWaterLevel, string inFloodDesc)
+        public Area(string inName, string inDescription, string inTravelDescs, int inMaxWaterLevel, string inFloodDesc)
         {
             name = inName;
             description = inDescription;
+            travelDescs = inTravelDescs;
             maxWaterLevel = inMaxWaterLevel;
             floodDesc = inFloodDesc;
             waterLevel = 0;
@@ -86,8 +88,9 @@ namespace GameJam
 
         public string lookAt()
         {
+            string desc = string.Empty;
             //Start with the name
-            string desc = name + "\n";
+            //desc += name + "\n";
 
             //Add the areas base description
             if (isSubmerged())
@@ -108,6 +111,12 @@ namespace GameJam
                 }
             }
 
+            //Add the seenDescription of any containers
+            foreach (Container container in containers)
+            {
+                desc += " " + container.seenDesc;
+            }
+
             //Add the seen description of any NPCs
             if (npcs.Count > 0)
             {
@@ -123,6 +132,7 @@ namespace GameJam
                         desc += " " + npc.seenDesc;
                     }
                 }
+            }
 
             //Add the seen descriptions of all items in the room
             if (itemsContained.Count > 0)
@@ -149,8 +159,8 @@ namespace GameJam
                 }
             }
 
-            
-            }
+            //Add the descriptions of all directions the player can go
+            desc += "\n" + travelDescs;
 
             return desc;
         }
