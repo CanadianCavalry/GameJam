@@ -248,9 +248,6 @@ namespace GameJam
 
                 case "wait":
                     return "You wait.";
-
-                case "defend":
-                    return player.defend();
             }
 
             turnPasses = false;

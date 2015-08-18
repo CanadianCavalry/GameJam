@@ -16,7 +16,7 @@ namespace GameJam
             target = "";
             recipient = "";
             validCommands = new List<string>(new string[] { "go", "move", "walk", "swim", "get", "take", "look", "examine", "eat", "drink", "read", "talk", "ask", "drop", "use", "open", "close", "equip", "attack", "reload", "wait" });
-            wordsToRemove = new List<string>(new string[] { "at", "to", "the", "of", "from", "through", "towards" });
+            wordsToRemove = new List<string>(new string[] { "at", "to", "the", "of", "from", "through", "towards"});
         }
 
         public Dictionary<string, string> parseInput(string inputString)

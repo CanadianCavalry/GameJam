@@ -163,7 +163,7 @@ namespace GameJam
 
     public class Link : GameObject
     {
-        private bool isAccessible;
+        private bool accessible;
         private string blockedDesc;
         private string travelDesc;
         private string swimDesc;
@@ -176,24 +176,24 @@ namespace GameJam
         {
             description = "default";
             keywords = new List<string>();
-            isAccessible = true;
-            travelDesc = "You open the door and step through.";
+            accessible = true;
+            travelDesc = "You open the door and climb through.";
             blockedDesc = "You can't go that way.";
             swimDesc = "You swim over to the door and force it open.";
             floodDesc = "As you force the door open, water begins pouring through into the next room.";
         }
 
-        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and step through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
+        public Link(string inDescription, List<string> inKeywords, string inTravelDesc = "You open the door and climb through.", string inBlockedDesc = "You can't go that way.", string inSwimDesc = "You swim over to the door and force it open.", string inFloodDesc = "As you force the door open, water begins pouring through into the next room.")
             : base(inDescription, inKeywords)
         {
             description = inDescription;
             keywords = inKeywords;
-            isAccessible = true;
+            accessible = true;
             travelDesc = inTravelDesc;
             blockedDesc = inBlockedDesc;
             swimDesc = inSwimDesc;
             floodDesc = inFloodDesc;
-            isAccessible = true;
+            accessible = true;
         }
 
         public Area getDestination()
@@ -203,7 +203,7 @@ namespace GameJam
 
         public override string travel(GameState state)
         {
-            if (!isAccessible)
+            if (!accessible)
             {
                 return blockedDesc;
             }
@@ -228,6 +228,18 @@ namespace GameJam
         public override string swim(GameState state)
         {
             return travel(state);
+        }
+
+        public void makeAccessible()
+        {
+            accessible = true;
+            blockedDesc = "";
+        }
+
+        public void makeInaccessible(string newBlockedDesc)
+        {
+            accessible = false;
+            blockedDesc = newBlockedDesc;
         }
 
         public void makeSibling(Link siblingLink)

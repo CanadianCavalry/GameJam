@@ -10,9 +10,7 @@ namespace GameJam
         private int air;
         private const int maxAir = 4;
         private Item mainHand;
-        private Item offHand;
-        private Item armor;
-        private int armorRating;
+        private Item gear;
         private Dictionary<string, int> vulnerabilities;
 
         public Player()
@@ -21,9 +19,7 @@ namespace GameJam
             health = 10;
             air = 4;
             mainHand = null;
-            offHand = null;
-            armor = null;
-            armorRating = 0;
+            gear = null;
         }
 
         public int getAir()
@@ -130,11 +126,6 @@ namespace GameJam
             return "You free your hands.";
         }
 
-        public string defend()
-        {
-            return "You take a defensive stance.";
-        }
-
         public bool isAlive()
         {
             if (health <= 0)
@@ -159,7 +150,6 @@ namespace GameJam
         {
             damage = addTypeBonusesToDamage(damage, new List<string>(new string[] { damageType }));
 
-            damage -= armorRating;
             if (damage <= 0)
             {
                 return;
